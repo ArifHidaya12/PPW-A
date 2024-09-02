@@ -430,6 +430,9 @@ document.write(`
     <span class="n">articles</span> <span class="o">=</span> <span class="n">soup</span><span class="o">.</span><span class="n">find_all</span><span class="p">(</span><span class="s2">&quot;article&quot;</span><span class="p">,</span> <span class="n">class_</span><span class="o">=</span><span class="s2">&quot;list-content__item&quot;</span><span class="p">)</span>
 
     <span class="k">for</span> <span class="n">article</span> <span class="ow">in</span> <span class="n">articles</span><span class="p">:</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">judul</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="mi">10</span><span class="p">:</span>  <span class="c1"># Hentikan jika sudah 10 berita</span>
+            <span class="k">return</span>
+
         <span class="k">try</span><span class="p">:</span>
             <span class="n">link</span> <span class="o">=</span> <span class="n">article</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s2">&quot;a&quot;</span><span class="p">)[</span><span class="s2">&quot;href&quot;</span><span class="p">]</span>
             <span class="n">article_response</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">link</span><span class="p">)</span>
@@ -465,6 +468,9 @@ document.write(`
 <span class="c1"># Melakukan iterasi untuk setiap url dan kategori</span>
 <span class="k">for</span> <span class="n">base_url</span><span class="p">,</span> <span class="n">category</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">base_urls</span><span class="p">,</span> <span class="n">categories</span><span class="p">):</span>
     <span class="k">for</span> <span class="n">page</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">):</span>  <span class="c1"># Looping untuk beralih halaman</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">judul</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="mi">10</span><span class="p">:</span>  <span class="c1"># Hentikan jika sudah 10 berita</span>
+            <span class="k">break</span>
+
         <span class="n">url</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">base_url</span><span class="si">}</span><span class="s2">/</span><span class="si">{</span><span class="n">page</span><span class="si">}</span><span class="s2">&quot;</span>
         <span class="n">get_data</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">category</span><span class="p">)</span>
         <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>  <span class="c1"># Menambahkan jeda waktu 2 detik antara permintaan halaman</span>
@@ -478,13 +484,19 @@ document.write(`
 
 <span class="c1"># Menyimpan dataframe ke file CSV</span>
 <span class="n">df</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="s2">&quot;Crawl-berita.csv&quot;</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-
-<span class="c1"># Menampilkan dataframe</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">df</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Rute ke Dieng Naik Bus, Terjangkau dan Lama Perjalanan
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Super Air Jet Buka 3 Rute Baru dari Jogja, ke Padang-Jambi-Pangkalpinang
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>MotoGP Mandalika Susah Jual Tiket, Terimbas Harga Hotel Menggila
+</pre></div>
+</div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>MotoGP Mandalika Sulit Bayar Hosting Fee, NTB Prioritas PON dan Pilkada
 </pre></div>
 </div>
@@ -503,30 +515,21 @@ document.write(`
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Jepang Perkenalkan Sistem Baru untuk Cegah Imigran Gelap
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Jakarta di Angan-angan Ridwan Kamil: Kota Global dan Wisata Dunia
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Ceko Bakal Larang Penyewaan Hotel Jangka Pendek dan Batasi Wisatawan Pembuat Onar
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Tren Selfie Bisa Rusak Situs Bersejarah, UNESCO: Influencer Harus Diedukasi
-</pre></div>
-</div>
 <div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
 <span class="ne">KeyboardInterrupt</span><span class="g g-Whitespace">                         </span>Traceback (most recent call last)
-<span class="nn">&lt;ipython-input-1-e9040fa46e7b&gt;</span> in <span class="ni">&lt;cell line: 52&gt;</span><span class="nt">()</span>
-<span class="g g-Whitespace">     </span><span class="mi">53</span>     <span class="k">for</span> <span class="n">page</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">):</span>  <span class="c1"># Looping untuk beralih halaman</span>
-<span class="g g-Whitespace">     </span><span class="mi">54</span>         <span class="n">url</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">base_url</span><span class="si">}</span><span class="s2">/</span><span class="si">{</span><span class="n">page</span><span class="si">}</span><span class="s2">&quot;</span>
-<span class="ne">---&gt; </span><span class="mi">55</span>         <span class="n">get_data</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">category</span><span class="p">)</span>
-<span class="g g-Whitespace">     </span><span class="mi">56</span>         <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>  <span class="c1"># Menambahkan jeda waktu 2 detik antara permintaan halaman</span>
-<span class="g g-Whitespace">     </span><span class="mi">57</span> 
+<span class="nn">&lt;ipython-input-1-ba4b0b3e94cb&gt;</span> in <span class="ni">&lt;cell line: 55&gt;</span><span class="nt">()</span>
+<span class="g g-Whitespace">     </span><span class="mi">59</span> 
+<span class="g g-Whitespace">     </span><span class="mi">60</span>         <span class="n">url</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">base_url</span><span class="si">}</span><span class="s2">/</span><span class="si">{</span><span class="n">page</span><span class="si">}</span><span class="s2">&quot;</span>
+<span class="ne">---&gt; </span><span class="mi">61</span>         <span class="n">get_data</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">category</span><span class="p">)</span>
+<span class="g g-Whitespace">     </span><span class="mi">62</span>         <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>  <span class="c1"># Menambahkan jeda waktu 2 detik antara permintaan halaman</span>
+<span class="g g-Whitespace">     </span><span class="mi">63</span> 
 
-<span class="nn">&lt;ipython-input-1-e9040fa46e7b&gt;</span> in <span class="ni">get_data</span><span class="nt">(url, kategori)</span>
-<span class="g g-Whitespace">     </span><span class="mi">19</span>         <span class="k">try</span><span class="p">:</span>
-<span class="g g-Whitespace">     </span><span class="mi">20</span>             <span class="n">link</span> <span class="o">=</span> <span class="n">article</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s2">&quot;a&quot;</span><span class="p">)[</span><span class="s2">&quot;href&quot;</span><span class="p">]</span>
-<span class="ne">---&gt; </span><span class="mi">21</span>             <span class="n">article_response</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">link</span><span class="p">)</span>
-<span class="g g-Whitespace">     </span><span class="mi">22</span>             <span class="n">article_response</span><span class="o">.</span><span class="n">raise_for_status</span><span class="p">()</span>
-<span class="g g-Whitespace">     </span><span class="mi">23</span>         <span class="k">except</span> <span class="p">(</span><span class="n">requests</span><span class="o">.</span><span class="n">exceptions</span><span class="o">.</span><span class="n">RequestException</span><span class="p">,</span> <span class="ne">TypeError</span><span class="p">)</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+<span class="nn">&lt;ipython-input-1-ba4b0b3e94cb&gt;</span> in <span class="ni">get_data</span><span class="nt">(url, kategori)</span>
+<span class="g g-Whitespace">     </span><span class="mi">22</span>         <span class="k">try</span><span class="p">:</span>
+<span class="g g-Whitespace">     </span><span class="mi">23</span>             <span class="n">link</span> <span class="o">=</span> <span class="n">article</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s2">&quot;a&quot;</span><span class="p">)[</span><span class="s2">&quot;href&quot;</span><span class="p">]</span>
+<span class="ne">---&gt; </span><span class="mi">24</span>             <span class="n">article_response</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">link</span><span class="p">)</span>
+<span class="g g-Whitespace">     </span><span class="mi">25</span>             <span class="n">article_response</span><span class="o">.</span><span class="n">raise_for_status</span><span class="p">()</span>
+<span class="g g-Whitespace">     </span><span class="mi">26</span>         <span class="k">except</span> <span class="p">(</span><span class="n">requests</span><span class="o">.</span><span class="n">exceptions</span><span class="o">.</span><span class="n">RequestException</span><span class="p">,</span> <span class="ne">TypeError</span><span class="p">)</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
 
 <span class="nn">/usr/local/lib/python3.10/dist-packages/requests/api.py</span> in <span class="ni">get</span><span class="nt">(url, params, **kwargs)</span>
 <span class="g g-Whitespace">     </span><span class="mi">71</span>     <span class="s2">&quot;&quot;&quot;</span>
@@ -548,6 +551,27 @@ document.write(`
 <span class="ne">--&gt; </span><span class="mi">589</span><span class="s2">         resp = self.send(prep, **send_kwargs)</span>
 <span class="g g-Whitespace">    </span><span class="mi">590</span><span class="s2"> </span>
 <span class="g g-Whitespace">    </span><span class="mi">591</span><span class="s2">         return resp</span>
+
+<span class="nn">/usr/local/lib/python3.10/dist-packages/requests/sessions.py</span> in <span class="ni">send</span><span class="nt">(self, request, **kwargs)</span>
+<span class="g g-Whitespace">    </span><span class="mi">722</span><span class="s2">             # Redirect resolving generator.</span>
+<span class="g g-Whitespace">    </span><span class="mi">723</span><span class="s2">             gen = self.resolve_redirects(r, request, **kwargs)</span>
+<span class="ne">--&gt; </span><span class="mi">724</span><span class="s2">             history = [resp for resp in gen]</span>
+<span class="g g-Whitespace">    </span><span class="mi">725</span><span class="s2">         else:</span>
+<span class="g g-Whitespace">    </span><span class="mi">726</span><span class="s2">             history = []</span>
+
+<span class="nn">/usr/local/lib/python3.10/dist-packages/requests/sessions.py</span> in <span class="ni">&lt;listcomp&gt;</span><span class="nt">(.0)</span>
+<span class="g g-Whitespace">    </span><span class="mi">722</span><span class="s2">             # Redirect resolving generator.</span>
+<span class="g g-Whitespace">    </span><span class="mi">723</span><span class="s2">             gen = self.resolve_redirects(r, request, **kwargs)</span>
+<span class="ne">--&gt; </span><span class="mi">724</span><span class="s2">             history = [resp for resp in gen]</span>
+<span class="g g-Whitespace">    </span><span class="mi">725</span><span class="s2">         else:</span>
+<span class="g g-Whitespace">    </span><span class="mi">726</span><span class="s2">             history = []</span>
+
+<span class="nn">/usr/local/lib/python3.10/dist-packages/requests/sessions.py</span> in <span class="ni">resolve_redirects</span><span class="nt">(self, resp, req, stream, timeout, verify, cert, proxies, yield_requests, **adapter_kwargs)</span>
+<span class="g g-Whitespace">    </span><span class="mi">263</span><span class="s2">                 yield req</span>
+<span class="g g-Whitespace">    </span><span class="mi">264</span><span class="s2">             else:</span>
+<span class="ne">--&gt; </span><span class="mi">265</span><span class="s2">                 resp = self.send(</span>
+<span class="g g-Whitespace">    </span><span class="mi">266</span><span class="s2">                     req,</span>
+<span class="g g-Whitespace">    </span><span class="mi">267</span><span class="s2">                     stream=stream,</span>
 
 <span class="nn">/usr/local/lib/python3.10/dist-packages/requests/sessions.py</span> in <span class="ni">send</span><span class="nt">(self, request, **kwargs)</span>
 <span class="g g-Whitespace">    </span><span class="mi">701</span><span class="s2"> </span>
@@ -642,9 +666,9 @@ document.write(`
 </div>
 <div class="cell_output docutils container">
 <div class="output text_html">
-     <input type="file" id="files-df3986bd-fd62-494c-92df-bbae82b1523f" name="files[]" multiple disabled
+     <input type="file" id="files-4b8704b6-61e0-4317-911d-d1161eb737e0" name="files[]" multiple disabled
         style="border:none" />
-     <output id="result-df3986bd-fd62-494c-92df-bbae82b1523f">
+     <output id="result-4b8704b6-61e0-4317-911d-d1161eb737e0">
       Upload widget is only available when the cell has been executed in the
       current browser session. Please rerun this cell to enable.
       </output>
@@ -841,7 +865,7 @@ scope.google.colab._files = {
 </div>
 <div class="cell_output docutils container">
 <div class="output text_html">
-  <div id="df-7ae7a7e9-54a1-48bc-9daf-7ca5b48dd2dc" class="colab-df-container">
+  <div id="df-0602a3ef-9541-4ab1-8408-02d3e4fcb9e1" class="colab-df-container">
     <div>
 <style scoped>
     .dataframe tbody tr th:only-of-type {
@@ -932,7 +956,7 @@ scope.google.colab._files = {
     <div class="colab-df-buttons">
 
   <div class="colab-df-container">
-    <button class="colab-df-convert" onclick="convertToInteractive('df-7ae7a7e9-54a1-48bc-9daf-7ca5b48dd2dc')"
+    <button class="colab-df-convert" onclick="convertToInteractive('df-0602a3ef-9541-4ab1-8408-02d3e4fcb9e1')"
             title="Convert this dataframe to an interactive table."
             style="display:none;">
 
@@ -984,12 +1008,12 @@ scope.google.colab._files = {
 
     <script>
       const buttonEl =
-        document.querySelector('#df-7ae7a7e9-54a1-48bc-9daf-7ca5b48dd2dc button.colab-df-convert');
+        document.querySelector('#df-0602a3ef-9541-4ab1-8408-02d3e4fcb9e1 button.colab-df-convert');
       buttonEl.style.display =
         google.colab.kernel.accessAllowed ? 'block' : 'none';
 
       async function convertToInteractive(key) {
-        const element = document.querySelector('#df-7ae7a7e9-54a1-48bc-9daf-7ca5b48dd2dc');
+        const element = document.querySelector('#df-0602a3ef-9541-4ab1-8408-02d3e4fcb9e1');
         const dataTable =
           await google.colab.kernel.invokeFunction('convertToInteractive',
                                                     [key], {});
@@ -1009,8 +1033,8 @@ scope.google.colab._files = {
   </div>
 
 
-<div id="df-4d1adb32-c6e7-4914-8b05-09009bf2d465">
-  <button class="colab-df-quickchart" onclick="quickchart('df-4d1adb32-c6e7-4914-8b05-09009bf2d465')"
+<div id="df-ca89a9f7-413a-43d5-be95-9f2b109b74a6">
+  <button class="colab-df-quickchart" onclick="quickchart('df-ca89a9f7-413a-43d5-be95-9f2b109b74a6')"
             title="Suggest charts"
             style="display:none;">
 
@@ -1129,7 +1153,7 @@ scope.google.colab._files = {
     }
     (() => {
       let quickchartButtonEl =
-        document.querySelector('#df-4d1adb32-c6e7-4914-8b05-09009bf2d465 button');
+        document.querySelector('#df-ca89a9f7-413a-43d5-be95-9f2b109b74a6 button');
       quickchartButtonEl.style.display =
         google.colab.kernel.accessAllowed ? 'block' : 'none';
     })();
