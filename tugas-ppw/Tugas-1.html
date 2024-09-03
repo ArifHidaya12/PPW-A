@@ -411,32 +411,8 @@ document.write(`
   <section class="tex2jax_ignore mathjax_ignore" id="tugas-1-crawling-berita">
 <h1>Tugas 1 : Crawling Berita<a class="headerlink" href="#tugas-1-crawling-berita" title="Link to this heading">#</a></h1>
 <p><strong>Pengertian Crawling</strong></p>
-<p>Crawling adalah proses otomatisasi yang dilakukan oleh program komputer untuk menjelajahi dan mengumpulkan data dari halaman-halaman web di internet. Proses ini sering kali dilakukan oleh bot yang dikenal sebagai web crawlers atau spiders. Web crawlers ini akan menelusuri (crawl) berbagai situs web, mengakses halaman-halaman yang ada, dan mengunduh atau mengekstraksi informasi yang dibutuhkan untuk kemudian disimpan atau diindeks dalam database.</p>
-<p><strong>Fungsi Crawling</strong></p>
-<ol class="arabic simple">
-<li><p>Mengindeks Halaman Web:</p></li>
-</ol>
-<ul class="simple">
-<li><p>Crawling adalah langkah pertama dalam proses pengindeksan halaman web oleh mesin pencari. Web crawler akan mengunjungi halaman-halaman web, membaca kontennya, dan menyimpannya ke dalam indeks mesin pencari. Ini memungkinkan mesin pencari untuk menemukan dan menampilkan halaman-halaman tersebut dalam hasil pencarian.</p></li>
-</ul>
-<ol class="arabic simple" start="2">
-<li><p>Pengumpulan Data:</p></li>
-</ol>
-<ul class="simple">
-<li><p>Crawling memungkinkan pengumpulan data dari berbagai situs web untuk keperluan tertentu, seperti analisis bisnis, riset pasar, atau pengembangan model kecerdasan buatan. Dengan crawling, data dari berbagai sumber bisa dikumpulkan secara otomatis tanpa harus melakukannya secara manual.</p></li>
-</ul>
-<ol class="arabic simple" start="3">
-<li><p>Pemantauan Perubahan Konten:</p></li>
-</ol>
-<ul class="simple">
-<li><p>Dengan crawling, perubahan atau pembaruan pada suatu situs web dapat dipantau secara berkala. Ini berguna untuk aplikasi yang memerlukan informasi terbaru, seperti agregator berita, alat pemantau harga, atau layanan notifikasi.</p></li>
-</ul>
-<ol class="arabic simple" start="4">
-<li><p>SEO (Search Engine Optimization):</p></li>
-</ol>
-<ul class="simple">
-<li><p>Bagi pengelola situs web, memahami bagaimana proses crawling bekerja dapat membantu dalam optimasi mesin pencari (SEO). Dengan memastikan bahwa halaman-halaman web mereka mudah di-crawl dan diindeks, mereka bisa meningkatkan kemungkinan situs web mereka muncul di hasil pencarian mesin pencari.</p></li>
-</ul>
+<p>Crawling adalah proses otomatis yang dilakukan oleh program komputer, yang disebut “crawler” atau “spider,” untuk menelusuri dan mengumpulkan data dari situs web secara sistematis. Proses ini biasanya dimulai dengan mengakses halaman web tertentu dan kemudian mengikuti tautan (link) yang ada di dalamnya untuk mengakses halaman-halaman lain. Crawler mengunjungi halaman-halaman tersebut, mengumpulkan informasi seperti teks, gambar, dan metadata, dan menyimpan data tersebut untuk keperluan lebih lanjut, seperti pengindeksan di mesin pencari atau analisis data.</p>
+<p>Crawling merupakan bagian penting dari proses web scraping dan pengindeksan mesin pencari, di mana mesin pencari seperti Google menggunakan crawler untuk mengumpulkan informasi dari seluruh web agar dapat menyediakan hasil pencarian yang relevan kepada pengguna.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">requests</span>
@@ -515,6 +491,9 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Menara Eiffel Jadikan Cincin Olimpiade Hiasan Permanen
+</pre></div>
+</div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Warga Kompak Menolak Wacana Pembangunan Kelab Malam di Sleman
 </pre></div>
 </div>
@@ -542,9 +521,6 @@ document.write(`
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Hvaldimir, Paus Beluga yang Dijuluki Mata-mata Rusia, Mati
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>6 Tempat di Jakarta yang Akan Dikunjungi Paus Fransiskus
-</pre></div>
-</div>
 </div>
 </div>
 <div class="cell docutils container">
@@ -556,7 +532,7 @@ document.write(`
 </div>
 <div class="cell_output docutils container">
 <div class="output text_html">
-  <div id="df-cec4ef86-5939-4f43-9adb-ade10eadc60f" class="colab-df-container">
+  <div id="df-73901160-eee6-4614-9e96-f6c2a1391d51" class="colab-df-container">
     <div>
 <style scoped>
     .dataframe tbody tr th:only-of-type {
@@ -583,63 +559,63 @@ document.write(`
   <tbody>
     <tr>
       <th>0</th>
+      <td>Menara Eiffel Jadikan Cincin Olimpiade Hiasan ...</td>
+      <td>Selasa, 03 Sep 2024 13:07 WIB</td>
+      <td>Paris - Cincin Olimpiade yang terpasang di Men...</td>
+    </tr>
+    <tr>
+      <th>1</th>
       <td>Warga Kompak Menolak Wacana Pembangunan Kelab ...</td>
       <td>Selasa, 03 Sep 2024 12:31 WIB</td>
       <td>Sleman - Warga kompak memprotes keras adanya w...</td>
     </tr>
     <tr>
-      <th>1</th>
+      <th>2</th>
       <td>Selama di Jakarta, Paus Fransiskus Menginap di...</td>
       <td>Selasa, 03 Sep 2024 12:05 WIB</td>
       <td>Jakarta - Ketua Panitia Kunjungan Paus Fransis...</td>
     </tr>
     <tr>
-      <th>2</th>
+      <th>3</th>
       <td>Catat! Ini Rute ke Dieng dari Jakarta Naik Ker...</td>
       <td>Selasa, 03 Sep 2024 11:35 WIB</td>
       <td>Jakarta - Dieng berada di perbatasan antara Ka...</td>
     </tr>
     <tr>
-      <th>3</th>
+      <th>4</th>
       <td>Harga Tiket Pesawat ke Indonesia Timur Mahal, ...</td>
       <td>Selasa, 03 Sep 2024 11:28 WIB</td>
       <td>Jakarta - Mahalnya harga tiket pesawat ke Indo...</td>
     </tr>
     <tr>
-      <th>4</th>
+      <th>5</th>
       <td>Mau Foto Kerenmu Dipajang di Sudut Kota Jakart...</td>
       <td>Selasa, 03 Sep 2024 11:24 WIB</td>
       <td>Jakarta - Event Jelajah Lensa detikTravel akan...</td>
     </tr>
     <tr>
-      <th>5</th>
+      <th>6</th>
       <td>Kunjungan Paus Fransiskus ke Empat Negara Asia...</td>
       <td>Selasa, 03 Sep 2024 10:31 WIB</td>
       <td>Jakarta - Pemimpin tertinggi Gereja Katolik se...</td>
     </tr>
     <tr>
-      <th>6</th>
+      <th>7</th>
       <td>Demi Turis Berkualitas, Kemenparekraf Segara T...</td>
       <td>Selasa, 03 Sep 2024 10:05 WIB</td>
       <td>Jakarta - Banyaknya turis asing yang bermasala...</td>
     </tr>
     <tr>
-      <th>7</th>
+      <th>8</th>
       <td>Momen Menegangkan, Pemandu Snorkeling Terlempa...</td>
       <td>Selasa, 03 Sep 2024 09:31 WIB</td>
       <td>Jakarta - Kelompok perenang snorkel tengah ber...</td>
     </tr>
     <tr>
-      <th>8</th>
+      <th>9</th>
       <td>Hvaldimir, Paus Beluga yang Dijuluki Mata-mata...</td>
       <td>Selasa, 03 Sep 2024 09:05 WIB</td>
       <td>Jakarta - Seekor paus beluga, yang diduga menj...</td>
-    </tr>
-    <tr>
-      <th>9</th>
-      <td>6 Tempat di Jakarta yang Akan Dikunjungi Paus ...</td>
-      <td>Selasa, 03 Sep 2024 08:35 WIB</td>
-      <td>Daftar Isi\n\n\n\n\r\n\t\t\t\t\t\t\t1. Istana ...</td>
     </tr>
   </tbody>
 </table>
@@ -647,7 +623,7 @@ document.write(`
     <div class="colab-df-buttons">
       
   <div class="colab-df-container">
-    <button class="colab-df-convert" onclick="convertToInteractive('df-cec4ef86-5939-4f43-9adb-ade10eadc60f')"
+    <button class="colab-df-convert" onclick="convertToInteractive('df-73901160-eee6-4614-9e96-f6c2a1391d51')"
             title="Convert this dataframe to an interactive table."
             style="display:none;">
       
@@ -699,12 +675,12 @@ document.write(`
 
     <script>
       const buttonEl =
-        document.querySelector('#df-cec4ef86-5939-4f43-9adb-ade10eadc60f button.colab-df-convert');
+        document.querySelector('#df-73901160-eee6-4614-9e96-f6c2a1391d51 button.colab-df-convert');
       buttonEl.style.display =
         google.colab.kernel.accessAllowed ? 'block' : 'none';
 
       async function convertToInteractive(key) {
-        const element = document.querySelector('#df-cec4ef86-5939-4f43-9adb-ade10eadc60f');
+        const element = document.querySelector('#df-73901160-eee6-4614-9e96-f6c2a1391d51');
         const dataTable =
           await google.colab.kernel.invokeFunction('convertToInteractive',
                                                     [key], {});
