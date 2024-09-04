@@ -452,9 +452,11 @@ document.write(`
         <span class="n">content_element</span> <span class="o">=</span> <span class="n">article_soup</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s2">&quot;div&quot;</span><span class="p">,</span> <span class="n">class_</span><span class="o">=</span><span class="s2">&quot;detail__body-text&quot;</span><span class="p">)</span>
         <span class="n">content</span> <span class="o">=</span> <span class="n">content_element</span><span class="o">.</span><span class="n">text</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span> <span class="k">if</span> <span class="n">content_element</span> <span class="k">else</span> <span class="s2">&quot;Content Not Found&quot;</span>
 
+        <span class="c1"># Menambahkan data ke dalam list</span>
         <span class="n">judul</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">title</span><span class="p">)</span>
         <span class="n">tanggal</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">date</span><span class="p">)</span>
         <span class="n">isi</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">content</span><span class="p">)</span>
+        <span class="n">kategori_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">kategori</span><span class="p">)</span>  <span class="c1"># Menambahkan kategori ke dalam list</span>
 
         <span class="nb">print</span><span class="p">(</span><span class="n">title</span><span class="p">)</span>
         <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>  <span class="c1"># Menambahkan jeda waktu 1 detik antara permintaan artikel</span>
@@ -467,6 +469,7 @@ document.write(`
 <span class="n">judul</span> <span class="o">=</span> <span class="p">[]</span>
 <span class="n">tanggal</span> <span class="o">=</span> <span class="p">[]</span>
 <span class="n">isi</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">kategori_list</span> <span class="o">=</span> <span class="p">[]</span>
 
 <span class="c1"># Melakukan iterasi untuk setiap url dan kategori</span>
 <span class="k">for</span> <span class="n">base_url</span><span class="p">,</span> <span class="n">category</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">base_urls</span><span class="p">,</span> <span class="n">categories</span><span class="p">):</span>
@@ -481,8 +484,9 @@ document.write(`
 <span class="c1"># Membuat dataframe dari list data</span>
 <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span>
     <span class="s2">&quot;judul&quot;</span><span class="p">:</span> <span class="n">judul</span><span class="p">,</span>
+    <span class="s2">&quot;isi&quot;</span><span class="p">:</span> <span class="n">isi</span><span class="p">,</span>
     <span class="s2">&quot;tanggal&quot;</span><span class="p">:</span> <span class="n">tanggal</span><span class="p">,</span>
-    <span class="s2">&quot;isi&quot;</span><span class="p">:</span> <span class="n">isi</span>
+    <span class="s2">&quot;kategori&quot;</span><span class="p">:</span> <span class="n">kategori_list</span>
 <span class="p">})</span>
 
 <span class="c1"># Menyimpan dataframe ke file CSV</span>
@@ -491,34 +495,50 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Menara Eiffel Jadikan Cincin Olimpiade Hiasan Permanen
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Keren! Gunung Rinjani Targetkan Pendakian Nol Sampah Mulai 2025
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Warga Kompak Menolak Wacana Pembangunan Kelab Malam di Sleman
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Harimau Serang Pawang, Insiden Paling Langka tapi Terjadi Juga
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Selama di Jakarta, Paus Fransiskus Menginap di Kedubes Vatikan, Bukan di Hotel
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Pemangku Pariwisata Bali Sepakat Hentikan Alih Fungsi Lahan
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Catat! Ini Rute ke Dieng dari Jakarta Naik Kereta dan Waktu Tempuhnya
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Kesederhanaan Paus Fransiskus: Naik Pesawat Komersil, Bukan Jet Pribadi
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Harga Tiket Pesawat ke Indonesia Timur Mahal, Kemenparekraf: Berangkat dari Mana?
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Mau Liburan Hemat? Serbu Promo Tiket Kereta-Pesawat di Hub Space 2024
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Mau Foto Kerenmu Dipajang di Sudut Kota Jakarta? Yuk Ikut Jelajah Lensa!
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Bocah Selamat Setelah Jatuh di Situs Giant&#39;s Causeway
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Kunjungan Paus Fransiskus ke Empat Negara Asia-Oceania Jadi yang Terlama
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Terlalu Nyaman, Tamu-tamu Hotel Ini Nginap Sampai Tahunan
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Demi Turis Berkualitas, Kemenparekraf Segara Terapkan Indonesia Quality Tourism
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Bali International Air Show 2024 Siap Tarik Ribuan Wisatawan per Hari
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Momen Menegangkan, Pemandu Snorkeling Terlempar Paus ke Udara
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Banjir Kritik, Usulan Insentif Nikah untuk Wanita Tokyo Dibatalkan
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Hvaldimir, Paus Beluga yang Dijuluki Mata-mata Rusia, Mati
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">KeyboardInterrupt</span><span class="g g-Whitespace">                         </span>Traceback (most recent call last)
+<span class="nn">&lt;ipython-input-1-182e0c2ef500&gt;</span> in <span class="ni">&lt;cell line: 58&gt;</span><span class="nt">()</span>
+<span class="g g-Whitespace">     </span><span class="mi">62</span> 
+<span class="g g-Whitespace">     </span><span class="mi">63</span>         <span class="n">url</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">base_url</span><span class="si">}</span><span class="s2">/</span><span class="si">{</span><span class="n">page</span><span class="si">}</span><span class="s2">&quot;</span>
+<span class="ne">---&gt; </span><span class="mi">64</span>         <span class="n">get_data</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">category</span><span class="p">)</span>
+<span class="g g-Whitespace">     </span><span class="mi">65</span>         <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>  <span class="c1"># Menambahkan jeda waktu 2 detik antara permintaan halaman</span>
+<span class="g g-Whitespace">     </span><span class="mi">66</span> 
+
+<span class="nn">&lt;ipython-input-1-182e0c2ef500&gt;</span> in <span class="ni">get_data</span><span class="nt">(url, kategori)</span>
+<span class="g g-Whitespace">     </span><span class="mi">43</span> 
+<span class="g g-Whitespace">     </span><span class="mi">44</span>         <span class="nb">print</span><span class="p">(</span><span class="n">title</span><span class="p">)</span>
+<span class="ne">---&gt; </span><span class="mi">45</span>         <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>  <span class="c1"># Menambahkan jeda waktu 1 detik antara permintaan artikel</span>
+<span class="g g-Whitespace">     </span><span class="mi">46</span> 
+<span class="g g-Whitespace">     </span><span class="mi">47</span> <span class="c1"># Membuat list url dan kategori yang akan di-crawl</span>
+
+<span class="ne">KeyboardInterrupt</span>: 
 </pre></div>
 </div>
 </div>
@@ -532,7 +552,7 @@ document.write(`
 </div>
 <div class="cell_output docutils container">
 <div class="output text_html">
-  <div id="df-73901160-eee6-4614-9e96-f6c2a1391d51" class="colab-df-container">
+  <div id="df-5d76559a-2e57-4653-8f42-5c75954b0162" class="colab-df-container">
     <div>
 <style scoped>
     .dataframe tbody tr th:only-of-type {
@@ -552,86 +572,97 @@ document.write(`
     <tr style="text-align: right;">
       <th></th>
       <th>judul</th>
-      <th>tanggal</th>
       <th>isi</th>
+      <th>tanggal</th>
+      <th>kategori</th>
     </tr>
   </thead>
   <tbody>
     <tr>
       <th>0</th>
-      <td>Menara Eiffel Jadikan Cincin Olimpiade Hiasan ...</td>
-      <td>Selasa, 03 Sep 2024 13:07 WIB</td>
-      <td>Paris - Cincin Olimpiade yang terpasang di Men...</td>
+      <td>Keren! Gunung Rinjani Targetkan Pendakian Nol ...</td>
+      <td>Jakarta - Balai Taman Nasional Gunung Rinjani ...</td>
+      <td>Rabu, 04 Sep 2024 11:05 WIB</td>
+      <td>Pariwisata</td>
     </tr>
     <tr>
       <th>1</th>
-      <td>Warga Kompak Menolak Wacana Pembangunan Kelab ...</td>
-      <td>Selasa, 03 Sep 2024 12:31 WIB</td>
-      <td>Sleman - Warga kompak memprotes keras adanya w...</td>
+      <td>Harimau Serang Pawang, Insiden Paling Langka t...</td>
+      <td>- Seorang pawang harimau memiliki risiko kerja...</td>
+      <td>Rabu, 04 Sep 2024 10:35 WIB</td>
+      <td>Pariwisata</td>
     </tr>
     <tr>
       <th>2</th>
-      <td>Selama di Jakarta, Paus Fransiskus Menginap di...</td>
-      <td>Selasa, 03 Sep 2024 12:05 WIB</td>
-      <td>Jakarta - Ketua Panitia Kunjungan Paus Fransis...</td>
+      <td>Pemangku Pariwisata Bali Sepakat Hentikan Alih...</td>
+      <td>Jakarta - Sejumlah pemangku pariwisata Bali se...</td>
+      <td>Rabu, 04 Sep 2024 10:13 WIB</td>
+      <td>Pariwisata</td>
     </tr>
     <tr>
       <th>3</th>
-      <td>Catat! Ini Rute ke Dieng dari Jakarta Naik Ker...</td>
-      <td>Selasa, 03 Sep 2024 11:35 WIB</td>
-      <td>Jakarta - Dieng berada di perbatasan antara Ka...</td>
+      <td>Kesederhanaan Paus Fransiskus: Naik Pesawat Ko...</td>
+      <td>Jakarta - Pemimpin tertinggi Gereja Katolik se...</td>
+      <td>Rabu, 04 Sep 2024 09:30 WIB</td>
+      <td>Pariwisata</td>
     </tr>
     <tr>
       <th>4</th>
-      <td>Harga Tiket Pesawat ke Indonesia Timur Mahal, ...</td>
-      <td>Selasa, 03 Sep 2024 11:28 WIB</td>
-      <td>Jakarta - Mahalnya harga tiket pesawat ke Indo...</td>
+      <td>Mau Liburan Hemat? Serbu Promo Tiket Kereta-Pe...</td>
+      <td>Jakarta - Merencanakan liburan menjadi satu ha...</td>
+      <td>Rabu, 04 Sep 2024 09:30 WIB</td>
+      <td>Pariwisata</td>
     </tr>
     <tr>
       <th>5</th>
-      <td>Mau Foto Kerenmu Dipajang di Sudut Kota Jakart...</td>
-      <td>Selasa, 03 Sep 2024 11:24 WIB</td>
-      <td>Jakarta - Event Jelajah Lensa detikTravel akan...</td>
+      <td>Bocah Selamat Setelah Jatuh di Situs Giant's C...</td>
+      <td>Jakarta - Tim penyelamat menandu seorang bocah...</td>
+      <td>Rabu, 04 Sep 2024 09:19 WIB</td>
+      <td>Pariwisata</td>
     </tr>
     <tr>
       <th>6</th>
-      <td>Kunjungan Paus Fransiskus ke Empat Negara Asia...</td>
-      <td>Selasa, 03 Sep 2024 10:31 WIB</td>
-      <td>Jakarta - Pemimpin tertinggi Gereja Katolik se...</td>
+      <td>Terlalu Nyaman, Tamu-tamu Hotel Ini Nginap Sam...</td>
+      <td>Subang - Favehotel Pamanukan sebagai hotel ter...</td>
+      <td>Rabu, 04 Sep 2024 08:05 WIB</td>
+      <td>Pariwisata</td>
     </tr>
     <tr>
       <th>7</th>
-      <td>Demi Turis Berkualitas, Kemenparekraf Segara T...</td>
-      <td>Selasa, 03 Sep 2024 10:05 WIB</td>
-      <td>Jakarta - Banyaknya turis asing yang bermasala...</td>
+      <td>Bali International Air Show 2024 Siap Tarik Ri...</td>
+      <td>Nusa Dua - Bali International Air Show 2024 me...</td>
+      <td>Rabu, 04 Sep 2024 07:39 WIB</td>
+      <td>Pariwisata</td>
     </tr>
     <tr>
       <th>8</th>
-      <td>Momen Menegangkan, Pemandu Snorkeling Terlempa...</td>
-      <td>Selasa, 03 Sep 2024 09:31 WIB</td>
-      <td>Jakarta - Kelompok perenang snorkel tengah ber...</td>
+      <td>Banjir Kritik, Usulan Insentif Nikah untuk Wan...</td>
+      <td>Jakarta - Untuk mengatasi rendahnya angka kela...</td>
+      <td>Rabu, 04 Sep 2024 07:11 WIB</td>
+      <td>Pariwisata</td>
     </tr>
     <tr>
       <th>9</th>
-      <td>Hvaldimir, Paus Beluga yang Dijuluki Mata-mata...</td>
-      <td>Selasa, 03 Sep 2024 09:05 WIB</td>
-      <td>Jakarta - Seekor paus beluga, yang diduga menj...</td>
+      <td>Satu Airbus 350 Rusak Saat Terbang, Cathay Bat...</td>
+      <td>Hong Kong - Penumpang pesawat Cathay Pacific A...</td>
+      <td>Rabu, 04 Sep 2024 07:05 WIB</td>
+      <td>Pariwisata</td>
     </tr>
   </tbody>
 </table>
 </div>
     <div class="colab-df-buttons">
-      
+
   <div class="colab-df-container">
-    <button class="colab-df-convert" onclick="convertToInteractive('df-73901160-eee6-4614-9e96-f6c2a1391d51')"
+    <button class="colab-df-convert" onclick="convertToInteractive('df-5d76559a-2e57-4653-8f42-5c75954b0162')"
             title="Convert this dataframe to an interactive table."
             style="display:none;">
-      
+
   <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960">
     <path d="M120-120v-720h720v720H120Zm60-500h600v-160H180v160Zm220 220h160v-160H400v160Zm0 220h160v-160H400v160ZM180-400h160v-160H180v160Zm440 0h160v-160H620v160ZM180-180h160v-160H180v160Zm440 0h160v-160H620v160Z"/>
   </svg>
     </button>
-    
+
   <style>
     .colab-df-container {
       display:flex;
@@ -675,12 +706,12 @@ document.write(`
 
     <script>
       const buttonEl =
-        document.querySelector('#df-73901160-eee6-4614-9e96-f6c2a1391d51 button.colab-df-convert');
+        document.querySelector('#df-5d76559a-2e57-4653-8f42-5c75954b0162 button.colab-df-convert');
       buttonEl.style.display =
         google.colab.kernel.accessAllowed ? 'block' : 'none';
 
       async function convertToInteractive(key) {
-        const element = document.querySelector('#df-73901160-eee6-4614-9e96-f6c2a1391d51');
+        const element = document.querySelector('#df-5d76559a-2e57-4653-8f42-5c75954b0162');
         const dataTable =
           await google.colab.kernel.invokeFunction('convertToInteractive',
                                                     [key], {});
@@ -698,10 +729,193 @@ document.write(`
       }
     </script>
   </div>
-  
+
+
+<div id="df-f1b65edb-f2d1-4bdd-b27f-028b885dfa3d">
+  <button class="colab-df-quickchart" onclick="quickchart('df-f1b65edb-f2d1-4bdd-b27f-028b885dfa3d')"
+            title="Suggest charts"
+            style="display:none;">
+
+<svg xmlns="http://www.w3.org/2000/svg" height="24px"viewBox="0 0 24 24"
+     width="24px">
+    <g>
+        <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zM9 17H7v-7h2v7zm4 0h-2V7h2v10zm4 0h-2v-4h2v4z"/>
+    </g>
+</svg>
+  </button>
+
+<style>
+  .colab-df-quickchart {
+      --bg-color: #E8F0FE;
+      --fill-color: #1967D2;
+      --hover-bg-color: #E2EBFA;
+      --hover-fill-color: #174EA6;
+      --disabled-fill-color: #AAA;
+      --disabled-bg-color: #DDD;
+  }
+
+  [theme=dark] .colab-df-quickchart {
+      --bg-color: #3B4455;
+      --fill-color: #D2E3FC;
+      --hover-bg-color: #434B5C;
+      --hover-fill-color: #FFFFFF;
+      --disabled-bg-color: #3B4455;
+      --disabled-fill-color: #666;
+  }
+
+  .colab-df-quickchart {
+    background-color: var(--bg-color);
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    display: none;
+    fill: var(--fill-color);
+    height: 32px;
+    padding: 0;
+    width: 32px;
+  }
+
+  .colab-df-quickchart:hover {
+    background-color: var(--hover-bg-color);
+    box-shadow: 0 1px 2px rgba(60, 64, 67, 0.3), 0 1px 3px 1px rgba(60, 64, 67, 0.15);
+    fill: var(--button-hover-fill-color);
+  }
+
+  .colab-df-quickchart-complete:disabled,
+  .colab-df-quickchart-complete:disabled:hover {
+    background-color: var(--disabled-bg-color);
+    fill: var(--disabled-fill-color);
+    box-shadow: none;
+  }
+
+  .colab-df-spinner {
+    border: 2px solid var(--fill-color);
+    border-color: transparent;
+    border-bottom-color: var(--fill-color);
+    animation:
+      spin 1s steps(1) infinite;
+  }
+
+  @keyframes spin {
+    0% {
+      border-color: transparent;
+      border-bottom-color: var(--fill-color);
+      border-left-color: var(--fill-color);
+    }
+    20% {
+      border-color: transparent;
+      border-left-color: var(--fill-color);
+      border-top-color: var(--fill-color);
+    }
+    30% {
+      border-color: transparent;
+      border-left-color: var(--fill-color);
+      border-top-color: var(--fill-color);
+      border-right-color: var(--fill-color);
+    }
+    40% {
+      border-color: transparent;
+      border-right-color: var(--fill-color);
+      border-top-color: var(--fill-color);
+    }
+    60% {
+      border-color: transparent;
+      border-right-color: var(--fill-color);
+    }
+    80% {
+      border-color: transparent;
+      border-right-color: var(--fill-color);
+      border-bottom-color: var(--fill-color);
+    }
+    90% {
+      border-color: transparent;
+      border-bottom-color: var(--fill-color);
+    }
+  }
+</style>
+
+  <script>
+    async function quickchart(key) {
+      const quickchartButtonEl =
+        document.querySelector('#' + key + ' button');
+      quickchartButtonEl.disabled = true;  // To prevent multiple clicks.
+      quickchartButtonEl.classList.add('colab-df-spinner');
+      try {
+        const charts = await google.colab.kernel.invokeFunction(
+            'suggestCharts', [key], {});
+      } catch (error) {
+        console.error('Error during call to suggestCharts:', error);
+      }
+      quickchartButtonEl.classList.remove('colab-df-spinner');
+      quickchartButtonEl.classList.add('colab-df-quickchart-complete');
+    }
+    (() => {
+      let quickchartButtonEl =
+        document.querySelector('#df-f1b65edb-f2d1-4bdd-b27f-028b885dfa3d button');
+      quickchartButtonEl.style.display =
+        google.colab.kernel.accessAllowed ? 'block' : 'none';
+    })();
+  </script>
+</div>
+
+  <div id="id_3ffc8aef-3e2b-407b-9ed3-cdb0db7a1e22">
+    <style>
+      .colab-df-generate {
+        background-color: #E8F0FE;
+        border: none;
+        border-radius: 50%;
+        cursor: pointer;
+        display: none;
+        fill: #1967D2;
+        height: 32px;
+        padding: 0 0 0 0;
+        width: 32px;
+      }
+
+      .colab-df-generate:hover {
+        background-color: #E2EBFA;
+        box-shadow: 0px 1px 2px rgba(60, 64, 67, 0.3), 0px 1px 3px 1px rgba(60, 64, 67, 0.15);
+        fill: #174EA6;
+      }
+
+      [theme=dark] .colab-df-generate {
+        background-color: #3B4455;
+        fill: #D2E3FC;
+      }
+
+      [theme=dark] .colab-df-generate:hover {
+        background-color: #434B5C;
+        box-shadow: 0px 1px 3px 1px rgba(0, 0, 0, 0.15);
+        filter: drop-shadow(0px 1px 2px rgba(0, 0, 0, 0.3));
+        fill: #FFFFFF;
+      }
+    </style>
+    <button class="colab-df-generate" onclick="generateWithVariable('df')"
+            title="Generate code using this dataframe."
+            style="display:none;">
+
+  <svg xmlns="http://www.w3.org/2000/svg" height="24px"viewBox="0 0 24 24"
+       width="24px">
+    <path d="M7,19H8.4L18.45,9,17,7.55,7,17.6ZM5,21V16.75L18.45,3.32a2,2,0,0,1,2.83,0l1.4,1.43a1.91,1.91,0,0,1,.58,1.4,1.91,1.91,0,0,1-.58,1.4L9.25,21ZM18.45,9,17,7.55Zm-12,3A5.31,5.31,0,0,0,4.9,8.1,5.31,5.31,0,0,0,1,6.5,5.31,5.31,0,0,0,4.9,4.9,5.31,5.31,0,0,0,6.5,1,5.31,5.31,0,0,0,8.1,4.9,5.31,5.31,0,0,0,12,6.5,5.46,5.46,0,0,0,6.5,12Z"/>
+  </svg>
+    </button>
+    <script>
+      (() => {
+      const buttonEl =
+        document.querySelector('#id_3ffc8aef-3e2b-407b-9ed3-cdb0db7a1e22 button.colab-df-generate');
+      buttonEl.style.display =
+        google.colab.kernel.accessAllowed ? 'block' : 'none';
+
+      buttonEl.onclick = () => {
+        google.colab.notebook.generateWithVariable('df');
+      }
+      })();
+    </script>
+  </div>
+
     </div>
   </div>
-  </div></div>
+</div></div>
 </div>
 </section>
 
