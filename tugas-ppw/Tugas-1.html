@@ -60,6 +60,7 @@
     <script>DOCUMENTATION_OPTIONS.pagename = 'tugas-ppw/Tugas-1';</script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Tugas 2 : Preprocessing &amp; TfIdf" href="Tugas-2.html" />
     <link rel="prev" title="Welcome to your Jupyter Book" href="../intro.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
@@ -180,6 +181,9 @@
         </ul>
         <ul class="current nav bd-sidenav">
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">Tugas 1 : Crawling Berita</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Tugas-2.html">Tugas 2 : Preprocessing  &amp; TfIdf</a></li>
+
+
 </ul>
 
     </div>
@@ -421,7 +425,7 @@ document.write(`
 <span class="kn">import</span> <span class="nn">time</span>
 
 <span class="c1"># Fungsi untuk mengambil data dari halaman web Detik.com</span>
-<span class="k">def</span> <span class="nf">get_data</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">kategori</span><span class="p">):</span>
+<span class="k">def</span> <span class="nf">get_data</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">kategori</span><span class="p">,</span> <span class="n">min_articles_per_category</span><span class="p">):</span>
     <span class="k">try</span><span class="p">:</span>
         <span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
         <span class="n">response</span><span class="o">.</span><span class="n">raise_for_status</span><span class="p">()</span>
@@ -433,8 +437,8 @@ document.write(`
     <span class="n">articles</span> <span class="o">=</span> <span class="n">soup</span><span class="o">.</span><span class="n">find_all</span><span class="p">(</span><span class="s2">&quot;article&quot;</span><span class="p">,</span> <span class="n">class_</span><span class="o">=</span><span class="s2">&quot;list-content__item&quot;</span><span class="p">)</span>
 
     <span class="k">for</span> <span class="n">article</span> <span class="ow">in</span> <span class="n">articles</span><span class="p">:</span>
-        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">judul</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="mi">10</span><span class="p">:</span>  <span class="c1"># Hentikan jika sudah 10 berita</span>
-            <span class="k">return</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">([</span><span class="n">k</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">kategori_list</span> <span class="k">if</span> <span class="n">k</span> <span class="o">==</span> <span class="n">kategori</span><span class="p">])</span> <span class="o">&gt;=</span> <span class="n">min_articles_per_category</span><span class="p">:</span>
+            <span class="k">return</span>  <span class="c1"># Menghentikan proses jika jumlah artikel sudah mencapai minimum yang diinginkan</span>
 
         <span class="k">try</span><span class="p">:</span>
             <span class="n">link</span> <span class="o">=</span> <span class="n">article</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s2">&quot;a&quot;</span><span class="p">)[</span><span class="s2">&quot;href&quot;</span><span class="p">]</span>
@@ -452,18 +456,24 @@ document.write(`
         <span class="n">content_element</span> <span class="o">=</span> <span class="n">article_soup</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s2">&quot;div&quot;</span><span class="p">,</span> <span class="n">class_</span><span class="o">=</span><span class="s2">&quot;detail__body-text&quot;</span><span class="p">)</span>
         <span class="n">content</span> <span class="o">=</span> <span class="n">content_element</span><span class="o">.</span><span class="n">text</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span> <span class="k">if</span> <span class="n">content_element</span> <span class="k">else</span> <span class="s2">&quot;Content Not Found&quot;</span>
 
-        <span class="c1"># Menambahkan data ke dalam list</span>
         <span class="n">judul</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">title</span><span class="p">)</span>
         <span class="n">tanggal</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">date</span><span class="p">)</span>
         <span class="n">isi</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">content</span><span class="p">)</span>
-        <span class="n">kategori_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">kategori</span><span class="p">)</span>  <span class="c1"># Menambahkan kategori ke dalam list</span>
+        <span class="n">url_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">link</span><span class="p">)</span>
+        <span class="n">kategori_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">kategori</span><span class="p">)</span>
 
         <span class="nb">print</span><span class="p">(</span><span class="n">title</span><span class="p">)</span>
         <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>  <span class="c1"># Menambahkan jeda waktu 1 detik antara permintaan artikel</span>
 
 <span class="c1"># Membuat list url dan kategori yang akan di-crawl</span>
-<span class="n">base_urls</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;https://travel.detik.com/travel-news/indeks&quot;</span><span class="p">]</span>
-<span class="n">categories</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;Pariwisata&quot;</span><span class="p">]</span>
+<span class="n">base_urls</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="s2">&quot;https://health.detik.com/berita-detikhealth/indeks&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;https://travel.detik.com/travel-news/indeks&quot;</span>
+<span class="p">]</span>
+<span class="n">categories</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="s2">&quot;Kesehatan&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;Pariwisata&quot;</span>
+<span class="p">]</span>
 
 <span class="c1"># Inisialisasi list untuk menyimpan data</span>
 <span class="n">judul</span> <span class="o">=</span> <span class="p">[]</span>
@@ -471,84 +481,61 @@ document.write(`
 <span class="n">isi</span> <span class="o">=</span> <span class="p">[]</span>
 <span class="n">kategori_list</span> <span class="o">=</span> <span class="p">[]</span>
 
+<span class="c1"># Batas minimal artikel per kategori</span>
+<span class="n">min_articles_per_category</span> <span class="o">=</span> <span class="mi">50</span>
+
 <span class="c1"># Melakukan iterasi untuk setiap url dan kategori</span>
 <span class="k">for</span> <span class="n">base_url</span><span class="p">,</span> <span class="n">category</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">base_urls</span><span class="p">,</span> <span class="n">categories</span><span class="p">):</span>
-    <span class="k">for</span> <span class="n">page</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">):</span>  <span class="c1"># Looping untuk beralih halaman</span>
-        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">judul</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="mi">10</span><span class="p">:</span>  <span class="c1"># Hentikan jika sudah 10 berita</span>
-            <span class="k">break</span>
-
+    <span class="n">page</span> <span class="o">=</span> <span class="mi">1</span>
+    <span class="k">while</span> <span class="nb">len</span><span class="p">([</span><span class="n">k</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">kategori_list</span> <span class="k">if</span> <span class="n">k</span> <span class="o">==</span> <span class="n">category</span><span class="p">])</span> <span class="o">&lt;</span> <span class="n">min_articles_per_category</span><span class="p">:</span>
         <span class="n">url</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">base_url</span><span class="si">}</span><span class="s2">/</span><span class="si">{</span><span class="n">page</span><span class="si">}</span><span class="s2">&quot;</span>
-        <span class="n">get_data</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">category</span><span class="p">)</span>
+        <span class="n">get_data</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">category</span><span class="p">,</span> <span class="n">min_articles_per_category</span><span class="p">)</span>
         <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>  <span class="c1"># Menambahkan jeda waktu 2 detik antara permintaan halaman</span>
+        <span class="n">page</span> <span class="o">+=</span> <span class="mi">1</span>
 
 <span class="c1"># Membuat dataframe dari list data</span>
-<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span>
-    <span class="s2">&quot;judul&quot;</span><span class="p">:</span> <span class="n">judul</span><span class="p">,</span>
-    <span class="s2">&quot;isi&quot;</span><span class="p">:</span> <span class="n">isi</span><span class="p">,</span>
-    <span class="s2">&quot;tanggal&quot;</span><span class="p">:</span> <span class="n">tanggal</span><span class="p">,</span>
-    <span class="s2">&quot;kategori&quot;</span><span class="p">:</span> <span class="n">kategori_list</span>
-<span class="p">})</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s2">&quot;judul&quot;</span><span class="p">:</span> <span class="n">judul</span><span class="p">,</span> <span class="s2">&quot;tanggal&quot;</span><span class="p">:</span> <span class="n">tanggal</span><span class="p">,</span> <span class="s2">&quot;isi&quot;</span><span class="p">:</span> <span class="n">isi</span><span class="p">,</span> <span class="s2">&quot;kategori&quot;</span><span class="p">:</span> <span class="n">kategori_list</span><span class="p">})</span>
 
-<span class="c1"># Menyimpan dataframe ke file CSV</span>
-<span class="n">df</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="s2">&quot;Crawl-berita.csv&quot;</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="c1"># Menyimpan dataframe ke file csv</span>
+<span class="n">df</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="s2">&quot;data_berita_detik.csv&quot;</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+<span class="c1"># Menampilkan dataframe</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">df</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Keren! Gunung Rinjani Targetkan Pendakian Nol Sampah Mulai 2025
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Harimau Serang Pawang, Insiden Paling Langka tapi Terjadi Juga
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Pemangku Pariwisata Bali Sepakat Hentikan Alih Fungsi Lahan
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Kesederhanaan Paus Fransiskus: Naik Pesawat Komersil, Bukan Jet Pribadi
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Mau Liburan Hemat? Serbu Promo Tiket Kereta-Pesawat di Hub Space 2024
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Bocah Selamat Setelah Jatuh di Situs Giant&#39;s Causeway
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Terlalu Nyaman, Tamu-tamu Hotel Ini Nginap Sampai Tahunan
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Bali International Air Show 2024 Siap Tarik Ribuan Wisatawan per Hari
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Banjir Kritik, Usulan Insentif Nikah untuk Wanita Tokyo Dibatalkan
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Satu Airbus 350 Rusak Saat Terbang, Cathay Batalkan 24 Penerbangan
-</pre></div>
-</div>
 <div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">KeyboardInterrupt</span><span class="g g-Whitespace">                         </span>Traceback (most recent call last)
-<span class="nn">&lt;ipython-input-1-182e0c2ef500&gt;</span> in <span class="ni">&lt;cell line: 58&gt;</span><span class="nt">()</span>
-<span class="g g-Whitespace">     </span><span class="mi">63</span>         <span class="n">url</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">base_url</span><span class="si">}</span><span class="s2">/</span><span class="si">{</span><span class="n">page</span><span class="si">}</span><span class="s2">&quot;</span>
-<span class="g g-Whitespace">     </span><span class="mi">64</span>         <span class="n">get_data</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">category</span><span class="p">)</span>
-<span class="ne">---&gt; </span><span class="mi">65</span>         <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>  <span class="c1"># Menambahkan jeda waktu 2 detik antara permintaan halaman</span>
-<span class="g g-Whitespace">     </span><span class="mi">66</span> 
-<span class="g g-Whitespace">     </span><span class="mi">67</span> <span class="c1"># Membuat dataframe dari list data</span>
+<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
+<span class="nn">&lt;ipython-input-1-483dee741f7b&gt;</span> in <span class="ni">&lt;cell line: 67&gt;</span><span class="nt">()</span>
+<span class="g g-Whitespace">     </span><span class="mi">69</span>     <span class="k">while</span> <span class="nb">len</span><span class="p">([</span><span class="n">k</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">kategori_list</span> <span class="k">if</span> <span class="n">k</span> <span class="o">==</span> <span class="n">category</span><span class="p">])</span> <span class="o">&lt;</span> <span class="n">min_articles_per_category</span><span class="p">:</span>
+<span class="g g-Whitespace">     </span><span class="mi">70</span>         <span class="n">url</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">base_url</span><span class="si">}</span><span class="s2">/</span><span class="si">{</span><span class="n">page</span><span class="si">}</span><span class="s2">&quot;</span>
+<span class="ne">---&gt; </span><span class="mi">71</span>         <span class="n">get_data</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">category</span><span class="p">,</span> <span class="n">min_articles_per_category</span><span class="p">)</span>
+<span class="g g-Whitespace">     </span><span class="mi">72</span>         <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>  <span class="c1"># Menambahkan jeda waktu 2 detik antara permintaan halaman</span>
+<span class="g g-Whitespace">     </span><span class="mi">73</span>         <span class="n">page</span> <span class="o">+=</span> <span class="mi">1</span>
 
-<span class="ne">KeyboardInterrupt</span>: 
+<span class="nn">&lt;ipython-input-1-483dee741f7b&gt;</span> in <span class="ni">get_data</span><span class="nt">(url, kategori, min_articles_per_category)</span>
+<span class="g g-Whitespace">     </span><span class="mi">39</span>         <span class="n">tanggal</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">date</span><span class="p">)</span>
+<span class="g g-Whitespace">     </span><span class="mi">40</span>         <span class="n">isi</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">content</span><span class="p">)</span>
+<span class="ne">---&gt; </span><span class="mi">41</span>         <span class="n">url_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">link</span><span class="p">)</span>
+<span class="g g-Whitespace">     </span><span class="mi">42</span>         <span class="n">kategori_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">kategori</span><span class="p">)</span>
+<span class="g g-Whitespace">     </span><span class="mi">43</span> 
+
+<span class="ne">NameError</span>: name &#39;url_list&#39; is not defined
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;Crawl-berita.csv&quot;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;data_berita_detik.csv&quot;</span><span class="p">)</span>
 <span class="n">df</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
 <div class="output text_html">
-  <div id="df-5d76559a-2e57-4653-8f42-5c75954b0162" class="colab-df-container">
+  <div id="df-e48d9f46-6b9f-49c3-9a4e-bfed79560d33" class="colab-df-container">
     <div>
 <style scoped>
     .dataframe tbody tr th:only-of-type {
@@ -568,89 +555,97 @@ document.write(`
     <tr style="text-align: right;">
       <th></th>
       <th>judul</th>
-      <th>isi</th>
       <th>tanggal</th>
+      <th>isi</th>
       <th>kategori</th>
     </tr>
   </thead>
   <tbody>
     <tr>
       <th>0</th>
-      <td>Keren! Gunung Rinjani Targetkan Pendakian Nol ...</td>
-      <td>Jakarta - Balai Taman Nasional Gunung Rinjani ...</td>
-      <td>Rabu, 04 Sep 2024 11:05 WIB</td>
-      <td>Pariwisata</td>
+      <td>Badan Kurus Tak Berarti Bebas dari Kolesterol ...</td>
+      <td>Kamis, 05 Sep 2024 11:03 WIB</td>
+      <td>Jakarta - Tak sedikit yang beranggapan bahwa o...</td>
+      <td>Kesehatan</td>
     </tr>
     <tr>
       <th>1</th>
-      <td>Harimau Serang Pawang, Insiden Paling Langka t...</td>
-      <td>- Seorang pawang harimau memiliki risiko kerja...</td>
-      <td>Rabu, 04 Sep 2024 10:35 WIB</td>
-      <td>Pariwisata</td>
+      <td>Budaya Kerja Toksik di Jepang Picu 54 Karyawan...</td>
+      <td>Kamis, 05 Sep 2024 10:38 WIB</td>
+      <td>Jakarta -\n        \n        Istilah 'bekerja ...</td>
+      <td>Kesehatan</td>
     </tr>
     <tr>
       <th>2</th>
-      <td>Pemangku Pariwisata Bali Sepakat Hentikan Alih...</td>
-      <td>Jakarta - Sejumlah pemangku pariwisata Bali se...</td>
-      <td>Rabu, 04 Sep 2024 10:13 WIB</td>
-      <td>Pariwisata</td>
+      <td>Menyoal Serangan Jantung yang Dialami Faisal B...</td>
+      <td>Kamis, 05 Sep 2024 10:03 WIB</td>
+      <td>Jakarta - Faisal Basri meninggal dunia. Ekonom...</td>
+      <td>Kesehatan</td>
     </tr>
     <tr>
       <th>3</th>
-      <td>Kesederhanaan Paus Fransiskus: Naik Pesawat Ko...</td>
+      <td>Nyeri Kronis yang Bikin Paus Fransiskus Tak Bi...</td>
+      <td>Kamis, 05 Sep 2024 09:37 WIB</td>
       <td>Jakarta - Pemimpin tertinggi Gereja Katolik se...</td>
-      <td>Rabu, 04 Sep 2024 09:30 WIB</td>
-      <td>Pariwisata</td>
+      <td>Kesehatan</td>
     </tr>
     <tr>
       <th>4</th>
-      <td>Mau Liburan Hemat? Serbu Promo Tiket Kereta-Pe...</td>
-      <td>Jakarta - Merencanakan liburan menjadi satu ha...</td>
-      <td>Rabu, 04 Sep 2024 09:30 WIB</td>
+      <td>Perundungan PPDS Tak Cuma Terjadi di Undip, Be...</td>
+      <td>Kamis, 05 Sep 2024 08:35 WIB</td>
+      <td>Jakarta - Aksi bullying atau perundungan di ma...</td>
+      <td>Kesehatan</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>95</th>
+      <td>Luhut soal Penginapan dan Mobil untuk Paus yan...</td>
+      <td>Rabu, 04 Sep 2024 05:49 WIB</td>
+      <td>Jakarta - Pemimpin Tertinggi Gereja Katolik Se...</td>
       <td>Pariwisata</td>
     </tr>
     <tr>
-      <th>5</th>
-      <td>Bocah Selamat Setelah Jatuh di Situs Giant's C...</td>
-      <td>Jakarta - Tim penyelamat menandu seorang bocah...</td>
-      <td>Rabu, 04 Sep 2024 09:19 WIB</td>
+      <th>96</th>
+      <td>Iwh, Pekerja Speedboat Thailand Pamer BAB ke L...</td>
+      <td>Rabu, 04 Sep 2024 05:01 WIB</td>
+      <td>Jakarta - Warga Thailand dibuat jijik dengan k...</td>
       <td>Pariwisata</td>
     </tr>
     <tr>
-      <th>6</th>
-      <td>Terlalu Nyaman, Tamu-tamu Hotel Ini Nginap Sam...</td>
-      <td>Subang - Favehotel Pamanukan sebagai hotel ter...</td>
-      <td>Rabu, 04 Sep 2024 08:05 WIB</td>
+      <th>97</th>
+      <td>Ogah Bayar Layanan, 3 Turis Palestina Keroyok ...</td>
+      <td>Selasa, 03 Sep 2024 21:05 WIB</td>
+      <td>Taba - Seorang staf hotel di Mesir tewas usai ...</td>
       <td>Pariwisata</td>
     </tr>
     <tr>
-      <th>7</th>
-      <td>Bali International Air Show 2024 Siap Tarik Ri...</td>
-      <td>Nusa Dua - Bali International Air Show 2024 me...</td>
-      <td>Rabu, 04 Sep 2024 07:39 WIB</td>
+      <th>98</th>
+      <td>Licik, Keluarga Taruh Kecoa di Piring Agar Mak...</td>
+      <td>Selasa, 03 Sep 2024 20:37 WIB</td>
+      <td>Jakarta - Keluarga asal Meksiko dituduh melaku...</td>
       <td>Pariwisata</td>
     </tr>
     <tr>
-      <th>8</th>
-      <td>Banjir Kritik, Usulan Insentif Nikah untuk Wan...</td>
-      <td>Jakarta - Untuk mengatasi rendahnya angka kela...</td>
-      <td>Rabu, 04 Sep 2024 07:11 WIB</td>
-      <td>Pariwisata</td>
-    </tr>
-    <tr>
-      <th>9</th>
-      <td>Satu Airbus 350 Rusak Saat Terbang, Cathay Bat...</td>
-      <td>Hong Kong - Penumpang pesawat Cathay Pacific A...</td>
-      <td>Rabu, 04 Sep 2024 07:05 WIB</td>
+      <th>99</th>
+      <td>Terulang Lagi, Triatlon Paralimpiade Ditunda g...</td>
+      <td>Selasa, 03 Sep 2024 20:05 WIB</td>
+      <td>Paris - Saat Olimpiade Paris 2024 lalu, kompet...</td>
       <td>Pariwisata</td>
     </tr>
   </tbody>
 </table>
+<p>100 rows × 4 columns</p>
 </div>
     <div class="colab-df-buttons">
 
   <div class="colab-df-container">
-    <button class="colab-df-convert" onclick="convertToInteractive('df-5d76559a-2e57-4653-8f42-5c75954b0162')"
+    <button class="colab-df-convert" onclick="convertToInteractive('df-e48d9f46-6b9f-49c3-9a4e-bfed79560d33')"
             title="Convert this dataframe to an interactive table."
             style="display:none;">
 
@@ -702,12 +697,12 @@ document.write(`
 
     <script>
       const buttonEl =
-        document.querySelector('#df-5d76559a-2e57-4653-8f42-5c75954b0162 button.colab-df-convert');
+        document.querySelector('#df-e48d9f46-6b9f-49c3-9a4e-bfed79560d33 button.colab-df-convert');
       buttonEl.style.display =
         google.colab.kernel.accessAllowed ? 'block' : 'none';
 
       async function convertToInteractive(key) {
-        const element = document.querySelector('#df-5d76559a-2e57-4653-8f42-5c75954b0162');
+        const element = document.querySelector('#df-e48d9f46-6b9f-49c3-9a4e-bfed79560d33');
         const dataTable =
           await google.colab.kernel.invokeFunction('convertToInteractive',
                                                     [key], {});
@@ -727,8 +722,8 @@ document.write(`
   </div>
 
 
-<div id="df-f1b65edb-f2d1-4bdd-b27f-028b885dfa3d">
-  <button class="colab-df-quickchart" onclick="quickchart('df-f1b65edb-f2d1-4bdd-b27f-028b885dfa3d')"
+<div id="df-7dbad04b-865e-46cb-8cd3-c2751d7186ed">
+  <button class="colab-df-quickchart" onclick="quickchart('df-7dbad04b-865e-46cb-8cd3-c2751d7186ed')"
             title="Suggest charts"
             style="display:none;">
 
@@ -847,14 +842,14 @@ document.write(`
     }
     (() => {
       let quickchartButtonEl =
-        document.querySelector('#df-f1b65edb-f2d1-4bdd-b27f-028b885dfa3d button');
+        document.querySelector('#df-7dbad04b-865e-46cb-8cd3-c2751d7186ed button');
       quickchartButtonEl.style.display =
         google.colab.kernel.accessAllowed ? 'block' : 'none';
     })();
   </script>
 </div>
 
-  <div id="id_3ffc8aef-3e2b-407b-9ed3-cdb0db7a1e22">
+  <div id="id_a4162abd-de05-47a3-9956-2612ede799b0">
     <style>
       .colab-df-generate {
         background-color: #E8F0FE;
@@ -898,7 +893,7 @@ document.write(`
     <script>
       (() => {
       const buttonEl =
-        document.querySelector('#id_3ffc8aef-3e2b-407b-9ed3-cdb0db7a1e22 button.colab-df-generate');
+        document.querySelector('#id_a4162abd-de05-47a3-9956-2612ede799b0 button.colab-df-generate');
       buttonEl.style.display =
         google.colab.kernel.accessAllowed ? 'block' : 'none';
 
@@ -953,6 +948,15 @@ document.write(`
         <p class="prev-next-subtitle">previous</p>
         <p class="prev-next-title">Welcome to your Jupyter Book</p>
       </div>
+    </a>
+    <a class="right-next"
+       href="Tugas-2.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Tugas 2 : Preprocessing  &amp; TfIdf</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
     </a>
 </div>
                 </footer>
