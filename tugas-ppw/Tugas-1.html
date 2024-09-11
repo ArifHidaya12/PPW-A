@@ -182,8 +182,6 @@
         <ul class="current nav bd-sidenav">
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">Tugas 1 : Crawling Berita</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Tugas-2.html">Tugas 2 : Preprocessing  &amp; TfIdf</a></li>
-
-
 </ul>
 
     </div>
@@ -459,7 +457,6 @@ document.write(`
         <span class="n">judul</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">title</span><span class="p">)</span>
         <span class="n">tanggal</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">date</span><span class="p">)</span>
         <span class="n">isi</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">content</span><span class="p">)</span>
-        <span class="n">url_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">link</span><span class="p">)</span>
         <span class="n">kategori_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">kategori</span><span class="p">)</span>
 
         <span class="nb">print</span><span class="p">(</span><span class="n">title</span><span class="p">)</span>
@@ -505,23 +502,151 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Dokter Ungkap Gejala Sinusitis Kronis, Dialami Ricky Harun hingga Masuk RS
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Berkaca Kasus Viral Pria China, Ini Saran Dokter Biar Cabut Gigi Tak Berujung Fatal
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Apa-apa Harus &#39;BPA Free&#39;, Yakin Pasti Aman?
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Ternyata Otak Perempuan &#39;Menua&#39; Lebih Cepat Pasca Pandemi COVID-19, Ini Risetnya
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Profesor IPB Tegaskan &#39;Susu Ikan&#39; Lebih Tepat Disebut Sari-Jus, Ini Katanya
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Emi Shinohara, Pengisi Suara di Sailor Moon Meninggal Dunia karena Sakit
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Ricky Harun Alami Sinusitis Kronis hingga Dirawat di RS, Kenali Pemicunya
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Sederet Mitos Pemicu &#39;Paru-paru Basah&#39;, Pakai AC-Tidur di Lantai Termasuk?
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>5 Penangkal Kolesterol yang Ada di Dapur, Termasuk Jahe
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Viral Diusulkan di Makan Bergizi Gratis Prabowo-Gibran, Apa Itu &#39;Susu Ikan&#39;?
+</pre></div>
+</div>
 <div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
-<span class="nn">&lt;ipython-input-1-483dee741f7b&gt;</span> in <span class="ni">&lt;cell line: 67&gt;</span><span class="nt">()</span>
-<span class="g g-Whitespace">     </span><span class="mi">69</span>     <span class="k">while</span> <span class="nb">len</span><span class="p">([</span><span class="n">k</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">kategori_list</span> <span class="k">if</span> <span class="n">k</span> <span class="o">==</span> <span class="n">category</span><span class="p">])</span> <span class="o">&lt;</span> <span class="n">min_articles_per_category</span><span class="p">:</span>
-<span class="g g-Whitespace">     </span><span class="mi">70</span>         <span class="n">url</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">base_url</span><span class="si">}</span><span class="s2">/</span><span class="si">{</span><span class="n">page</span><span class="si">}</span><span class="s2">&quot;</span>
-<span class="ne">---&gt; </span><span class="mi">71</span>         <span class="n">get_data</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">category</span><span class="p">,</span> <span class="n">min_articles_per_category</span><span class="p">)</span>
-<span class="g g-Whitespace">     </span><span class="mi">72</span>         <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>  <span class="c1"># Menambahkan jeda waktu 2 detik antara permintaan halaman</span>
-<span class="g g-Whitespace">     </span><span class="mi">73</span>         <span class="n">page</span> <span class="o">+=</span> <span class="mi">1</span>
+<span class="ne">KeyboardInterrupt</span><span class="g g-Whitespace">                         </span>Traceback (most recent call last)
+<span class="nn">&lt;ipython-input-1-cbed22b9ec32&gt;</span> in <span class="ni">&lt;cell line: 66&gt;</span><span class="nt">()</span>
+<span class="g g-Whitespace">     </span><span class="mi">68</span>     <span class="k">while</span> <span class="nb">len</span><span class="p">([</span><span class="n">k</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">kategori_list</span> <span class="k">if</span> <span class="n">k</span> <span class="o">==</span> <span class="n">category</span><span class="p">])</span> <span class="o">&lt;</span> <span class="n">min_articles_per_category</span><span class="p">:</span>
+<span class="g g-Whitespace">     </span><span class="mi">69</span>         <span class="n">url</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">base_url</span><span class="si">}</span><span class="s2">/</span><span class="si">{</span><span class="n">page</span><span class="si">}</span><span class="s2">&quot;</span>
+<span class="ne">---&gt; </span><span class="mi">70</span>         <span class="n">get_data</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">category</span><span class="p">,</span> <span class="n">min_articles_per_category</span><span class="p">)</span>
+<span class="g g-Whitespace">     </span><span class="mi">71</span>         <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>  <span class="c1"># Menambahkan jeda waktu 2 detik antara permintaan halaman</span>
+<span class="g g-Whitespace">     </span><span class="mi">72</span>         <span class="n">page</span> <span class="o">+=</span> <span class="mi">1</span>
 
-<span class="nn">&lt;ipython-input-1-483dee741f7b&gt;</span> in <span class="ni">get_data</span><span class="nt">(url, kategori, min_articles_per_category)</span>
-<span class="g g-Whitespace">     </span><span class="mi">39</span>         <span class="n">tanggal</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">date</span><span class="p">)</span>
-<span class="g g-Whitespace">     </span><span class="mi">40</span>         <span class="n">isi</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">content</span><span class="p">)</span>
-<span class="ne">---&gt; </span><span class="mi">41</span>         <span class="n">url_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">link</span><span class="p">)</span>
-<span class="g g-Whitespace">     </span><span class="mi">42</span>         <span class="n">kategori_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">kategori</span><span class="p">)</span>
-<span class="g g-Whitespace">     </span><span class="mi">43</span> 
+<span class="nn">&lt;ipython-input-1-cbed22b9ec32&gt;</span> in <span class="ni">get_data</span><span class="nt">(url, kategori, min_articles_per_category)</span>
+<span class="g g-Whitespace">     </span><span class="mi">22</span>         <span class="k">try</span><span class="p">:</span>
+<span class="g g-Whitespace">     </span><span class="mi">23</span>             <span class="n">link</span> <span class="o">=</span> <span class="n">article</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s2">&quot;a&quot;</span><span class="p">)[</span><span class="s2">&quot;href&quot;</span><span class="p">]</span>
+<span class="ne">---&gt; </span><span class="mi">24</span>             <span class="n">article_response</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">link</span><span class="p">)</span>
+<span class="g g-Whitespace">     </span><span class="mi">25</span>             <span class="n">article_response</span><span class="o">.</span><span class="n">raise_for_status</span><span class="p">()</span>
+<span class="g g-Whitespace">     </span><span class="mi">26</span>         <span class="k">except</span> <span class="p">(</span><span class="n">requests</span><span class="o">.</span><span class="n">exceptions</span><span class="o">.</span><span class="n">RequestException</span><span class="p">,</span> <span class="ne">TypeError</span><span class="p">)</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
 
-<span class="ne">NameError</span>: name &#39;url_list&#39; is not defined
+<span class="nn">/usr/local/lib/python3.10/dist-packages/requests/api.py</span> in <span class="ni">get</span><span class="nt">(url, params, **kwargs)</span>
+<span class="g g-Whitespace">     </span><span class="mi">71</span>     <span class="s2">&quot;&quot;&quot;</span>
+<span class="g g-Whitespace">     </span><span class="mi">72</span><span class="s2"> </span>
+<span class="ne">---&gt; </span><span class="mi">73</span><span class="s2">     return request(&quot;get&quot;, url, params=params, **kwargs)</span>
+<span class="g g-Whitespace">     </span><span class="mi">74</span><span class="s2"> </span>
+<span class="g g-Whitespace">     </span><span class="mi">75</span><span class="s2"> </span>
+
+<span class="nn">/usr/local/lib/python3.10/dist-packages/requests/api.py</span> in <span class="ni">request</span><span class="nt">(method, url, **kwargs)</span>
+<span class="g g-Whitespace">     </span><span class="mi">57</span><span class="s2">     # cases, and look like a memory leak in others.</span>
+<span class="g g-Whitespace">     </span><span class="mi">58</span><span class="s2">     with sessions.Session() as session:</span>
+<span class="ne">---&gt; </span><span class="mi">59</span><span class="s2">         return session.request(method=method, url=url, **kwargs)</span>
+<span class="g g-Whitespace">     </span><span class="mi">60</span><span class="s2"> </span>
+<span class="g g-Whitespace">     </span><span class="mi">61</span><span class="s2"> </span>
+
+<span class="nn">/usr/local/lib/python3.10/dist-packages/requests/sessions.py</span> in <span class="ni">request</span><span class="nt">(self, method, url, params, data, headers, cookies, files, auth, timeout, allow_redirects, proxies, hooks, stream, verify, cert, json)</span>
+<span class="g g-Whitespace">    </span><span class="mi">587</span><span class="s2">         }</span>
+<span class="g g-Whitespace">    </span><span class="mi">588</span><span class="s2">         send_kwargs.update(settings)</span>
+<span class="ne">--&gt; </span><span class="mi">589</span><span class="s2">         resp = self.send(prep, **send_kwargs)</span>
+<span class="g g-Whitespace">    </span><span class="mi">590</span><span class="s2"> </span>
+<span class="g g-Whitespace">    </span><span class="mi">591</span><span class="s2">         return resp</span>
+
+<span class="nn">/usr/local/lib/python3.10/dist-packages/requests/sessions.py</span> in <span class="ni">send</span><span class="nt">(self, request, **kwargs)</span>
+<span class="g g-Whitespace">    </span><span class="mi">701</span><span class="s2"> </span>
+<span class="g g-Whitespace">    </span><span class="mi">702</span><span class="s2">         # Send the request</span>
+<span class="ne">--&gt; </span><span class="mi">703</span><span class="s2">         r = adapter.send(request, **kwargs)</span>
+<span class="g g-Whitespace">    </span><span class="mi">704</span><span class="s2"> </span>
+<span class="g g-Whitespace">    </span><span class="mi">705</span><span class="s2">         # Total elapsed time of the request (approximately)</span>
+
+<span class="nn">/usr/local/lib/python3.10/dist-packages/requests/adapters.py</span> in <span class="ni">send</span><span class="nt">(self, request, stream, timeout, verify, cert, proxies)</span>
+<span class="g g-Whitespace">    </span><span class="mi">665</span><span class="s2"> </span>
+<span class="g g-Whitespace">    </span><span class="mi">666</span><span class="s2">         try:</span>
+<span class="ne">--&gt; </span><span class="mi">667</span><span class="s2">             resp = conn.urlopen(</span>
+<span class="g g-Whitespace">    </span><span class="mi">668</span><span class="s2">                 method=request.method,</span>
+<span class="g g-Whitespace">    </span><span class="mi">669</span><span class="s2">                 url=url,</span>
+
+<span class="nn">/usr/local/lib/python3.10/dist-packages/urllib3/connectionpool.py</span> in <span class="ni">urlopen</span><span class="nt">(self, method, url, body, headers, retries, redirect, assert_same_host, timeout, pool_timeout, release_conn, chunked, body_pos, preload_content, decode_content, **response_kw)</span>
+<span class="g g-Whitespace">    </span><span class="mi">789</span><span class="s2"> </span>
+<span class="g g-Whitespace">    </span><span class="mi">790</span><span class="s2">             # Make the request on the HTTPConnection object</span>
+<span class="ne">--&gt; </span><span class="mi">791</span><span class="s2">             response = self._make_request(</span>
+<span class="g g-Whitespace">    </span><span class="mi">792</span><span class="s2">                 conn,</span>
+<span class="g g-Whitespace">    </span><span class="mi">793</span><span class="s2">                 method,</span>
+
+<span class="nn">/usr/local/lib/python3.10/dist-packages/urllib3/connectionpool.py</span> in <span class="ni">_make_request</span><span class="nt">(self, conn, method, url, body, headers, retries, timeout, chunked, response_conn, preload_content, decode_content, enforce_content_length)</span>
+<span class="g g-Whitespace">    </span><span class="mi">535</span><span class="s2">         # Receive the response from the server</span>
+<span class="g g-Whitespace">    </span><span class="mi">536</span><span class="s2">         try:</span>
+<span class="ne">--&gt; </span><span class="mi">537</span><span class="s2">             response = conn.getresponse()</span>
+<span class="g g-Whitespace">    </span><span class="mi">538</span><span class="s2">         except (BaseSSLError, OSError) as e:</span>
+<span class="g g-Whitespace">    </span><span class="mi">539</span><span class="s2">             self._raise_timeout(err=e, url=url, timeout_value=read_timeout)</span>
+
+<span class="nn">/usr/local/lib/python3.10/dist-packages/urllib3/connection.py</span> in <span class="ni">getresponse</span><span class="nt">(self)</span>
+<span class="g g-Whitespace">    </span><span class="mi">459</span><span class="s2"> </span>
+<span class="g g-Whitespace">    </span><span class="mi">460</span><span class="s2">         # Get the response from http.client.HTTPConnection</span>
+<span class="ne">--&gt; </span><span class="mi">461</span><span class="s2">         httplib_response = super().getresponse()</span>
+<span class="g g-Whitespace">    </span><span class="mi">462</span><span class="s2"> </span>
+<span class="g g-Whitespace">    </span><span class="mi">463</span><span class="s2">         try:</span>
+
+<span class="nn">/usr/lib/python3.10/http/client.py</span> in <span class="ni">getresponse</span><span class="nt">(self)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1373</span><span class="s2">         try:</span>
+<span class="g g-Whitespace">   </span><span class="mi">1374</span><span class="s2">             try:</span>
+<span class="ne">-&gt; </span><span class="mi">1375</span><span class="s2">                 response.begin()</span>
+<span class="g g-Whitespace">   </span><span class="mi">1376</span><span class="s2">             except ConnectionError:</span>
+<span class="g g-Whitespace">   </span><span class="mi">1377</span><span class="s2">                 self.close()</span>
+
+<span class="nn">/usr/lib/python3.10/http/client.py</span> in <span class="ni">begin</span><span class="nt">(self)</span>
+<span class="g g-Whitespace">    </span><span class="mi">316</span><span class="s2">         # read until we get a non-100 response</span>
+<span class="g g-Whitespace">    </span><span class="mi">317</span><span class="s2">         while True:</span>
+<span class="ne">--&gt; </span><span class="mi">318</span><span class="s2">             version, status, reason = self._read_status()</span>
+<span class="g g-Whitespace">    </span><span class="mi">319</span><span class="s2">             if status != CONTINUE:</span>
+<span class="g g-Whitespace">    </span><span class="mi">320</span><span class="s2">                 break</span>
+
+<span class="nn">/usr/lib/python3.10/http/client.py</span> in <span class="ni">_read_status</span><span class="nt">(self)</span>
+<span class="g g-Whitespace">    </span><span class="mi">277</span><span class="s2"> </span>
+<span class="g g-Whitespace">    </span><span class="mi">278</span><span class="s2">     def _read_status(self):</span>
+<span class="ne">--&gt; </span><span class="mi">279</span><span class="s2">         line = str(self.fp.readline(_MAXLINE + 1), &quot;iso-8859-1&quot;)</span>
+<span class="g g-Whitespace">    </span><span class="mi">280</span><span class="s2">         if len(line) &gt; _MAXLINE:</span>
+<span class="g g-Whitespace">    </span><span class="mi">281</span><span class="s2">             raise LineTooLong(&quot;status line&quot;)</span>
+
+<span class="nn">/usr/lib/python3.10/socket.py</span> in <span class="ni">readinto</span><span class="nt">(self, b)</span>
+<span class="g g-Whitespace">    </span><span class="mi">703</span><span class="s2">         while True:</span>
+<span class="g g-Whitespace">    </span><span class="mi">704</span><span class="s2">             try:</span>
+<span class="ne">--&gt; </span><span class="mi">705</span><span class="s2">                 return self._sock.recv_into(b)</span>
+<span class="g g-Whitespace">    </span><span class="mi">706</span><span class="s2">             except timeout:</span>
+<span class="g g-Whitespace">    </span><span class="mi">707</span><span class="s2">                 self._timeout_occurred = True</span>
+
+<span class="nn">/usr/lib/python3.10/ssl.py</span> in <span class="ni">recv_into</span><span class="nt">(self, buffer, nbytes, flags)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1301</span><span class="s2">                   &quot;non-zero flags not allowed in calls to recv_into() on </span><span class="si">%s</span><span class="s2">&quot; %</span>
+<span class="g g-Whitespace">   </span><span class="mi">1302</span><span class="s2">                   self.__class__)</span>
+<span class="ne">-&gt; </span><span class="mi">1303</span><span class="s2">             return self.read(nbytes, buffer)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1304</span><span class="s2">         else:</span>
+<span class="g g-Whitespace">   </span><span class="mi">1305</span><span class="s2">             return super().recv_into(buffer, nbytes, flags)</span>
+
+<span class="nn">/usr/lib/python3.10/ssl.py</span> in <span class="ni">read</span><span class="nt">(self, len, buffer)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1157</span><span class="s2">         try:</span>
+<span class="g g-Whitespace">   </span><span class="mi">1158</span><span class="s2">             if buffer is not None:</span>
+<span class="ne">-&gt; </span><span class="mi">1159</span><span class="s2">                 return self._sslobj.read(len, buffer)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1160</span><span class="s2">             else:</span>
+<span class="g g-Whitespace">   </span><span class="mi">1161</span><span class="s2">                 return self._sslobj.read(len)</span>
+
+<span class="ne">KeyboardInterrupt</span>: 
 </pre></div>
 </div>
 </div>
@@ -535,7 +660,7 @@ document.write(`
 </div>
 <div class="cell_output docutils container">
 <div class="output text_html">
-  <div id="df-e48d9f46-6b9f-49c3-9a4e-bfed79560d33" class="colab-df-container">
+  <div id="df-786da8d5-ce3f-45ec-a85b-731f90e38e61" class="colab-df-container">
     <div>
 <style scoped>
     .dataframe tbody tr th:only-of-type {
@@ -563,37 +688,37 @@ document.write(`
   <tbody>
     <tr>
       <th>0</th>
-      <td>Badan Kurus Tak Berarti Bebas dari Kolesterol ...</td>
-      <td>Kamis, 05 Sep 2024 11:03 WIB</td>
-      <td>Jakarta - Tak sedikit yang beranggapan bahwa o...</td>
+      <td>Dokter Ungkap Gejala Sinusitis Kronis, Dialami...</td>
+      <td>Rabu, 11 Sep 2024 16:30 WIB</td>
+      <td>Jakarta - Ricky Harun baru-baru ini mengungkap...</td>
       <td>Kesehatan</td>
     </tr>
     <tr>
       <th>1</th>
-      <td>Budaya Kerja Toksik di Jepang Picu 54 Karyawan...</td>
-      <td>Kamis, 05 Sep 2024 10:38 WIB</td>
-      <td>Jakarta -\n        \n        Istilah 'bekerja ...</td>
+      <td>Berkaca Kasus Viral Pria China, Ini Saran Dokt...</td>
+      <td>Rabu, 11 Sep 2024 16:04 WIB</td>
+      <td>Daftar Isi\n\n\n\n\r\n\t\t\t\t\t\t\tLantas, bo...</td>
       <td>Kesehatan</td>
     </tr>
     <tr>
       <th>2</th>
-      <td>Menyoal Serangan Jantung yang Dialami Faisal B...</td>
-      <td>Kamis, 05 Sep 2024 10:03 WIB</td>
-      <td>Jakarta - Faisal Basri meninggal dunia. Ekonom...</td>
+      <td>Apa-apa Harus 'BPA Free', Yakin Pasti Aman?</td>
+      <td>Rabu, 11 Sep 2024 15:24 WIB</td>
+      <td>Jakarta - Penggunaan produk dengan label 'BPA ...</td>
       <td>Kesehatan</td>
     </tr>
     <tr>
       <th>3</th>
-      <td>Nyeri Kronis yang Bikin Paus Fransiskus Tak Bi...</td>
-      <td>Kamis, 05 Sep 2024 09:37 WIB</td>
-      <td>Jakarta - Pemimpin tertinggi Gereja Katolik se...</td>
+      <td>Ternyata Otak Perempuan 'Menua' Lebih Cepat Pa...</td>
+      <td>Rabu, 11 Sep 2024 15:00 WIB</td>
+      <td>Jakarta - Otak dari remaja perempuan diketahui...</td>
       <td>Kesehatan</td>
     </tr>
     <tr>
       <th>4</th>
-      <td>Perundungan PPDS Tak Cuma Terjadi di Undip, Be...</td>
-      <td>Kamis, 05 Sep 2024 08:35 WIB</td>
-      <td>Jakarta - Aksi bullying atau perundungan di ma...</td>
+      <td>Profesor IPB Tegaskan 'Susu Ikan' Lebih Tepat ...</td>
+      <td>Rabu, 11 Sep 2024 14:31 WIB</td>
+      <td>Daftar Isi\n\n\n\n\r\n\t\t\t\t\t\t\tBagaimana ...</td>
       <td>Kesehatan</td>
     </tr>
     <tr>
@@ -605,37 +730,37 @@ document.write(`
     </tr>
     <tr>
       <th>95</th>
-      <td>Luhut soal Penginapan dan Mobil untuk Paus yan...</td>
-      <td>Rabu, 04 Sep 2024 05:49 WIB</td>
-      <td>Jakarta - Pemimpin Tertinggi Gereja Katolik Se...</td>
+      <td>Bukannya Membantu, Petugas Bandara Jadi Maling...</td>
+      <td>Selasa, 10 Sep 2024 07:47 WIB</td>
+      <td>Tenerife, Spanyol - Bukannya membantu, sejumla...</td>
       <td>Pariwisata</td>
     </tr>
     <tr>
       <th>96</th>
-      <td>Iwh, Pekerja Speedboat Thailand Pamer BAB ke L...</td>
-      <td>Rabu, 04 Sep 2024 05:01 WIB</td>
-      <td>Jakarta - Warga Thailand dibuat jijik dengan k...</td>
+      <td>Angkasa Pura Indonesia Jadi Operator Bandara T...</td>
+      <td>Selasa, 10 Sep 2024 06:42 WIB</td>
+      <td>Jakarta - Proses merger PT Angkasa Pura (AP) 1...</td>
       <td>Pariwisata</td>
     </tr>
     <tr>
       <th>97</th>
-      <td>Ogah Bayar Layanan, 3 Turis Palestina Keroyok ...</td>
-      <td>Selasa, 03 Sep 2024 21:05 WIB</td>
-      <td>Taba - Seorang staf hotel di Mesir tewas usai ...</td>
+      <td>Hotel Menjadi-jadi di Bali: Pengamat: Moratori...</td>
+      <td>Selasa, 10 Sep 2024 06:01 WIB</td>
+      <td>Jakarta - Bali selatan sudah sangat jenuh deng...</td>
       <td>Pariwisata</td>
     </tr>
     <tr>
       <th>98</th>
-      <td>Licik, Keluarga Taruh Kecoa di Piring Agar Mak...</td>
-      <td>Selasa, 03 Sep 2024 20:37 WIB</td>
-      <td>Jakarta - Keluarga asal Meksiko dituduh melaku...</td>
+      <td>Hotel di Mandalika Mahal Menjelang MotoGP, Ini...</td>
+      <td>Selasa, 10 Sep 2024 05:33 WIB</td>
+      <td>Jakarta - Lombok kembali jadi tuan rumah perge...</td>
       <td>Pariwisata</td>
     </tr>
     <tr>
       <th>99</th>
-      <td>Terulang Lagi, Triatlon Paralimpiade Ditunda g...</td>
-      <td>Selasa, 03 Sep 2024 20:05 WIB</td>
-      <td>Paris - Saat Olimpiade Paris 2024 lalu, kompet...</td>
+      <td>Hampir 100 Persen Warga Kepulauan Seribu Berga...</td>
+      <td>Selasa, 10 Sep 2024 05:10 WIB</td>
+      <td>Jakarta - Jakarta menjadi salah satu provinsi ...</td>
       <td>Pariwisata</td>
     </tr>
   </tbody>
@@ -645,7 +770,7 @@ document.write(`
     <div class="colab-df-buttons">
 
   <div class="colab-df-container">
-    <button class="colab-df-convert" onclick="convertToInteractive('df-e48d9f46-6b9f-49c3-9a4e-bfed79560d33')"
+    <button class="colab-df-convert" onclick="convertToInteractive('df-786da8d5-ce3f-45ec-a85b-731f90e38e61')"
             title="Convert this dataframe to an interactive table."
             style="display:none;">
 
@@ -697,12 +822,12 @@ document.write(`
 
     <script>
       const buttonEl =
-        document.querySelector('#df-e48d9f46-6b9f-49c3-9a4e-bfed79560d33 button.colab-df-convert');
+        document.querySelector('#df-786da8d5-ce3f-45ec-a85b-731f90e38e61 button.colab-df-convert');
       buttonEl.style.display =
         google.colab.kernel.accessAllowed ? 'block' : 'none';
 
       async function convertToInteractive(key) {
-        const element = document.querySelector('#df-e48d9f46-6b9f-49c3-9a4e-bfed79560d33');
+        const element = document.querySelector('#df-786da8d5-ce3f-45ec-a85b-731f90e38e61');
         const dataTable =
           await google.colab.kernel.invokeFunction('convertToInteractive',
                                                     [key], {});
@@ -722,8 +847,8 @@ document.write(`
   </div>
 
 
-<div id="df-7dbad04b-865e-46cb-8cd3-c2751d7186ed">
-  <button class="colab-df-quickchart" onclick="quickchart('df-7dbad04b-865e-46cb-8cd3-c2751d7186ed')"
+<div id="df-268e1462-9aed-404f-8400-06c3ce14507b">
+  <button class="colab-df-quickchart" onclick="quickchart('df-268e1462-9aed-404f-8400-06c3ce14507b')"
             title="Suggest charts"
             style="display:none;">
 
@@ -842,14 +967,14 @@ document.write(`
     }
     (() => {
       let quickchartButtonEl =
-        document.querySelector('#df-7dbad04b-865e-46cb-8cd3-c2751d7186ed button');
+        document.querySelector('#df-268e1462-9aed-404f-8400-06c3ce14507b button');
       quickchartButtonEl.style.display =
         google.colab.kernel.accessAllowed ? 'block' : 'none';
     })();
   </script>
 </div>
 
-  <div id="id_a4162abd-de05-47a3-9956-2612ede799b0">
+  <div id="id_bbcba23a-9a84-43ba-941c-4fa894fd7c2e">
     <style>
       .colab-df-generate {
         background-color: #E8F0FE;
@@ -893,7 +1018,7 @@ document.write(`
     <script>
       (() => {
       const buttonEl =
-        document.querySelector('#id_a4162abd-de05-47a3-9956-2612ede799b0 button.colab-df-generate');
+        document.querySelector('#id_bbcba23a-9a84-43ba-941c-4fa894fd7c2e button.colab-df-generate');
       buttonEl.style.display =
         google.colab.kernel.accessAllowed ? 'block' : 'none';
 
