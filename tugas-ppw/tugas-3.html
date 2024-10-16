@@ -60,6 +60,7 @@
     <script>DOCUMENTATION_OPTIONS.pagename = 'tugas-ppw/tugas-3';</script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Tugas 4 : Centrality" href="Tugas%204.html" />
     <link rel="prev" title="Tugas 2 : Preprocessing &amp; TfIdf" href="tugas-2.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
@@ -183,6 +184,13 @@
 <li class="toctree-l1"><a class="reference internal" href="tugas-2.html">Tugas 2 : Preprocessing  &amp; TfIdf</a></li>
 
 <li class="toctree-l1 current active"><a class="current reference internal" href="#"><strong>Tugas 3 : Modeling &amp; Evaluasi model</strong></a></li>
+
+
+
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="Tugas%204.html"><strong>Tugas 4 : Centrality</strong></a></li>
 
 
 
@@ -420,6 +428,7 @@ document.write(`
 <li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#logistic-regression"><strong>Logistic Regression</strong></a></li>
 <li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#model-evaluation"><strong>Model Evaluation</strong></a></li>
 <li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#test-with-custom-input"><strong>Test With Custom Input</strong></a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#link-streamlit">Link Streamlit</a></li>
 </ul>
 
             </nav>
@@ -445,9 +454,9 @@ document.write(`
 </div>
 <div class="cell_output docutils container">
 <div class="output text_html">
-     <input type="file" id="files-7c79aeaf-448c-4228-888f-7920c9a5153b" name="files[]" multiple disabled
+     <input type="file" id="files-93305a0c-407c-4cde-b5bd-4a0e17a18bc9" name="files[]" multiple disabled
         style="border:none" />
-     <output id="result-7c79aeaf-448c-4228-888f-7920c9a5153b">
+     <output id="result-93305a0c-407c-4cde-b5bd-4a0e17a18bc9">
       Upload widget is only available when the cell has been executed in the
       current browser session. Please rerun this cell to enable.
       </output>
@@ -633,19 +642,19 @@ scope.google.colab._files = {
 <span class="g g-Whitespace">      </span><span class="mi">3</span> <span class="c1"># Upload file  dari komputer</span>
 <span class="ne">----&gt; </span><span class="mi">4</span> <span class="n">uploaded_preprosessing</span> <span class="o">=</span> <span class="n">files</span><span class="o">.</span><span class="n">upload</span><span class="p">()</span>
 
-<span class="nn">/usr/local/lib/python3.10/dist-packages/google/colab/files.py</span> in <span class="ni">upload</span><span class="nt">()</span>
-<span class="g g-Whitespace">     </span><span class="mi">67</span>   <span class="s2">&quot;&quot;&quot;</span>
-<span class="g g-Whitespace">     </span><span class="mi">68</span><span class="s2"> </span>
-<span class="ne">---&gt; </span><span class="mi">69</span><span class="s2">   uploaded_files = _upload_files(multiple=True)</span>
-<span class="g g-Whitespace">     </span><span class="mi">70</span><span class="s2">   # Mapping from original filename to filename as saved locally.</span>
-<span class="g g-Whitespace">     </span><span class="mi">71</span><span class="s2">   local_filenames = dict()</span>
+<span class="nn">/usr/local/lib/python3.10/dist-packages/google/colab/files.py</span> in <span class="ni">upload</span><span class="nt">(target_dir)</span>
+<span class="g g-Whitespace">     </span><span class="mi">70</span>   <span class="s2">&quot;&quot;&quot;</span>
+<span class="g g-Whitespace">     </span><span class="mi">71</span><span class="s2"> </span>
+<span class="ne">---&gt; </span><span class="mi">72</span><span class="s2">   uploaded_files = _upload_files(multiple=True)</span>
+<span class="g g-Whitespace">     </span><span class="mi">73</span><span class="s2">   # Mapping from original filename to filename as saved locally.</span>
+<span class="g g-Whitespace">     </span><span class="mi">74</span><span class="s2">   local_filenames = dict()</span>
 
 <span class="nn">/usr/local/lib/python3.10/dist-packages/google/colab/files.py</span> in <span class="ni">_upload_files</span><span class="nt">(multiple)</span>
-<span class="g g-Whitespace">    </span><span class="mi">154</span><span class="s2"> </span>
-<span class="g g-Whitespace">    </span><span class="mi">155</span><span class="s2">   # First result is always an indication that the file picker has completed.</span>
-<span class="ne">--&gt; </span><span class="mi">156</span><span class="s2">   result = _output.eval_js(</span>
-<span class="g g-Whitespace">    </span><span class="mi">157</span><span class="s2">       &#39;google.colab._files._uploadFiles(&quot;</span><span class="si">{input_id}</span><span class="s2">&quot;, &quot;</span><span class="si">{output_id}</span><span class="s2">&quot;)&#39;.format(</span>
-<span class="g g-Whitespace">    </span><span class="mi">158</span><span class="s2">           input_id=input_id, output_id=output_id</span>
+<span class="g g-Whitespace">    </span><span class="mi">162</span><span class="s2"> </span>
+<span class="g g-Whitespace">    </span><span class="mi">163</span><span class="s2">   # First result is always an indication that the file picker has completed.</span>
+<span class="ne">--&gt; </span><span class="mi">164</span><span class="s2">   result = _output.eval_js(</span>
+<span class="g g-Whitespace">    </span><span class="mi">165</span><span class="s2">       &#39;google.colab._files._uploadFiles(&quot;</span><span class="si">{input_id}</span><span class="s2">&quot;, &quot;</span><span class="si">{output_id}</span><span class="s2">&quot;)&#39;.format(</span>
+<span class="g g-Whitespace">    </span><span class="mi">166</span><span class="s2">           input_id=input_id, output_id=output_id</span>
 
 <span class="nn">/usr/local/lib/python3.10/dist-packages/google/colab/output/_js.py</span> in <span class="ni">eval_js</span><span class="nt">(script, ignore_result, timeout_sec)</span>
 <span class="g g-Whitespace">     </span><span class="mi">38</span><span class="s2">   if ignore_result:</span>
@@ -679,7 +688,7 @@ scope.google.colab._files = {
 </div>
 <div class="cell_output docutils container">
 <div class="output text_html">
-  <div id="df-5a1961bf-c939-4be3-a61d-5fafb61793c0" class="colab-df-container">
+  <div id="df-4f1a2ab4-c2b2-45be-bba5-1c9ddb18cd7f" class="colab-df-container">
     <div>
 <style scoped>
     .dataframe tbody tr th:only-of-type {
@@ -770,7 +779,7 @@ scope.google.colab._files = {
     <div class="colab-df-buttons">
 
   <div class="colab-df-container">
-    <button class="colab-df-convert" onclick="convertToInteractive('df-5a1961bf-c939-4be3-a61d-5fafb61793c0')"
+    <button class="colab-df-convert" onclick="convertToInteractive('df-4f1a2ab4-c2b2-45be-bba5-1c9ddb18cd7f')"
             title="Convert this dataframe to an interactive table."
             style="display:none;">
 
@@ -822,12 +831,12 @@ scope.google.colab._files = {
 
     <script>
       const buttonEl =
-        document.querySelector('#df-5a1961bf-c939-4be3-a61d-5fafb61793c0 button.colab-df-convert');
+        document.querySelector('#df-4f1a2ab4-c2b2-45be-bba5-1c9ddb18cd7f button.colab-df-convert');
       buttonEl.style.display =
         google.colab.kernel.accessAllowed ? 'block' : 'none';
 
       async function convertToInteractive(key) {
-        const element = document.querySelector('#df-5a1961bf-c939-4be3-a61d-5fafb61793c0');
+        const element = document.querySelector('#df-4f1a2ab4-c2b2-45be-bba5-1c9ddb18cd7f');
         const dataTable =
           await google.colab.kernel.invokeFunction('convertToInteractive',
                                                     [key], {});
@@ -847,8 +856,8 @@ scope.google.colab._files = {
   </div>
 
 
-<div id="df-2154903d-68f8-4d8f-a245-7452c1546bc8">
-  <button class="colab-df-quickchart" onclick="quickchart('df-2154903d-68f8-4d8f-a245-7452c1546bc8')"
+<div id="df-07ba70d2-c5cc-4e39-b418-05002563184b">
+  <button class="colab-df-quickchart" onclick="quickchart('df-07ba70d2-c5cc-4e39-b418-05002563184b')"
             title="Suggest charts"
             style="display:none;">
 
@@ -967,7 +976,7 @@ scope.google.colab._files = {
     }
     (() => {
       let quickchartButtonEl =
-        document.querySelector('#df-2154903d-68f8-4d8f-a245-7452c1546bc8 button');
+        document.querySelector('#df-07ba70d2-c5cc-4e39-b418-05002563184b button');
       quickchartButtonEl.style.display =
         google.colab.kernel.accessAllowed ? 'block' : 'none';
     })();
@@ -995,7 +1004,7 @@ scope.google.colab._files = {
 </div>
 <div class="cell_output docutils container">
 <div class="output text_html">
-  <div id="df-2104da61-6c75-4a6e-b6df-56c0d8907df9" class="colab-df-container">
+  <div id="df-e574647c-ae33-401f-90a4-161e36c28cbe" class="colab-df-container">
     <div>
 <style scoped>
     .dataframe tbody tr th:only-of-type {
@@ -1165,7 +1174,7 @@ scope.google.colab._files = {
     <div class="colab-df-buttons">
 
   <div class="colab-df-container">
-    <button class="colab-df-convert" onclick="convertToInteractive('df-2104da61-6c75-4a6e-b6df-56c0d8907df9')"
+    <button class="colab-df-convert" onclick="convertToInteractive('df-e574647c-ae33-401f-90a4-161e36c28cbe')"
             title="Convert this dataframe to an interactive table."
             style="display:none;">
 
@@ -1217,12 +1226,12 @@ scope.google.colab._files = {
 
     <script>
       const buttonEl =
-        document.querySelector('#df-2104da61-6c75-4a6e-b6df-56c0d8907df9 button.colab-df-convert');
+        document.querySelector('#df-e574647c-ae33-401f-90a4-161e36c28cbe button.colab-df-convert');
       buttonEl.style.display =
         google.colab.kernel.accessAllowed ? 'block' : 'none';
 
       async function convertToInteractive(key) {
-        const element = document.querySelector('#df-2104da61-6c75-4a6e-b6df-56c0d8907df9');
+        const element = document.querySelector('#df-e574647c-ae33-401f-90a4-161e36c28cbe');
         const dataTable =
           await google.colab.kernel.invokeFunction('convertToInteractive',
                                                     [key], {});
@@ -1242,8 +1251,8 @@ scope.google.colab._files = {
   </div>
 
 
-<div id="df-1a62da20-5a31-4af7-a788-b96320b9b867">
-  <button class="colab-df-quickchart" onclick="quickchart('df-1a62da20-5a31-4af7-a788-b96320b9b867')"
+<div id="df-b6b6bbf6-b524-4437-b19d-a6834845b32c">
+  <button class="colab-df-quickchart" onclick="quickchart('df-b6b6bbf6-b524-4437-b19d-a6834845b32c')"
             title="Suggest charts"
             style="display:none;">
 
@@ -1362,14 +1371,14 @@ scope.google.colab._files = {
     }
     (() => {
       let quickchartButtonEl =
-        document.querySelector('#df-1a62da20-5a31-4af7-a788-b96320b9b867 button');
+        document.querySelector('#df-b6b6bbf6-b524-4437-b19d-a6834845b32c button');
       quickchartButtonEl.style.display =
         google.colab.kernel.accessAllowed ? 'block' : 'none';
     })();
   </script>
 </div>
 
-  <div id="id_51726488-0d51-4852-b52f-eb659b34902a">
+  <div id="id_11fe0979-1c3b-4e7a-ab1f-6ab4bc13ee24">
     <style>
       .colab-df-generate {
         background-color: #E8F0FE;
@@ -1413,7 +1422,7 @@ scope.google.colab._files = {
     <script>
       (() => {
       const buttonEl =
-        document.querySelector('#id_51726488-0d51-4852-b52f-eb659b34902a button.colab-df-generate');
+        document.querySelector('#id_11fe0979-1c3b-4e7a-ab1f-6ab4bc13ee24 button.colab-df-generate');
       buttonEl.style.display =
         google.colab.kernel.accessAllowed ? 'block' : 'none';
 
@@ -1809,7 +1818,411 @@ TF-IDF untuk data testing:
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_html"><style>#sk-container-id-1 {color: black;}#sk-container-id-1 pre{padding: 0;}#sk-container-id-1 div.sk-toggleable {background-color: white;}#sk-container-id-1 label.sk-toggleable__label {cursor: pointer;display: block;width: 100%;margin-bottom: 0;padding: 0.3em;box-sizing: border-box;text-align: center;}#sk-container-id-1 label.sk-toggleable__label-arrow:before {content: "▸";float: left;margin-right: 0.25em;color: #696969;}#sk-container-id-1 label.sk-toggleable__label-arrow:hover:before {color: black;}#sk-container-id-1 div.sk-estimator:hover label.sk-toggleable__label-arrow:before {color: black;}#sk-container-id-1 div.sk-toggleable__content {max-height: 0;max-width: 0;overflow: hidden;text-align: left;background-color: #f0f8ff;}#sk-container-id-1 div.sk-toggleable__content pre {margin: 0.2em;color: black;border-radius: 0.25em;background-color: #f0f8ff;}#sk-container-id-1 input.sk-toggleable__control:checked~div.sk-toggleable__content {max-height: 200px;max-width: 100%;overflow: auto;}#sk-container-id-1 input.sk-toggleable__control:checked~label.sk-toggleable__label-arrow:before {content: "▾";}#sk-container-id-1 div.sk-estimator input.sk-toggleable__control:checked~label.sk-toggleable__label {background-color: #d4ebff;}#sk-container-id-1 div.sk-label input.sk-toggleable__control:checked~label.sk-toggleable__label {background-color: #d4ebff;}#sk-container-id-1 input.sk-hidden--visually {border: 0;clip: rect(1px 1px 1px 1px);clip: rect(1px, 1px, 1px, 1px);height: 1px;margin: -1px;overflow: hidden;padding: 0;position: absolute;width: 1px;}#sk-container-id-1 div.sk-estimator {font-family: monospace;background-color: #f0f8ff;border: 1px dotted black;border-radius: 0.25em;box-sizing: border-box;margin-bottom: 0.5em;}#sk-container-id-1 div.sk-estimator:hover {background-color: #d4ebff;}#sk-container-id-1 div.sk-parallel-item::after {content: "";width: 100%;border-bottom: 1px solid gray;flex-grow: 1;}#sk-container-id-1 div.sk-label:hover label.sk-toggleable__label {background-color: #d4ebff;}#sk-container-id-1 div.sk-serial::before {content: "";position: absolute;border-left: 1px solid gray;box-sizing: border-box;top: 0;bottom: 0;left: 50%;z-index: 0;}#sk-container-id-1 div.sk-serial {display: flex;flex-direction: column;align-items: center;background-color: white;padding-right: 0.2em;padding-left: 0.2em;position: relative;}#sk-container-id-1 div.sk-item {position: relative;z-index: 1;}#sk-container-id-1 div.sk-parallel {display: flex;align-items: stretch;justify-content: center;background-color: white;position: relative;}#sk-container-id-1 div.sk-item::before, #sk-container-id-1 div.sk-parallel-item::before {content: "";position: absolute;border-left: 1px solid gray;box-sizing: border-box;top: 0;bottom: 0;left: 50%;z-index: -1;}#sk-container-id-1 div.sk-parallel-item {display: flex;flex-direction: column;z-index: 1;position: relative;background-color: white;}#sk-container-id-1 div.sk-parallel-item:first-child::after {align-self: flex-end;width: 50%;}#sk-container-id-1 div.sk-parallel-item:last-child::after {align-self: flex-start;width: 50%;}#sk-container-id-1 div.sk-parallel-item:only-child::after {width: 0;}#sk-container-id-1 div.sk-dashed-wrapped {border: 1px dashed gray;margin: 0 0.4em 0.5em 0.4em;box-sizing: border-box;padding-bottom: 0.4em;background-color: white;}#sk-container-id-1 div.sk-label label {font-family: monospace;font-weight: bold;display: inline-block;line-height: 1.2em;}#sk-container-id-1 div.sk-label-container {text-align: center;}#sk-container-id-1 div.sk-container {/* jupyter's `normalize.less` sets `[hidden] { display: none; }` but bootstrap.min.css set `[hidden] { display: none !important; }` so we also need the `!important` here to be able to override the default hidden behavior on the sphinx rendered scikit-learn.org. See: https://github.com/scikit-learn/scikit-learn/issues/21755 */display: inline-block !important;position: relative;}#sk-container-id-1 div.sk-text-repr-fallback {display: none;}</style><div id="sk-container-id-1" class="sk-top-container"><div class="sk-text-repr-fallback"><pre>LogisticRegression()</pre><b>In a Jupyter environment, please rerun this cell to show the HTML representation or trust the notebook. <br />On GitHub, the HTML representation is unable to render, please try loading this page with nbviewer.org.</b></div><div class="sk-container" hidden><div class="sk-item"><div class="sk-estimator sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-1" type="checkbox" checked><label for="sk-estimator-id-1" class="sk-toggleable__label sk-toggleable__label-arrow">LogisticRegression</label><div class="sk-toggleable__content"><pre>LogisticRegression()</pre></div></div></div></div></div></div></div>
+<div class="output text_html"><style>#sk-container-id-1 {
+  /* Definition of color scheme common for light and dark mode */
+  --sklearn-color-text: black;
+  --sklearn-color-line: gray;
+  /* Definition of color scheme for unfitted estimators */
+  --sklearn-color-unfitted-level-0: #fff5e6;
+  --sklearn-color-unfitted-level-1: #f6e4d2;
+  --sklearn-color-unfitted-level-2: #ffe0b3;
+  --sklearn-color-unfitted-level-3: chocolate;
+  /* Definition of color scheme for fitted estimators */
+  --sklearn-color-fitted-level-0: #f0f8ff;
+  --sklearn-color-fitted-level-1: #d4ebff;
+  --sklearn-color-fitted-level-2: #b3dbfd;
+  --sklearn-color-fitted-level-3: cornflowerblue;
+
+  /* Specific color for light theme */
+  --sklearn-color-text-on-default-background: var(--sg-text-color, var(--theme-code-foreground, var(--jp-content-font-color1, black)));
+  --sklearn-color-background: var(--sg-background-color, var(--theme-background, var(--jp-layout-color0, white)));
+  --sklearn-color-border-box: var(--sg-text-color, var(--theme-code-foreground, var(--jp-content-font-color1, black)));
+  --sklearn-color-icon: #696969;
+
+  @media (prefers-color-scheme: dark) {
+    /* Redefinition of color scheme for dark theme */
+    --sklearn-color-text-on-default-background: var(--sg-text-color, var(--theme-code-foreground, var(--jp-content-font-color1, white)));
+    --sklearn-color-background: var(--sg-background-color, var(--theme-background, var(--jp-layout-color0, #111)));
+    --sklearn-color-border-box: var(--sg-text-color, var(--theme-code-foreground, var(--jp-content-font-color1, white)));
+    --sklearn-color-icon: #878787;
+  }
+}
+
+#sk-container-id-1 {
+  color: var(--sklearn-color-text);
+}
+
+#sk-container-id-1 pre {
+  padding: 0;
+}
+
+#sk-container-id-1 input.sk-hidden--visually {
+  border: 0;
+  clip: rect(1px 1px 1px 1px);
+  clip: rect(1px, 1px, 1px, 1px);
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  padding: 0;
+  position: absolute;
+  width: 1px;
+}
+
+#sk-container-id-1 div.sk-dashed-wrapped {
+  border: 1px dashed var(--sklearn-color-line);
+  margin: 0 0.4em 0.5em 0.4em;
+  box-sizing: border-box;
+  padding-bottom: 0.4em;
+  background-color: var(--sklearn-color-background);
+}
+
+#sk-container-id-1 div.sk-container {
+  /* jupyter's `normalize.less` sets `[hidden] { display: none; }`
+     but bootstrap.min.css set `[hidden] { display: none !important; }`
+     so we also need the `!important` here to be able to override the
+     default hidden behavior on the sphinx rendered scikit-learn.org.
+     See: https://github.com/scikit-learn/scikit-learn/issues/21755 */
+  display: inline-block !important;
+  position: relative;
+}
+
+#sk-container-id-1 div.sk-text-repr-fallback {
+  display: none;
+}
+
+div.sk-parallel-item,
+div.sk-serial,
+div.sk-item {
+  /* draw centered vertical line to link estimators */
+  background-image: linear-gradient(var(--sklearn-color-text-on-default-background), var(--sklearn-color-text-on-default-background));
+  background-size: 2px 100%;
+  background-repeat: no-repeat;
+  background-position: center center;
+}
+
+/* Parallel-specific style estimator block */
+
+#sk-container-id-1 div.sk-parallel-item::after {
+  content: "";
+  width: 100%;
+  border-bottom: 2px solid var(--sklearn-color-text-on-default-background);
+  flex-grow: 1;
+}
+
+#sk-container-id-1 div.sk-parallel {
+  display: flex;
+  align-items: stretch;
+  justify-content: center;
+  background-color: var(--sklearn-color-background);
+  position: relative;
+}
+
+#sk-container-id-1 div.sk-parallel-item {
+  display: flex;
+  flex-direction: column;
+}
+
+#sk-container-id-1 div.sk-parallel-item:first-child::after {
+  align-self: flex-end;
+  width: 50%;
+}
+
+#sk-container-id-1 div.sk-parallel-item:last-child::after {
+  align-self: flex-start;
+  width: 50%;
+}
+
+#sk-container-id-1 div.sk-parallel-item:only-child::after {
+  width: 0;
+}
+
+/* Serial-specific style estimator block */
+
+#sk-container-id-1 div.sk-serial {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: var(--sklearn-color-background);
+  padding-right: 1em;
+  padding-left: 1em;
+}
+
+
+/* Toggleable style: style used for estimator/Pipeline/ColumnTransformer box that is
+clickable and can be expanded/collapsed.
+- Pipeline and ColumnTransformer use this feature and define the default style
+- Estimators will overwrite some part of the style using the `sk-estimator` class
+*/
+
+/* Pipeline and ColumnTransformer style (default) */
+
+#sk-container-id-1 div.sk-toggleable {
+  /* Default theme specific background. It is overwritten whether we have a
+  specific estimator or a Pipeline/ColumnTransformer */
+  background-color: var(--sklearn-color-background);
+}
+
+/* Toggleable label */
+#sk-container-id-1 label.sk-toggleable__label {
+  cursor: pointer;
+  display: block;
+  width: 100%;
+  margin-bottom: 0;
+  padding: 0.5em;
+  box-sizing: border-box;
+  text-align: center;
+}
+
+#sk-container-id-1 label.sk-toggleable__label-arrow:before {
+  /* Arrow on the left of the label */
+  content: "▸";
+  float: left;
+  margin-right: 0.25em;
+  color: var(--sklearn-color-icon);
+}
+
+#sk-container-id-1 label.sk-toggleable__label-arrow:hover:before {
+  color: var(--sklearn-color-text);
+}
+
+/* Toggleable content - dropdown */
+
+#sk-container-id-1 div.sk-toggleable__content {
+  max-height: 0;
+  max-width: 0;
+  overflow: hidden;
+  text-align: left;
+  /* unfitted */
+  background-color: var(--sklearn-color-unfitted-level-0);
+}
+
+#sk-container-id-1 div.sk-toggleable__content.fitted {
+  /* fitted */
+  background-color: var(--sklearn-color-fitted-level-0);
+}
+
+#sk-container-id-1 div.sk-toggleable__content pre {
+  margin: 0.2em;
+  border-radius: 0.25em;
+  color: var(--sklearn-color-text);
+  /* unfitted */
+  background-color: var(--sklearn-color-unfitted-level-0);
+}
+
+#sk-container-id-1 div.sk-toggleable__content.fitted pre {
+  /* unfitted */
+  background-color: var(--sklearn-color-fitted-level-0);
+}
+
+#sk-container-id-1 input.sk-toggleable__control:checked~div.sk-toggleable__content {
+  /* Expand drop-down */
+  max-height: 200px;
+  max-width: 100%;
+  overflow: auto;
+}
+
+#sk-container-id-1 input.sk-toggleable__control:checked~label.sk-toggleable__label-arrow:before {
+  content: "▾";
+}
+
+/* Pipeline/ColumnTransformer-specific style */
+
+#sk-container-id-1 div.sk-label input.sk-toggleable__control:checked~label.sk-toggleable__label {
+  color: var(--sklearn-color-text);
+  background-color: var(--sklearn-color-unfitted-level-2);
+}
+
+#sk-container-id-1 div.sk-label.fitted input.sk-toggleable__control:checked~label.sk-toggleable__label {
+  background-color: var(--sklearn-color-fitted-level-2);
+}
+
+/* Estimator-specific style */
+
+/* Colorize estimator box */
+#sk-container-id-1 div.sk-estimator input.sk-toggleable__control:checked~label.sk-toggleable__label {
+  /* unfitted */
+  background-color: var(--sklearn-color-unfitted-level-2);
+}
+
+#sk-container-id-1 div.sk-estimator.fitted input.sk-toggleable__control:checked~label.sk-toggleable__label {
+  /* fitted */
+  background-color: var(--sklearn-color-fitted-level-2);
+}
+
+#sk-container-id-1 div.sk-label label.sk-toggleable__label,
+#sk-container-id-1 div.sk-label label {
+  /* The background is the default theme color */
+  color: var(--sklearn-color-text-on-default-background);
+}
+
+/* On hover, darken the color of the background */
+#sk-container-id-1 div.sk-label:hover label.sk-toggleable__label {
+  color: var(--sklearn-color-text);
+  background-color: var(--sklearn-color-unfitted-level-2);
+}
+
+/* Label box, darken color on hover, fitted */
+#sk-container-id-1 div.sk-label.fitted:hover label.sk-toggleable__label.fitted {
+  color: var(--sklearn-color-text);
+  background-color: var(--sklearn-color-fitted-level-2);
+}
+
+/* Estimator label */
+
+#sk-container-id-1 div.sk-label label {
+  font-family: monospace;
+  font-weight: bold;
+  display: inline-block;
+  line-height: 1.2em;
+}
+
+#sk-container-id-1 div.sk-label-container {
+  text-align: center;
+}
+
+/* Estimator-specific */
+#sk-container-id-1 div.sk-estimator {
+  font-family: monospace;
+  border: 1px dotted var(--sklearn-color-border-box);
+  border-radius: 0.25em;
+  box-sizing: border-box;
+  margin-bottom: 0.5em;
+  /* unfitted */
+  background-color: var(--sklearn-color-unfitted-level-0);
+}
+
+#sk-container-id-1 div.sk-estimator.fitted {
+  /* fitted */
+  background-color: var(--sklearn-color-fitted-level-0);
+}
+
+/* on hover */
+#sk-container-id-1 div.sk-estimator:hover {
+  /* unfitted */
+  background-color: var(--sklearn-color-unfitted-level-2);
+}
+
+#sk-container-id-1 div.sk-estimator.fitted:hover {
+  /* fitted */
+  background-color: var(--sklearn-color-fitted-level-2);
+}
+
+/* Specification for estimator info (e.g. "i" and "?") */
+
+/* Common style for "i" and "?" */
+
+.sk-estimator-doc-link,
+a:link.sk-estimator-doc-link,
+a:visited.sk-estimator-doc-link {
+  float: right;
+  font-size: smaller;
+  line-height: 1em;
+  font-family: monospace;
+  background-color: var(--sklearn-color-background);
+  border-radius: 1em;
+  height: 1em;
+  width: 1em;
+  text-decoration: none !important;
+  margin-left: 1ex;
+  /* unfitted */
+  border: var(--sklearn-color-unfitted-level-1) 1pt solid;
+  color: var(--sklearn-color-unfitted-level-1);
+}
+
+.sk-estimator-doc-link.fitted,
+a:link.sk-estimator-doc-link.fitted,
+a:visited.sk-estimator-doc-link.fitted {
+  /* fitted */
+  border: var(--sklearn-color-fitted-level-1) 1pt solid;
+  color: var(--sklearn-color-fitted-level-1);
+}
+
+/* On hover */
+div.sk-estimator:hover .sk-estimator-doc-link:hover,
+.sk-estimator-doc-link:hover,
+div.sk-label-container:hover .sk-estimator-doc-link:hover,
+.sk-estimator-doc-link:hover {
+  /* unfitted */
+  background-color: var(--sklearn-color-unfitted-level-3);
+  color: var(--sklearn-color-background);
+  text-decoration: none;
+}
+
+div.sk-estimator.fitted:hover .sk-estimator-doc-link.fitted:hover,
+.sk-estimator-doc-link.fitted:hover,
+div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
+.sk-estimator-doc-link.fitted:hover {
+  /* fitted */
+  background-color: var(--sklearn-color-fitted-level-3);
+  color: var(--sklearn-color-background);
+  text-decoration: none;
+}
+
+/* Span, style for the box shown on hovering the info icon */
+.sk-estimator-doc-link span {
+  display: none;
+  z-index: 9999;
+  position: relative;
+  font-weight: normal;
+  right: .2ex;
+  padding: .5ex;
+  margin: .5ex;
+  width: min-content;
+  min-width: 20ex;
+  max-width: 50ex;
+  color: var(--sklearn-color-text);
+  box-shadow: 2pt 2pt 4pt #999;
+  /* unfitted */
+  background: var(--sklearn-color-unfitted-level-0);
+  border: .5pt solid var(--sklearn-color-unfitted-level-3);
+}
+
+.sk-estimator-doc-link.fitted span {
+  /* fitted */
+  background: var(--sklearn-color-fitted-level-0);
+  border: var(--sklearn-color-fitted-level-3);
+}
+
+.sk-estimator-doc-link:hover span {
+  display: block;
+}
+
+/* "?"-specific style due to the `<a>` HTML tag */
+
+#sk-container-id-1 a.estimator_doc_link {
+  float: right;
+  font-size: 1rem;
+  line-height: 1em;
+  font-family: monospace;
+  background-color: var(--sklearn-color-background);
+  border-radius: 1rem;
+  height: 1rem;
+  width: 1rem;
+  text-decoration: none;
+  /* unfitted */
+  color: var(--sklearn-color-unfitted-level-1);
+  border: var(--sklearn-color-unfitted-level-1) 1pt solid;
+}
+
+#sk-container-id-1 a.estimator_doc_link.fitted {
+  /* fitted */
+  border: var(--sklearn-color-fitted-level-1) 1pt solid;
+  color: var(--sklearn-color-fitted-level-1);
+}
+
+/* On hover */
+#sk-container-id-1 a.estimator_doc_link:hover {
+  /* unfitted */
+  background-color: var(--sklearn-color-unfitted-level-3);
+  color: var(--sklearn-color-background);
+  text-decoration: none;
+}
+
+#sk-container-id-1 a.estimator_doc_link.fitted:hover {
+  /* fitted */
+  background-color: var(--sklearn-color-fitted-level-3);
+}
+</style><div id="sk-container-id-1" class="sk-top-container"><div class="sk-text-repr-fallback"><pre>LogisticRegression()</pre><b>In a Jupyter environment, please rerun this cell to show the HTML representation or trust the notebook. <br />On GitHub, the HTML representation is unable to render, please try loading this page with nbviewer.org.</b></div><div class="sk-container" hidden><div class="sk-item"><div class="sk-estimator fitted sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-1" type="checkbox" checked><label for="sk-estimator-id-1" class="sk-toggleable__label fitted sk-toggleable__label-arrow fitted">&nbsp;&nbsp;LogisticRegression<a class="sk-estimator-doc-link fitted" rel="noreferrer" target="_blank" href="https://scikit-learn.org/1.5/modules/generated/sklearn.linear_model.LogisticRegression.html">?<span>Documentation for LogisticRegression</span></a><span class="sk-estimator-doc-link fitted">i<span>Fitted</span></span></label><div class="sk-toggleable__content fitted"><pre>LogisticRegression()</pre></div> </div></div></div></div></div></div>
 </div>
 </section>
 <section class="tex2jax_ignore mathjax_ignore" id="model-evaluation">
@@ -1886,7 +2299,7 @@ weighted avg       0.96      0.95      0.95        20
 </div>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>teks 1: [&#39;Pulau Komodo, yang terletak di Kepulauan Nusa Tenggara Timur, Indonesia, adalah salah satu destinasi pariwisata terbaik di dunia.\nPulau ini terkenal sebagai rumah bagi Komodo, kadal terbesar di dunia, yang menjadi daya tarik utama bagi wisatawan lokal maupun mancanegaraSelain Komodo, keindahan alam di sekitar Pulau Komodo juga luar biasa. Pantai berpasir merah muda atau Pink Beach menawarkan pemandangan yang memukau, dengan air laut yang jernih dan terumbu karang yang masih sangat terjaga. Para penyelam dan snorkeler sering mengunjungi kawasan ini untuk menikmati kekayaan bawah lautnya, termasuk berbagai spesies ikan dan koral yang berwarna-warni.&#39;]
-teks 2: [&#39;Kesehatan masyarakat perlu diperhatikan dengan baik. Dalam beberapa tahun terakhir, kita telah menyaksikan peningkatan yang signifikan dalam kesadaran akan pentingnya kesehatan. Berbagai program pemerintah dan organisasi non-pemerintah telah digulirkan untuk meningkatkan kualitas hidup masyarakat. \n\n    Salah satu inisiatif utama adalah kampanye untuk mendorong masyarakat menjaga pola makan sehat dan rutin berolahraga. Dengan gaya hidup yang semakin modern, banyak orang yang cenderung mengabaikan kesehatan mereka demi kesibukan sehari-hari. Oleh karena itu, penting untuk kembali mengingatkan pentingnya gaya hidup sehat.\n\n    Selain itu, akses terhadap layanan kesehatan juga harus menjadi perhatian. Banyak daerah, terutama di pedesaan, masih kesulitan mendapatkan layanan kesehatan yang memadai. Pemerintah bersama dengan sektor swasta perlu bekerja sama untuk memastikan bahwa setiap warga negara, tanpa memandang lokasi, dapat mengakses layanan kesehatan yang berkualitas.\n\n    Tak kalah pentingnya, edukasi mengenai penyakit menular seperti COVID-19 juga harus terus dilakukan. Dengan pengetahuan yang tepat, masyarakat diharapkan bisa lebih siap dan waspada terhadap berbagai penyakit yang bisa menyerang.\n\n    Dengan kolaborasi yang baik antara pemerintah, masyarakat, dan pihak terkait lainnya, kita dapat menciptakan lingkungan yang lebih sehat dan meningkatkan kualitas hidup masyarakat secara keseluruhan. Mari kita jaga kesehatan kita, karena kesehatan adalah aset paling berharga dalam hidup.&#39;]
+teks 2: [&#39;Kesehatan masyarakat perlu diperhatikan dengan baik. Dalam beberapa tahun terakhir, kita telah menyaksikan peningkatan yang signifikan dalam kesadaran akan pentingnya kesehatan. Berbagai program pemerintah dan organisasi non-pemerintah telah digulirkan untuk meningkatkan kualitas hidup masyarakat.\n\n    Salah satu inisiatif utama adalah kampanye untuk mendorong masyarakat menjaga pola makan sehat dan rutin berolahraga. Dengan gaya hidup yang semakin modern, banyak orang yang cenderung mengabaikan kesehatan mereka demi kesibukan sehari-hari. Oleh karena itu, penting untuk kembali mengingatkan pentingnya gaya hidup sehat.\n\n    Selain itu, akses terhadap layanan kesehatan juga harus menjadi perhatian. Banyak daerah, terutama di pedesaan, masih kesulitan mendapatkan layanan kesehatan yang memadai. Pemerintah bersama dengan sektor swasta perlu bekerja sama untuk memastikan bahwa setiap warga negara, tanpa memandang lokasi, dapat mengakses layanan kesehatan yang berkualitas.\n\n    Tak kalah pentingnya, edukasi mengenai penyakit menular seperti COVID-19 juga harus terus dilakukan. Dengan pengetahuan yang tepat, masyarakat diharapkan bisa lebih siap dan waspada terhadap berbagai penyakit yang bisa menyerang.\n\n    Dengan kolaborasi yang baik antara pemerintah, masyarakat, dan pihak terkait lainnya, kita dapat menciptakan lingkungan yang lebih sehat dan meningkatkan kualitas hidup masyarakat secara keseluruhan. Mari kita jaga kesehatan kita, karena kesehatan adalah aset paling berharga dalam hidup.&#39;]
 </pre></div>
 </div>
 </div>
@@ -2034,6 +2447,10 @@ Hasil prediksi kategori untuk new_text_2: Kesehatan
 </div>
 </div>
 </section>
+<section class="tex2jax_ignore mathjax_ignore" id="link-streamlit">
+<h1>Link Streamlit<a class="headerlink" href="#link-streamlit" title="Link to this heading">#</a></h1>
+<p><a class="reference external" href="https://tugas1-logisticregression.streamlit.app/">https://tugas1-logisticregression.streamlit.app/</a></p>
+</section>
 
     <script type="text/x-thebe-config">
     {
@@ -2074,6 +2491,15 @@ Hasil prediksi kategori untuk new_text_2: Kesehatan
         <p class="prev-next-title">Tugas 2 : Preprocessing  &amp; TfIdf</p>
       </div>
     </a>
+    <a class="right-next"
+       href="Tugas%204.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title"><strong>Tugas 4 : Centrality</strong></p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
 </div>
                 </footer>
               
@@ -2096,6 +2522,7 @@ Hasil prediksi kategori untuk new_text_2: Kesehatan
 <li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#logistic-regression"><strong>Logistic Regression</strong></a></li>
 <li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#model-evaluation"><strong>Model Evaluation</strong></a></li>
 <li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#test-with-custom-input"><strong>Test With Custom Input</strong></a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#link-streamlit">Link Streamlit</a></li>
 </ul>
 
   </nav></div>
