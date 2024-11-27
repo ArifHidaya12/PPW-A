@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Tugas 4 : Centrality &#8212; My sample book</title>
+    <title>Tugas 4 : Centrality Rangkuman berita &#8212; My sample book</title>
   
   
   
@@ -16,17 +16,19 @@
     document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
     document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
   </script>
+  <!-- 
+    this give us a css class that will be invisible only if js is disabled 
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
-<link href="../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
-<link href="../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
-
-  
-  <link href="../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
-  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+  <link href="../_static/styles/theme.css?digest=26a4bc78f4c0ddb94549" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=26a4bc78f4c0ddb94549" rel="stylesheet" />
 
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=a3416100" />
@@ -36,10 +38,11 @@
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
   
+  <!-- So that users can add custom icons -->
+  <script src="../_static/scripts/fontawesome.js?digest=26a4bc78f4c0ddb94549"></script>
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
-<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
-  <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=26a4bc78f4c0ddb94549" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=26a4bc78f4c0ddb94549" />
 
     <script src="../_static/documentation_options.js?v=9eb32ce0"></script>
     <script src="../_static/doctools.js?v=9a2dae69"></script>
@@ -60,9 +63,11 @@
     <script>DOCUMENTATION_OPTIONS.pagename = 'tugas-ppw/Tugas 4';</script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Tugas 5 : Query kalimat dengan cosin &amp; Klasifikasi dengan SVD" href="Tugas%205.html" />
     <link rel="prev" title="Tugas 3 : Modeling &amp; Evaluasi model" href="tugas-3.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
   </head>
   
   
@@ -78,19 +83,8 @@
     <i class="fa-solid fa-arrow-up"></i>Back to top</button>
 
   
-  <input type="checkbox"
-          class="sidebar-toggle"
-          id="pst-primary-sidebar-checkbox"/>
-  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
-  
-  <input type="checkbox"
-          class="sidebar-toggle"
-          id="pst-secondary-sidebar-checkbox"/>
-  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
-  
-  <div class="search-button__wrapper">
-    <div class="search-button__overlay"></div>
-    <div class="search-button__search-container">
+  <dialog id="pst-search-dialog">
+    
 <form class="bd-search d-flex align-items-center"
       action="../search.html"
       method="get">
@@ -98,7 +92,6 @@
   <input type="search"
          class="form-control"
          name="q"
-         id="search-input"
          placeholder="Search this book..."
          aria-label="Search this book..."
          autocomplete="off"
@@ -106,8 +99,8 @@
          autocapitalize="off"
          spellcheck="false"/>
   <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
-</form></div>
-  </div>
+</form>
+  </dialog>
 
   <div class="pst-async-banner-revealer d-none">
   <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
@@ -123,7 +116,8 @@
       
       
       
-      <div class="bd-sidebar-primary bd-sidebar">
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
         
 
   
@@ -153,21 +147,17 @@
     
     
     <img src="../_static/Potopendat.jpeg" class="logo__image only-light" alt="My sample book - Home"/>
-    <script>document.write(`<img src="../_static/Potopendat.jpeg" class="logo__image only-dark" alt="My sample book - Home"/>`);</script>
+    <img src="../_static/Potopendat.jpeg" class="logo__image only-dark pst-js-only" alt="My sample book - Home"/>
   
   
 </a></div>
         <div class="sidebar-primary-item">
 
- <script>
- document.write(`
-   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <i class="fa-solid fa-magnifying-glass"></i>
-    <span class="search-button__default-text">Search</span>
-    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
-   </button>
- `);
- </script></div>
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button></div>
         <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
     <div class="bd-toc-item navbar-nav active">
         
@@ -189,11 +179,17 @@
 
 
 
-<li class="toctree-l1 current active"><a class="current reference internal" href="#"><strong>Tugas 4 : Centrality</strong></a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#"><strong>Tugas 4 : Centrality Rangkuman berita</strong></a></li>
 
 
 
 
+
+<li class="toctree-l1"><a class="reference internal" href="Tugas%205.html">Tugas 5 : Query kalimat dengan cosin &amp; Klasifikasi dengan SVD</a></li>
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="Tugas%206.html">Test fuzzy c-means 1 tanpa svd</a></li>
 
 </ul>
 
@@ -380,24 +376,16 @@
 
 
 
-<script>
-document.write(`
-  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
-    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
-    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
-  </button>
-`);
-</script>
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button>
 
 
-<script>
-document.write(`
-  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
     <i class="fa-solid fa-magnifying-glass fa-lg"></i>
-  </button>
-`);
-</script>
+</button>
 <button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
     <span class="fa-solid fa-list"></span>
 </button>
@@ -411,7 +399,7 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>Tugas 4 : Centrality</h1>
+    <h1>Tugas 4 : Centrality Rangkuman berita</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -421,7 +409,7 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#"><strong>Tugas 4 : Centrality</strong></a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#"><strong>Tugas 4 : Centrality Rangkuman berita</strong></a></li>
 <li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#ke-1-hubungan-antar-2-berita">Ke 1 : Hubungan antar 2 berita</a></li>
 <li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#ke-2-1-berita-menjadi-beberapa-kalimat-berdasarkan-tanda-titik">Ke 2 : 1 berita menjadi beberapa kalimat berdasarkan tanda titik</a></li>
 <li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#ke-3-fitur-extraction-dari-semua-dokumen">Ke 3 : Fitur extraction dari semua dokumen</a></li>
@@ -439,8 +427,8 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="tugas-4-centrality">
-<h1><strong>Tugas 4 : Centrality</strong><a class="headerlink" href="#tugas-4-centrality" title="Link to this heading">#</a></h1>
+  <section class="tex2jax_ignore mathjax_ignore" id="tugas-4-centrality-rangkuman-berita">
+<h1><strong>Tugas 4 : Centrality Rangkuman berita</strong><a class="headerlink" href="#tugas-4-centrality-rangkuman-berita" title="Link to this heading">#</a></h1>
 </section>
 <section class="tex2jax_ignore mathjax_ignore" id="ke-1-hubungan-antar-2-berita">
 <h1>Ke 1 : Hubungan antar 2 berita<a class="headerlink" href="#ke-1-hubungan-antar-2-berita" title="Link to this heading">#</a></h1>
@@ -455,9 +443,9 @@ document.write(`
 </div>
 <div class="cell_output docutils container">
 <div class="output text_html">
-     <input type="file" id="files-104af59b-12f3-450d-a060-d30633d437e3" name="files[]" multiple disabled
+     <input type="file" id="files-e01a1f80-8026-4e51-9933-ded989b5e25a" name="files[]" multiple disabled
         style="border:none" />
-     <output id="result-104af59b-12f3-450d-a060-d30633d437e3">
+     <output id="result-e01a1f80-8026-4e51-9933-ded989b5e25a">
       Upload widget is only available when the cell has been executed in the
       current browser session. Please rerun this cell to enable.
       </output>
@@ -1271,9 +1259,9 @@ Betweenness Centrality:
 </div>
 <div class="cell_output docutils container">
 <div class="output text_html">
-     <input type="file" id="files-e77688ae-e4c1-4e98-9bfb-e0641b877a42" name="files[]" multiple disabled
+     <input type="file" id="files-38e29092-f645-44c0-aa90-dfe03cc078cf" name="files[]" multiple disabled
         style="border:none" />
-     <output id="result-e77688ae-e4c1-4e98-9bfb-e0641b877a42">
+     <output id="result-38e29092-f645-44c0-aa90-dfe03cc078cf">
       Upload widget is only available when the cell has been executed in the
       current browser session. Please rerun this cell to enable.
       </output>
@@ -1452,7 +1440,7 @@ scope.google.colab._files = {
   _uploadFilesContinue,
 };
 })(self);
-</script> </div><div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Saving data 1 berita.csv to data 1 berita (1).csv
+</script> </div><div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Saving data 1 berita.csv to data 1 berita.csv
 </pre></div>
 </div>
 </div>
@@ -1463,14 +1451,14 @@ scope.google.colab._files = {
 <span class="kn">import</span> <span class="nn">io</span>
 
 <span class="c1"># Membaca file CSV yang diunggah dan menyimpannya ke dalam DataFrame dengan variabel df_trans</span>
-<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">io</span><span class="o">.</span><span class="n">BytesIO</span><span class="p">(</span><span class="n">uploaded_preprosessing</span><span class="p">[</span><span class="s1">&#39;data 1 berita (1).csv&#39;</span><span class="p">]))</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">io</span><span class="o">.</span><span class="n">BytesIO</span><span class="p">(</span><span class="n">uploaded_preprosessing</span><span class="p">[</span><span class="s1">&#39;data 1 berita.csv&#39;</span><span class="p">]))</span>
 <span class="n">df</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span> <span class="c1"># Menampilkan 5 baris pertama dari DataFrame</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
 <div class="output text_html">
-  <div id="df-a10374a4-ec79-4e3b-90f7-86b68e146ad4" class="colab-df-container">
+  <div id="df-25ed7b7d-eb5b-4735-96f6-6a6c884e3409" class="colab-df-container">
     <div>
 <style scoped>
     .dataframe tbody tr th:only-of-type {
@@ -1519,7 +1507,7 @@ scope.google.colab._files = {
     <div class="colab-df-buttons">
 
   <div class="colab-df-container">
-    <button class="colab-df-convert" onclick="convertToInteractive('df-a10374a4-ec79-4e3b-90f7-86b68e146ad4')"
+    <button class="colab-df-convert" onclick="convertToInteractive('df-25ed7b7d-eb5b-4735-96f6-6a6c884e3409')"
             title="Convert this dataframe to an interactive table."
             style="display:none;">
 
@@ -1571,12 +1559,12 @@ scope.google.colab._files = {
 
     <script>
       const buttonEl =
-        document.querySelector('#df-a10374a4-ec79-4e3b-90f7-86b68e146ad4 button.colab-df-convert');
+        document.querySelector('#df-25ed7b7d-eb5b-4735-96f6-6a6c884e3409 button.colab-df-convert');
       buttonEl.style.display =
         google.colab.kernel.accessAllowed ? 'block' : 'none';
 
       async function convertToInteractive(key) {
-        const element = document.querySelector('#df-a10374a4-ec79-4e3b-90f7-86b68e146ad4');
+        const element = document.querySelector('#df-25ed7b7d-eb5b-4735-96f6-6a6c884e3409');
         const dataTable =
           await google.colab.kernel.invokeFunction('convertToInteractive',
                                                     [key], {});
@@ -1622,7 +1610,7 @@ scope.google.colab._files = {
 </div>
 <div class="cell_output docutils container">
 <div class="output text_html">
-  <div id="df-06756329-33a2-4534-90be-9e7c132f3bbf" class="colab-df-container">
+  <div id="df-93937c55-8ff4-4a55-a2c3-df060ee919fe" class="colab-df-container">
     <div>
 <style scoped>
     .dataframe tbody tr th:only-of-type {
@@ -1722,7 +1710,7 @@ scope.google.colab._files = {
     <div class="colab-df-buttons">
 
   <div class="colab-df-container">
-    <button class="colab-df-convert" onclick="convertToInteractive('df-06756329-33a2-4534-90be-9e7c132f3bbf')"
+    <button class="colab-df-convert" onclick="convertToInteractive('df-93937c55-8ff4-4a55-a2c3-df060ee919fe')"
             title="Convert this dataframe to an interactive table."
             style="display:none;">
 
@@ -1774,12 +1762,12 @@ scope.google.colab._files = {
 
     <script>
       const buttonEl =
-        document.querySelector('#df-06756329-33a2-4534-90be-9e7c132f3bbf button.colab-df-convert');
+        document.querySelector('#df-93937c55-8ff4-4a55-a2c3-df060ee919fe button.colab-df-convert');
       buttonEl.style.display =
         google.colab.kernel.accessAllowed ? 'block' : 'none';
 
       async function convertToInteractive(key) {
-        const element = document.querySelector('#df-06756329-33a2-4534-90be-9e7c132f3bbf');
+        const element = document.querySelector('#df-93937c55-8ff4-4a55-a2c3-df060ee919fe');
         const dataTable =
           await google.colab.kernel.invokeFunction('convertToInteractive',
                                                     [key], {});
@@ -1799,8 +1787,8 @@ scope.google.colab._files = {
   </div>
 
 
-<div id="df-4a38c157-50e2-4b8a-a5b8-9d4a45fa2109">
-  <button class="colab-df-quickchart" onclick="quickchart('df-4a38c157-50e2-4b8a-a5b8-9d4a45fa2109')"
+<div id="df-6bf79101-eaab-4b4a-ac59-89157ab912ca">
+  <button class="colab-df-quickchart" onclick="quickchart('df-6bf79101-eaab-4b4a-ac59-89157ab912ca')"
             title="Suggest charts"
             style="display:none;">
 
@@ -1919,14 +1907,14 @@ scope.google.colab._files = {
     }
     (() => {
       let quickchartButtonEl =
-        document.querySelector('#df-4a38c157-50e2-4b8a-a5b8-9d4a45fa2109 button');
+        document.querySelector('#df-6bf79101-eaab-4b4a-ac59-89157ab912ca button');
       quickchartButtonEl.style.display =
         google.colab.kernel.accessAllowed ? 'block' : 'none';
     })();
   </script>
 </div>
 
-  <div id="id_f2f0cba3-f665-4ef4-96c5-2fc86f827de8">
+  <div id="id_06c9c777-1001-4dd3-a249-14755eef4a08">
     <style>
       .colab-df-generate {
         background-color: #E8F0FE;
@@ -1970,7 +1958,7 @@ scope.google.colab._files = {
     <script>
       (() => {
       const buttonEl =
-        document.querySelector('#id_f2f0cba3-f665-4ef4-96c5-2fc86f827de8 button.colab-df-generate');
+        document.querySelector('#id_06c9c777-1001-4dd3-a249-14755eef4a08 button.colab-df-generate');
       buttonEl.style.display =
         google.colab.kernel.accessAllowed ? 'block' : 'none';
 
@@ -1995,7 +1983,7 @@ scope.google.colab._files = {
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Collecting Sastrawi
   Downloading Sastrawi-1.0.1-py2.py3-none-any.whl.metadata (909 bytes)
 Downloading Sastrawi-1.0.1-py2.py3-none-any.whl (209 kB)
-   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ <span class=" -Color -Color-Green">209.7/209.7 kB</span> <span class=" -Color -Color-Red">2.9 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:00</span>
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ <span class=" -Color -Color-Green">209.7/209.7 kB</span> <span class=" -Color -Color-Red">4.0 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:00</span>
 ?25hInstalling collected packages: Sastrawi
 Successfully installed Sastrawi-1.0.1
 </pre></div>
@@ -2103,7 +2091,7 @@ Successfully installed Sastrawi-1.0.1
 </pre></div>
 </div>
 <div class="output text_html">
-  <div id="df-f5a53742-7c5a-4b3a-a7d0-5548c087d24c" class="colab-df-container">
+  <div id="df-1de558c4-f4a2-40a2-9bc1-02c41744be0c" class="colab-df-container">
     <div>
 <style scoped>
     .dataframe tbody tr th:only-of-type {
@@ -2203,7 +2191,7 @@ Successfully installed Sastrawi-1.0.1
     <div class="colab-df-buttons">
 
   <div class="colab-df-container">
-    <button class="colab-df-convert" onclick="convertToInteractive('df-f5a53742-7c5a-4b3a-a7d0-5548c087d24c')"
+    <button class="colab-df-convert" onclick="convertToInteractive('df-1de558c4-f4a2-40a2-9bc1-02c41744be0c')"
             title="Convert this dataframe to an interactive table."
             style="display:none;">
 
@@ -2255,12 +2243,12 @@ Successfully installed Sastrawi-1.0.1
 
     <script>
       const buttonEl =
-        document.querySelector('#df-f5a53742-7c5a-4b3a-a7d0-5548c087d24c button.colab-df-convert');
+        document.querySelector('#df-1de558c4-f4a2-40a2-9bc1-02c41744be0c button.colab-df-convert');
       buttonEl.style.display =
         google.colab.kernel.accessAllowed ? 'block' : 'none';
 
       async function convertToInteractive(key) {
-        const element = document.querySelector('#df-f5a53742-7c5a-4b3a-a7d0-5548c087d24c');
+        const element = document.querySelector('#df-1de558c4-f4a2-40a2-9bc1-02c41744be0c');
         const dataTable =
           await google.colab.kernel.invokeFunction('convertToInteractive',
                                                     [key], {});
@@ -2280,8 +2268,8 @@ Successfully installed Sastrawi-1.0.1
   </div>
 
 
-<div id="df-4d0a7db7-94bc-4926-b523-ee6e44634e3b">
-  <button class="colab-df-quickchart" onclick="quickchart('df-4d0a7db7-94bc-4926-b523-ee6e44634e3b')"
+<div id="df-d442ea87-2b1c-4412-b291-420a555d2bf5">
+  <button class="colab-df-quickchart" onclick="quickchart('df-d442ea87-2b1c-4412-b291-420a555d2bf5')"
             title="Suggest charts"
             style="display:none;">
 
@@ -2400,7 +2388,7 @@ Successfully installed Sastrawi-1.0.1
     }
     (() => {
       let quickchartButtonEl =
-        document.querySelector('#df-4d0a7db7-94bc-4926-b523-ee6e44634e3b button');
+        document.querySelector('#df-d442ea87-2b1c-4412-b291-420a555d2bf5 button');
       quickchartButtonEl.style.display =
         google.colab.kernel.accessAllowed ? 'block' : 'none';
     })();
@@ -2438,7 +2426,7 @@ Successfully installed Sastrawi-1.0.1
 </div>
 <div class="cell_output docutils container">
 <div class="output text_html">
-  <div id="df-6d998b37-e8ff-494f-b1d3-99fe7f522eb3" class="colab-df-container">
+  <div id="df-32884197-62e9-4a5a-b191-89bcdce6ee4b" class="colab-df-container">
     <div>
 <style scoped>
     .dataframe tbody tr th:only-of-type {
@@ -2824,7 +2812,7 @@ Successfully installed Sastrawi-1.0.1
     <div class="colab-df-buttons">
 
   <div class="colab-df-container">
-    <button class="colab-df-convert" onclick="convertToInteractive('df-6d998b37-e8ff-494f-b1d3-99fe7f522eb3')"
+    <button class="colab-df-convert" onclick="convertToInteractive('df-32884197-62e9-4a5a-b191-89bcdce6ee4b')"
             title="Convert this dataframe to an interactive table."
             style="display:none;">
 
@@ -2876,12 +2864,12 @@ Successfully installed Sastrawi-1.0.1
 
     <script>
       const buttonEl =
-        document.querySelector('#df-6d998b37-e8ff-494f-b1d3-99fe7f522eb3 button.colab-df-convert');
+        document.querySelector('#df-32884197-62e9-4a5a-b191-89bcdce6ee4b button.colab-df-convert');
       buttonEl.style.display =
         google.colab.kernel.accessAllowed ? 'block' : 'none';
 
       async function convertToInteractive(key) {
-        const element = document.querySelector('#df-6d998b37-e8ff-494f-b1d3-99fe7f522eb3');
+        const element = document.querySelector('#df-32884197-62e9-4a5a-b191-89bcdce6ee4b');
         const dataTable =
           await google.colab.kernel.invokeFunction('convertToInteractive',
                                                     [key], {});
@@ -2901,8 +2889,8 @@ Successfully installed Sastrawi-1.0.1
   </div>
 
 
-<div id="df-29741a27-be35-4613-ae90-1f43e260e268">
-  <button class="colab-df-quickchart" onclick="quickchart('df-29741a27-be35-4613-ae90-1f43e260e268')"
+<div id="df-f3f478c4-becf-4c8d-ad61-aca9aad85e98">
+  <button class="colab-df-quickchart" onclick="quickchart('df-f3f478c4-becf-4c8d-ad61-aca9aad85e98')"
             title="Suggest charts"
             style="display:none;">
 
@@ -3021,14 +3009,14 @@ Successfully installed Sastrawi-1.0.1
     }
     (() => {
       let quickchartButtonEl =
-        document.querySelector('#df-29741a27-be35-4613-ae90-1f43e260e268 button');
+        document.querySelector('#df-f3f478c4-becf-4c8d-ad61-aca9aad85e98 button');
       quickchartButtonEl.style.display =
         google.colab.kernel.accessAllowed ? 'block' : 'none';
     })();
   </script>
 </div>
 
-  <div id="id_aaf54671-c820-44b1-afeb-fdd85f83d09c">
+  <div id="id_1385987b-b4bb-4987-924a-ea319d8b5231">
     <style>
       .colab-df-generate {
         background-color: #E8F0FE;
@@ -3072,7 +3060,7 @@ Successfully installed Sastrawi-1.0.1
     <script>
       (() => {
       const buttonEl =
-        document.querySelector('#id_aaf54671-c820-44b1-afeb-fdd85f83d09c button.colab-df-generate');
+        document.querySelector('#id_1385987b-b4bb-4987-924a-ea319d8b5231 button.colab-df-generate');
       buttonEl.style.display =
         google.colab.kernel.accessAllowed ? 'block' : 'none';
 
@@ -3102,7 +3090,7 @@ Successfully installed Sastrawi-1.0.1
 </div>
 <div class="cell_output docutils container">
 <div class="output text_html">
-  <div id="df-9de11ffd-0338-4417-a988-d14209684b98" class="colab-df-container">
+  <div id="df-fb12cc88-8ce6-43f0-a9aa-b80ec1105a61" class="colab-df-container">
     <div>
 <style scoped>
     .dataframe tbody tr th:only-of-type {
@@ -3399,7 +3387,7 @@ Successfully installed Sastrawi-1.0.1
     <div class="colab-df-buttons">
 
   <div class="colab-df-container">
-    <button class="colab-df-convert" onclick="convertToInteractive('df-9de11ffd-0338-4417-a988-d14209684b98')"
+    <button class="colab-df-convert" onclick="convertToInteractive('df-fb12cc88-8ce6-43f0-a9aa-b80ec1105a61')"
             title="Convert this dataframe to an interactive table."
             style="display:none;">
 
@@ -3451,12 +3439,12 @@ Successfully installed Sastrawi-1.0.1
 
     <script>
       const buttonEl =
-        document.querySelector('#df-9de11ffd-0338-4417-a988-d14209684b98 button.colab-df-convert');
+        document.querySelector('#df-fb12cc88-8ce6-43f0-a9aa-b80ec1105a61 button.colab-df-convert');
       buttonEl.style.display =
         google.colab.kernel.accessAllowed ? 'block' : 'none';
 
       async function convertToInteractive(key) {
-        const element = document.querySelector('#df-9de11ffd-0338-4417-a988-d14209684b98');
+        const element = document.querySelector('#df-fb12cc88-8ce6-43f0-a9aa-b80ec1105a61');
         const dataTable =
           await google.colab.kernel.invokeFunction('convertToInteractive',
                                                     [key], {});
@@ -3476,8 +3464,8 @@ Successfully installed Sastrawi-1.0.1
   </div>
 
 
-<div id="df-4f746e78-0eca-44eb-8daa-ae5f6b94ff57">
-  <button class="colab-df-quickchart" onclick="quickchart('df-4f746e78-0eca-44eb-8daa-ae5f6b94ff57')"
+<div id="df-8abb91c8-8d00-4f5c-9526-88bbccd0a1a0">
+  <button class="colab-df-quickchart" onclick="quickchart('df-8abb91c8-8d00-4f5c-9526-88bbccd0a1a0')"
             title="Suggest charts"
             style="display:none;">
 
@@ -3596,14 +3584,14 @@ Successfully installed Sastrawi-1.0.1
     }
     (() => {
       let quickchartButtonEl =
-        document.querySelector('#df-4f746e78-0eca-44eb-8daa-ae5f6b94ff57 button');
+        document.querySelector('#df-8abb91c8-8d00-4f5c-9526-88bbccd0a1a0 button');
       quickchartButtonEl.style.display =
         google.colab.kernel.accessAllowed ? 'block' : 'none';
     })();
   </script>
 </div>
 
-  <div id="id_e4fec2e1-0b01-44a3-8cf8-c53c386f649c">
+  <div id="id_92197958-d06d-45c8-a69a-93ff91c46cf5">
     <style>
       .colab-df-generate {
         background-color: #E8F0FE;
@@ -3647,7 +3635,7 @@ Successfully installed Sastrawi-1.0.1
     <script>
       (() => {
       const buttonEl =
-        document.querySelector('#id_e4fec2e1-0b01-44a3-8cf8-c53c386f649c button.colab-df-generate');
+        document.querySelector('#id_92197958-d06d-45c8-a69a-93ff91c46cf5 button.colab-df-generate');
       buttonEl.style.display =
         google.colab.kernel.accessAllowed ? 'block' : 'none';
 
@@ -3665,7 +3653,7 @@ Successfully installed Sastrawi-1.0.1
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Tetapkan ambang batas (threshold) 0.7</span>
-<span class="n">threshold</span> <span class="o">=</span> <span class="mf">0.5</span>
+<span class="n">threshold</span> <span class="o">=</span> <span class="mf">0.01</span>
 
 <span class="c1"># Buat matriks adjacency: jika cosine similarity &gt;= 0.5, maka 1; jika tidak, maka 0</span>
 <span class="n">adjacency_matrix</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">cosine_sim</span> <span class="o">&gt;=</span> <span class="n">threshold</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
@@ -3680,7 +3668,7 @@ Successfully installed Sastrawi-1.0.1
 </div>
 <div class="cell_output docutils container">
 <div class="output text_html">
-  <div id="df-db510edd-964b-474e-bb4d-ce7609d8f34f" class="colab-df-container">
+  <div id="df-3f833480-3d56-4b36-b0ff-8a08c954b115" class="colab-df-container">
     <div>
 <style scoped>
     .dataframe tbody tr th:only-of-type {
@@ -3736,104 +3724,104 @@ Successfully installed Sastrawi-1.0.1
     <tr>
       <th>Kalimat ke 1</th>
       <td>1</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
       <td>1</td>
       <td>0</td>
-      <td>0</td>
-      <td>0</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
     </tr>
     <tr>
       <th>Kalimat ke 2</th>
+      <td>1</td>
+      <td>1</td>
+      <td>0</td>
       <td>0</td>
       <td>1</td>
       <td>0</td>
       <td>0</td>
       <td>0</td>
       <td>0</td>
+      <td>1</td>
       <td>0</td>
       <td>0</td>
       <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
+      <td>1</td>
     </tr>
     <tr>
       <th>Kalimat ke 3</th>
-      <td>0</td>
-      <td>0</td>
       <td>1</td>
       <td>0</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
       <td>0</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
       <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
     </tr>
     <tr>
       <th>Kalimat ke 4</th>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
       <td>1</td>
       <td>0</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
       <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
     </tr>
     <tr>
       <th>Kalimat ke 5</th>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
       <td>1</td>
       <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
     </tr>
     <tr>
       <th>Kalimat ke 6</th>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
       <td>1</td>
       <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
       <td>1</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
     </tr>
     <tr>
       <th>Kalimat ke 7</th>
@@ -3842,133 +3830,133 @@ Successfully installed Sastrawi-1.0.1
       <td>0</td>
       <td>0</td>
       <td>0</td>
+      <td>1</td>
+      <td>1</td>
       <td>0</td>
       <td>1</td>
       <td>0</td>
       <td>0</td>
+      <td>1</td>
       <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
+      <td>1</td>
     </tr>
     <tr>
       <th>Kalimat ke 8</th>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
       <td>1</td>
       <td>0</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
       <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
     </tr>
     <tr>
       <th>Kalimat ke 9</th>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
       <td>1</td>
       <td>0</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
       <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
     </tr>
     <tr>
       <th>Kalimat ke 10</th>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
       <td>1</td>
       <td>0</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
       <td>0</td>
-      <td>0</td>
-      <td>0</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
     </tr>
     <tr>
       <th>Kalimat ke 11</th>
       <td>1</td>
       <td>0</td>
       <td>0</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>0</td>
+      <td>1</td>
       <td>0</td>
       <td>0</td>
       <td>1</td>
       <td>0</td>
       <td>0</td>
-      <td>0</td>
-      <td>0</td>
       <td>1</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
     </tr>
     <tr>
       <th>Kalimat ke 12</th>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
       <td>1</td>
       <td>0</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
       <td>0</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
     </tr>
     <tr>
       <th>Kalimat ke 13</th>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
       <td>1</td>
       <td>0</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>0</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>0</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
     </tr>
     <tr>
       <th>Kalimat ke 14</th>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
       <td>1</td>
     </tr>
   </tbody>
@@ -3977,7 +3965,7 @@ Successfully installed Sastrawi-1.0.1
     <div class="colab-df-buttons">
 
   <div class="colab-df-container">
-    <button class="colab-df-convert" onclick="convertToInteractive('df-db510edd-964b-474e-bb4d-ce7609d8f34f')"
+    <button class="colab-df-convert" onclick="convertToInteractive('df-3f833480-3d56-4b36-b0ff-8a08c954b115')"
             title="Convert this dataframe to an interactive table."
             style="display:none;">
 
@@ -4029,12 +4017,12 @@ Successfully installed Sastrawi-1.0.1
 
     <script>
       const buttonEl =
-        document.querySelector('#df-db510edd-964b-474e-bb4d-ce7609d8f34f button.colab-df-convert');
+        document.querySelector('#df-3f833480-3d56-4b36-b0ff-8a08c954b115 button.colab-df-convert');
       buttonEl.style.display =
         google.colab.kernel.accessAllowed ? 'block' : 'none';
 
       async function convertToInteractive(key) {
-        const element = document.querySelector('#df-db510edd-964b-474e-bb4d-ce7609d8f34f');
+        const element = document.querySelector('#df-3f833480-3d56-4b36-b0ff-8a08c954b115');
         const dataTable =
           await google.colab.kernel.invokeFunction('convertToInteractive',
                                                     [key], {});
@@ -4054,8 +4042,8 @@ Successfully installed Sastrawi-1.0.1
   </div>
 
 
-<div id="df-ec28269d-74f5-40e6-82bb-742a10fa20a7">
-  <button class="colab-df-quickchart" onclick="quickchart('df-ec28269d-74f5-40e6-82bb-742a10fa20a7')"
+<div id="df-27b1871d-71c6-47d3-a339-995d5d80a98b">
+  <button class="colab-df-quickchart" onclick="quickchart('df-27b1871d-71c6-47d3-a339-995d5d80a98b')"
             title="Suggest charts"
             style="display:none;">
 
@@ -4174,14 +4162,14 @@ Successfully installed Sastrawi-1.0.1
     }
     (() => {
       let quickchartButtonEl =
-        document.querySelector('#df-ec28269d-74f5-40e6-82bb-742a10fa20a7 button');
+        document.querySelector('#df-27b1871d-71c6-47d3-a339-995d5d80a98b button');
       quickchartButtonEl.style.display =
         google.colab.kernel.accessAllowed ? 'block' : 'none';
     })();
   </script>
 </div>
 
-  <div id="id_1554f0c3-f474-49ee-a420-1967ec5014af">
+  <div id="id_7259e8a1-e27a-47f0-bf54-8272b248fe83">
     <style>
       .colab-df-generate {
         background-color: #E8F0FE;
@@ -4225,7 +4213,7 @@ Successfully installed Sastrawi-1.0.1
     <script>
       (() => {
       const buttonEl =
-        document.querySelector('#id_1554f0c3-f474-49ee-a420-1967ec5014af button.colab-df-generate');
+        document.querySelector('#id_7259e8a1-e27a-47f0-bf54-8272b248fe83 button.colab-df-generate');
       buttonEl.style.display =
         google.colab.kernel.accessAllowed ? 'block' : 'none';
 
@@ -4261,7 +4249,7 @@ Successfully installed Sastrawi-1.0.1
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/347b9bcb01bf13916a8f092eb0cca1f59f6b06345e2e52720aea7837a1ad9a22.png" src="../_images/347b9bcb01bf13916a8f092eb0cca1f59f6b06345e2e52720aea7837a1ad9a22.png" />
+<img alt="../_images/a6b2151fe07547585421250fd6d9b38c93d1d6cd578ebdcb56c910fee50a7cad.png" src="../_images/a6b2151fe07547585421250fd6d9b38c93d1d6cd578ebdcb56c910fee50a7cad.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -4284,13 +4272,14 @@ Successfully installed Sastrawi-1.0.1
 <span class="p">})</span>
 
 <span class="c1"># Tampilkan dataframe centrality</span>
-<span class="n">centrality_df</span>
+<span class="n">urutan</span><span class="o">=</span> <span class="n">centrality_df</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">by</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;Degree Centrality&#39;</span><span class="p">])</span>
+<span class="n">urutan</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
 <div class="output text_html">
-  <div id="df-78b6adf4-6cd0-4124-be66-c71afb233c8a" class="colab-df-container">
+  <div id="df-632d9d2e-6a11-4fdb-ab7e-aa0d40723ca4" class="colab-df-container">
     <div>
 <style scoped>
     .dataframe tbody tr th:only-of-type {
@@ -4317,102 +4306,102 @@ Successfully installed Sastrawi-1.0.1
   </thead>
   <tbody>
     <tr>
-      <th>0</th>
-      <td>Kalimat ke 1</td>
-      <td>0.000000</td>
-      <td>0.230769</td>
-      <td>0.102564</td>
-    </tr>
-    <tr>
       <th>1</th>
       <td>Kalimat ke 2</td>
       <td>0.000000</td>
-      <td>0.153846</td>
-      <td>0.000000</td>
-    </tr>
-    <tr>
-      <th>2</th>
-      <td>Kalimat ke 3</td>
-      <td>0.000000</td>
-      <td>0.153846</td>
-      <td>0.000000</td>
-    </tr>
-    <tr>
-      <th>3</th>
-      <td>Kalimat ke 4</td>
-      <td>0.000000</td>
-      <td>0.153846</td>
-      <td>0.000000</td>
-    </tr>
-    <tr>
-      <th>4</th>
-      <td>Kalimat ke 5</td>
-      <td>0.000000</td>
-      <td>0.153846</td>
-      <td>0.000000</td>
-    </tr>
-    <tr>
-      <th>5</th>
-      <td>Kalimat ke 6</td>
-      <td>0.000000</td>
-      <td>0.230769</td>
-      <td>0.102564</td>
+      <td>0.461538</td>
+      <td>0.590909</td>
     </tr>
     <tr>
       <th>6</th>
       <td>Kalimat ke 7</td>
       <td>0.000000</td>
-      <td>0.153846</td>
-      <td>0.000000</td>
-    </tr>
-    <tr>
-      <th>7</th>
-      <td>Kalimat ke 8</td>
-      <td>0.000000</td>
-      <td>0.153846</td>
-      <td>0.000000</td>
-    </tr>
-    <tr>
-      <th>8</th>
-      <td>Kalimat ke 9</td>
-      <td>0.000000</td>
-      <td>0.153846</td>
-      <td>0.000000</td>
-    </tr>
-    <tr>
-      <th>9</th>
-      <td>Kalimat ke 10</td>
-      <td>0.000000</td>
-      <td>0.153846</td>
-      <td>0.000000</td>
+      <td>0.461538</td>
+      <td>0.590909</td>
     </tr>
     <tr>
       <th>10</th>
       <td>Kalimat ke 11</td>
-      <td>0.012821</td>
-      <td>0.307692</td>
-      <td>0.153846</td>
+      <td>0.000000</td>
+      <td>0.615385</td>
+      <td>0.650000</td>
     </tr>
     <tr>
-      <th>11</th>
-      <td>Kalimat ke 12</td>
+      <th>2</th>
+      <td>Kalimat ke 3</td>
       <td>0.000000</td>
-      <td>0.153846</td>
-      <td>0.000000</td>
+      <td>0.923077</td>
+      <td>0.812500</td>
     </tr>
     <tr>
       <th>12</th>
       <td>Kalimat ke 13</td>
       <td>0.000000</td>
-      <td>0.153846</td>
-      <td>0.000000</td>
+      <td>0.923077</td>
+      <td>0.812500</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>Kalimat ke 4</td>
+      <td>0.010684</td>
+      <td>1.000000</td>
+      <td>0.866667</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>Kalimat ke 8</td>
+      <td>0.010684</td>
+      <td>1.000000</td>
+      <td>0.866667</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>Kalimat ke 9</td>
+      <td>0.022436</td>
+      <td>1.000000</td>
+      <td>0.866667</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>Kalimat ke 10</td>
+      <td>0.022436</td>
+      <td>1.000000</td>
+      <td>0.866667</td>
+    </tr>
+    <tr>
+      <th>11</th>
+      <td>Kalimat ke 12</td>
+      <td>0.022436</td>
+      <td>1.000000</td>
+      <td>0.866667</td>
+    </tr>
+    <tr>
+      <th>0</th>
+      <td>Kalimat ke 1</td>
+      <td>0.037393</td>
+      <td>1.076923</td>
+      <td>0.928571</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>Kalimat ke 5</td>
+      <td>0.037393</td>
+      <td>1.076923</td>
+      <td>0.928571</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>Kalimat ke 6</td>
+      <td>0.039530</td>
+      <td>1.076923</td>
+      <td>0.928571</td>
     </tr>
     <tr>
       <th>13</th>
       <td>Kalimat ke 14</td>
-      <td>0.000000</td>
-      <td>0.153846</td>
-      <td>0.000000</td>
+      <td>0.079060</td>
+      <td>1.153846</td>
+      <td>1.000000</td>
     </tr>
   </tbody>
 </table>
@@ -4420,7 +4409,7 @@ Successfully installed Sastrawi-1.0.1
     <div class="colab-df-buttons">
 
   <div class="colab-df-container">
-    <button class="colab-df-convert" onclick="convertToInteractive('df-78b6adf4-6cd0-4124-be66-c71afb233c8a')"
+    <button class="colab-df-convert" onclick="convertToInteractive('df-632d9d2e-6a11-4fdb-ab7e-aa0d40723ca4')"
             title="Convert this dataframe to an interactive table."
             style="display:none;">
 
@@ -4472,12 +4461,12 @@ Successfully installed Sastrawi-1.0.1
 
     <script>
       const buttonEl =
-        document.querySelector('#df-78b6adf4-6cd0-4124-be66-c71afb233c8a button.colab-df-convert');
+        document.querySelector('#df-632d9d2e-6a11-4fdb-ab7e-aa0d40723ca4 button.colab-df-convert');
       buttonEl.style.display =
         google.colab.kernel.accessAllowed ? 'block' : 'none';
 
       async function convertToInteractive(key) {
-        const element = document.querySelector('#df-78b6adf4-6cd0-4124-be66-c71afb233c8a');
+        const element = document.querySelector('#df-632d9d2e-6a11-4fdb-ab7e-aa0d40723ca4');
         const dataTable =
           await google.colab.kernel.invokeFunction('convertToInteractive',
                                                     [key], {});
@@ -4497,8 +4486,8 @@ Successfully installed Sastrawi-1.0.1
   </div>
 
 
-<div id="df-3a43de81-8ba7-47df-94a1-fc64a5b0a8b2">
-  <button class="colab-df-quickchart" onclick="quickchart('df-3a43de81-8ba7-47df-94a1-fc64a5b0a8b2')"
+<div id="df-095eeee9-0c33-443d-b70d-0ecd3eb1ca53">
+  <button class="colab-df-quickchart" onclick="quickchart('df-095eeee9-0c33-443d-b70d-0ecd3eb1ca53')"
             title="Suggest charts"
             style="display:none;">
 
@@ -4617,14 +4606,14 @@ Successfully installed Sastrawi-1.0.1
     }
     (() => {
       let quickchartButtonEl =
-        document.querySelector('#df-3a43de81-8ba7-47df-94a1-fc64a5b0a8b2 button');
+        document.querySelector('#df-095eeee9-0c33-443d-b70d-0ecd3eb1ca53 button');
       quickchartButtonEl.style.display =
         google.colab.kernel.accessAllowed ? 'block' : 'none';
     })();
   </script>
 </div>
 
-  <div id="id_3c2f3dae-180c-4968-aea4-7aba0efb3bd9">
+  <div id="id_94b8c1e5-42d2-4e42-bfe0-0de711d6710a">
     <style>
       .colab-df-generate {
         background-color: #E8F0FE;
@@ -4656,7 +4645,7 @@ Successfully installed Sastrawi-1.0.1
         fill: #FFFFFF;
       }
     </style>
-    <button class="colab-df-generate" onclick="generateWithVariable('centrality_df')"
+    <button class="colab-df-generate" onclick="generateWithVariable('urutan')"
             title="Generate code using this dataframe."
             style="display:none;">
 
@@ -4668,16 +4657,610 @@ Successfully installed Sastrawi-1.0.1
     <script>
       (() => {
       const buttonEl =
-        document.querySelector('#id_3c2f3dae-180c-4968-aea4-7aba0efb3bd9 button.colab-df-generate');
+        document.querySelector('#id_94b8c1e5-42d2-4e42-bfe0-0de711d6710a button.colab-df-generate');
       buttonEl.style.display =
         google.colab.kernel.accessAllowed ? 'block' : 'none';
 
       buttonEl.onclick = () => {
-        google.colab.notebook.generateWithVariable('centrality_df');
+        google.colab.notebook.generateWithVariable('urutan');
       }
       })();
     </script>
   </div>
+
+    </div>
+  </div>
+</div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Tampilkan 3 nilai Degree Centrality terbesar</span>
+<span class="n">top_3_degree</span> <span class="o">=</span> <span class="n">centrality_df</span><span class="o">.</span><span class="n">nlargest</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="s1">&#39;Degree Centrality&#39;</span><span class="p">)</span>
+<span class="n">top_3_degree</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html">
+  <div id="df-8939044a-82a6-439b-93cd-7093870f4fb7" class="colab-df-container">
+    <div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Kalimat</th>
+      <th>Betweenness Centrality</th>
+      <th>Degree Centrality</th>
+      <th>Closeness Centrality</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>13</th>
+      <td>Kalimat ke 14</td>
+      <td>0.079060</td>
+      <td>1.153846</td>
+      <td>1.000000</td>
+    </tr>
+    <tr>
+      <th>0</th>
+      <td>Kalimat ke 1</td>
+      <td>0.037393</td>
+      <td>1.076923</td>
+      <td>0.928571</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>Kalimat ke 5</td>
+      <td>0.037393</td>
+      <td>1.076923</td>
+      <td>0.928571</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+    <div class="colab-df-buttons">
+
+  <div class="colab-df-container">
+    <button class="colab-df-convert" onclick="convertToInteractive('df-8939044a-82a6-439b-93cd-7093870f4fb7')"
+            title="Convert this dataframe to an interactive table."
+            style="display:none;">
+
+  <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960">
+    <path d="M120-120v-720h720v720H120Zm60-500h600v-160H180v160Zm220 220h160v-160H400v160Zm0 220h160v-160H400v160ZM180-400h160v-160H180v160Zm440 0h160v-160H620v160ZM180-180h160v-160H180v160Zm440 0h160v-160H620v160Z"/>
+  </svg>
+    </button>
+
+  <style>
+    .colab-df-container {
+      display:flex;
+      gap: 12px;
+    }
+
+    .colab-df-convert {
+      background-color: #E8F0FE;
+      border: none;
+      border-radius: 50%;
+      cursor: pointer;
+      display: none;
+      fill: #1967D2;
+      height: 32px;
+      padding: 0 0 0 0;
+      width: 32px;
+    }
+
+    .colab-df-convert:hover {
+      background-color: #E2EBFA;
+      box-shadow: 0px 1px 2px rgba(60, 64, 67, 0.3), 0px 1px 3px 1px rgba(60, 64, 67, 0.15);
+      fill: #174EA6;
+    }
+
+    .colab-df-buttons div {
+      margin-bottom: 4px;
+    }
+
+    [theme=dark] .colab-df-convert {
+      background-color: #3B4455;
+      fill: #D2E3FC;
+    }
+
+    [theme=dark] .colab-df-convert:hover {
+      background-color: #434B5C;
+      box-shadow: 0px 1px 3px 1px rgba(0, 0, 0, 0.15);
+      filter: drop-shadow(0px 1px 2px rgba(0, 0, 0, 0.3));
+      fill: #FFFFFF;
+    }
+  </style>
+
+    <script>
+      const buttonEl =
+        document.querySelector('#df-8939044a-82a6-439b-93cd-7093870f4fb7 button.colab-df-convert');
+      buttonEl.style.display =
+        google.colab.kernel.accessAllowed ? 'block' : 'none';
+
+      async function convertToInteractive(key) {
+        const element = document.querySelector('#df-8939044a-82a6-439b-93cd-7093870f4fb7');
+        const dataTable =
+          await google.colab.kernel.invokeFunction('convertToInteractive',
+                                                    [key], {});
+        if (!dataTable) return;
+
+        const docLinkHtml = 'Like what you see? Visit the ' +
+          '<a target="_blank" href=https://colab.research.google.com/notebooks/data_table.ipynb>data table notebook</a>'
+          + ' to learn more about interactive tables.';
+        element.innerHTML = '';
+        dataTable['output_type'] = 'display_data';
+        await google.colab.output.renderOutput(dataTable, element);
+        const docLink = document.createElement('div');
+        docLink.innerHTML = docLinkHtml;
+        element.appendChild(docLink);
+      }
+    </script>
+  </div>
+
+
+<div id="df-deb70dad-fc1e-41e6-bf5c-9d73b33f79bc">
+  <button class="colab-df-quickchart" onclick="quickchart('df-deb70dad-fc1e-41e6-bf5c-9d73b33f79bc')"
+            title="Suggest charts"
+            style="display:none;">
+
+<svg xmlns="http://www.w3.org/2000/svg" height="24px"viewBox="0 0 24 24"
+     width="24px">
+    <g>
+        <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zM9 17H7v-7h2v7zm4 0h-2V7h2v10zm4 0h-2v-4h2v4z"/>
+    </g>
+</svg>
+  </button>
+
+<style>
+  .colab-df-quickchart {
+      --bg-color: #E8F0FE;
+      --fill-color: #1967D2;
+      --hover-bg-color: #E2EBFA;
+      --hover-fill-color: #174EA6;
+      --disabled-fill-color: #AAA;
+      --disabled-bg-color: #DDD;
+  }
+
+  [theme=dark] .colab-df-quickchart {
+      --bg-color: #3B4455;
+      --fill-color: #D2E3FC;
+      --hover-bg-color: #434B5C;
+      --hover-fill-color: #FFFFFF;
+      --disabled-bg-color: #3B4455;
+      --disabled-fill-color: #666;
+  }
+
+  .colab-df-quickchart {
+    background-color: var(--bg-color);
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    display: none;
+    fill: var(--fill-color);
+    height: 32px;
+    padding: 0;
+    width: 32px;
+  }
+
+  .colab-df-quickchart:hover {
+    background-color: var(--hover-bg-color);
+    box-shadow: 0 1px 2px rgba(60, 64, 67, 0.3), 0 1px 3px 1px rgba(60, 64, 67, 0.15);
+    fill: var(--button-hover-fill-color);
+  }
+
+  .colab-df-quickchart-complete:disabled,
+  .colab-df-quickchart-complete:disabled:hover {
+    background-color: var(--disabled-bg-color);
+    fill: var(--disabled-fill-color);
+    box-shadow: none;
+  }
+
+  .colab-df-spinner {
+    border: 2px solid var(--fill-color);
+    border-color: transparent;
+    border-bottom-color: var(--fill-color);
+    animation:
+      spin 1s steps(1) infinite;
+  }
+
+  @keyframes spin {
+    0% {
+      border-color: transparent;
+      border-bottom-color: var(--fill-color);
+      border-left-color: var(--fill-color);
+    }
+    20% {
+      border-color: transparent;
+      border-left-color: var(--fill-color);
+      border-top-color: var(--fill-color);
+    }
+    30% {
+      border-color: transparent;
+      border-left-color: var(--fill-color);
+      border-top-color: var(--fill-color);
+      border-right-color: var(--fill-color);
+    }
+    40% {
+      border-color: transparent;
+      border-right-color: var(--fill-color);
+      border-top-color: var(--fill-color);
+    }
+    60% {
+      border-color: transparent;
+      border-right-color: var(--fill-color);
+    }
+    80% {
+      border-color: transparent;
+      border-right-color: var(--fill-color);
+      border-bottom-color: var(--fill-color);
+    }
+    90% {
+      border-color: transparent;
+      border-bottom-color: var(--fill-color);
+    }
+  }
+</style>
+
+  <script>
+    async function quickchart(key) {
+      const quickchartButtonEl =
+        document.querySelector('#' + key + ' button');
+      quickchartButtonEl.disabled = true;  // To prevent multiple clicks.
+      quickchartButtonEl.classList.add('colab-df-spinner');
+      try {
+        const charts = await google.colab.kernel.invokeFunction(
+            'suggestCharts', [key], {});
+      } catch (error) {
+        console.error('Error during call to suggestCharts:', error);
+      }
+      quickchartButtonEl.classList.remove('colab-df-spinner');
+      quickchartButtonEl.classList.add('colab-df-quickchart-complete');
+    }
+    (() => {
+      let quickchartButtonEl =
+        document.querySelector('#df-deb70dad-fc1e-41e6-bf5c-9d73b33f79bc button');
+      quickchartButtonEl.style.display =
+        google.colab.kernel.accessAllowed ? 'block' : 'none';
+    })();
+  </script>
+</div>
+
+  <div id="id_181ba6a9-6fbd-44e1-a3bb-bf798f61a11c">
+    <style>
+      .colab-df-generate {
+        background-color: #E8F0FE;
+        border: none;
+        border-radius: 50%;
+        cursor: pointer;
+        display: none;
+        fill: #1967D2;
+        height: 32px;
+        padding: 0 0 0 0;
+        width: 32px;
+      }
+
+      .colab-df-generate:hover {
+        background-color: #E2EBFA;
+        box-shadow: 0px 1px 2px rgba(60, 64, 67, 0.3), 0px 1px 3px 1px rgba(60, 64, 67, 0.15);
+        fill: #174EA6;
+      }
+
+      [theme=dark] .colab-df-generate {
+        background-color: #3B4455;
+        fill: #D2E3FC;
+      }
+
+      [theme=dark] .colab-df-generate:hover {
+        background-color: #434B5C;
+        box-shadow: 0px 1px 3px 1px rgba(0, 0, 0, 0.15);
+        filter: drop-shadow(0px 1px 2px rgba(0, 0, 0, 0.3));
+        fill: #FFFFFF;
+      }
+    </style>
+    <button class="colab-df-generate" onclick="generateWithVariable('top_3_degree')"
+            title="Generate code using this dataframe."
+            style="display:none;">
+
+  <svg xmlns="http://www.w3.org/2000/svg" height="24px"viewBox="0 0 24 24"
+       width="24px">
+    <path d="M7,19H8.4L18.45,9,17,7.55,7,17.6ZM5,21V16.75L18.45,3.32a2,2,0,0,1,2.83,0l1.4,1.43a1.91,1.91,0,0,1,.58,1.4,1.91,1.91,0,0,1-.58,1.4L9.25,21ZM18.45,9,17,7.55Zm-12,3A5.31,5.31,0,0,0,4.9,8.1,5.31,5.31,0,0,0,1,6.5,5.31,5.31,0,0,0,4.9,4.9,5.31,5.31,0,0,0,6.5,1,5.31,5.31,0,0,0,8.1,4.9,5.31,5.31,0,0,0,12,6.5,5.46,5.46,0,0,0,6.5,12Z"/>
+  </svg>
+    </button>
+    <script>
+      (() => {
+      const buttonEl =
+        document.querySelector('#id_181ba6a9-6fbd-44e1-a3bb-bf798f61a11c button.colab-df-generate');
+      buttonEl.style.display =
+        google.colab.kernel.accessAllowed ? 'block' : 'none';
+
+      buttonEl.onclick = () => {
+        google.colab.notebook.generateWithVariable('top_3_degree');
+      }
+      })();
+    </script>
+  </div>
+
+    </div>
+  </div>
+</div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Ambil top 3 kalimat berdasarkan Degree Centrality</span>
+<span class="n">top_3_kalimat</span> <span class="o">=</span> <span class="n">top_3_degree</span><span class="p">[</span><span class="s1">&#39;Kalimat&#39;</span><span class="p">]</span>
+
+<span class="c1"># Lakukan merge berdasarkan kalimat untuk mendapatkan kolom &#39;final&#39;</span>
+<span class="n">top_3_final_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">top_3_degree</span><span class="p">[[</span><span class="s1">&#39;Kalimat&#39;</span><span class="p">]],</span> <span class="n">result_df</span><span class="p">,</span> <span class="n">left_on</span><span class="o">=</span><span class="s1">&#39;Kalimat&#39;</span><span class="p">,</span> <span class="n">right_on</span><span class="o">=</span><span class="s1">&#39;kalimat ke n&#39;</span><span class="p">)</span>
+
+<span class="c1"># Tampilkan hasil</span>
+<span class="n">top_3_final_df</span><span class="p">[[</span><span class="s1">&#39;kalimat ke n&#39;</span><span class="p">,</span> <span class="s1">&#39;final&#39;</span><span class="p">]]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html">
+  <div id="df-be53f4b6-ba84-41a0-abfa-f0df6c49e318" class="colab-df-container">
+    <div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>kalimat ke n</th>
+      <th>final</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>Kalimat ke 14</td>
+      <td>baca sakit kepala tanda kolesterol dokter spes...</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>Kalimat ke 1</td>
+      <td>jakarta anggap orang badan kurus bebas risiko ...</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>Kalimat ke 5</td>
+      <td>advertisement scroll to continue with content ...</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+    <div class="colab-df-buttons">
+
+  <div class="colab-df-container">
+    <button class="colab-df-convert" onclick="convertToInteractive('df-be53f4b6-ba84-41a0-abfa-f0df6c49e318')"
+            title="Convert this dataframe to an interactive table."
+            style="display:none;">
+
+  <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960">
+    <path d="M120-120v-720h720v720H120Zm60-500h600v-160H180v160Zm220 220h160v-160H400v160Zm0 220h160v-160H400v160ZM180-400h160v-160H180v160Zm440 0h160v-160H620v160ZM180-180h160v-160H180v160Zm440 0h160v-160H620v160Z"/>
+  </svg>
+    </button>
+
+  <style>
+    .colab-df-container {
+      display:flex;
+      gap: 12px;
+    }
+
+    .colab-df-convert {
+      background-color: #E8F0FE;
+      border: none;
+      border-radius: 50%;
+      cursor: pointer;
+      display: none;
+      fill: #1967D2;
+      height: 32px;
+      padding: 0 0 0 0;
+      width: 32px;
+    }
+
+    .colab-df-convert:hover {
+      background-color: #E2EBFA;
+      box-shadow: 0px 1px 2px rgba(60, 64, 67, 0.3), 0px 1px 3px 1px rgba(60, 64, 67, 0.15);
+      fill: #174EA6;
+    }
+
+    .colab-df-buttons div {
+      margin-bottom: 4px;
+    }
+
+    [theme=dark] .colab-df-convert {
+      background-color: #3B4455;
+      fill: #D2E3FC;
+    }
+
+    [theme=dark] .colab-df-convert:hover {
+      background-color: #434B5C;
+      box-shadow: 0px 1px 3px 1px rgba(0, 0, 0, 0.15);
+      filter: drop-shadow(0px 1px 2px rgba(0, 0, 0, 0.3));
+      fill: #FFFFFF;
+    }
+  </style>
+
+    <script>
+      const buttonEl =
+        document.querySelector('#df-be53f4b6-ba84-41a0-abfa-f0df6c49e318 button.colab-df-convert');
+      buttonEl.style.display =
+        google.colab.kernel.accessAllowed ? 'block' : 'none';
+
+      async function convertToInteractive(key) {
+        const element = document.querySelector('#df-be53f4b6-ba84-41a0-abfa-f0df6c49e318');
+        const dataTable =
+          await google.colab.kernel.invokeFunction('convertToInteractive',
+                                                    [key], {});
+        if (!dataTable) return;
+
+        const docLinkHtml = 'Like what you see? Visit the ' +
+          '<a target="_blank" href=https://colab.research.google.com/notebooks/data_table.ipynb>data table notebook</a>'
+          + ' to learn more about interactive tables.';
+        element.innerHTML = '';
+        dataTable['output_type'] = 'display_data';
+        await google.colab.output.renderOutput(dataTable, element);
+        const docLink = document.createElement('div');
+        docLink.innerHTML = docLinkHtml;
+        element.appendChild(docLink);
+      }
+    </script>
+  </div>
+
+
+<div id="df-e46d9091-b5b9-48cd-a16c-e8bf959431ec">
+  <button class="colab-df-quickchart" onclick="quickchart('df-e46d9091-b5b9-48cd-a16c-e8bf959431ec')"
+            title="Suggest charts"
+            style="display:none;">
+
+<svg xmlns="http://www.w3.org/2000/svg" height="24px"viewBox="0 0 24 24"
+     width="24px">
+    <g>
+        <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zM9 17H7v-7h2v7zm4 0h-2V7h2v10zm4 0h-2v-4h2v4z"/>
+    </g>
+</svg>
+  </button>
+
+<style>
+  .colab-df-quickchart {
+      --bg-color: #E8F0FE;
+      --fill-color: #1967D2;
+      --hover-bg-color: #E2EBFA;
+      --hover-fill-color: #174EA6;
+      --disabled-fill-color: #AAA;
+      --disabled-bg-color: #DDD;
+  }
+
+  [theme=dark] .colab-df-quickchart {
+      --bg-color: #3B4455;
+      --fill-color: #D2E3FC;
+      --hover-bg-color: #434B5C;
+      --hover-fill-color: #FFFFFF;
+      --disabled-bg-color: #3B4455;
+      --disabled-fill-color: #666;
+  }
+
+  .colab-df-quickchart {
+    background-color: var(--bg-color);
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    display: none;
+    fill: var(--fill-color);
+    height: 32px;
+    padding: 0;
+    width: 32px;
+  }
+
+  .colab-df-quickchart:hover {
+    background-color: var(--hover-bg-color);
+    box-shadow: 0 1px 2px rgba(60, 64, 67, 0.3), 0 1px 3px 1px rgba(60, 64, 67, 0.15);
+    fill: var(--button-hover-fill-color);
+  }
+
+  .colab-df-quickchart-complete:disabled,
+  .colab-df-quickchart-complete:disabled:hover {
+    background-color: var(--disabled-bg-color);
+    fill: var(--disabled-fill-color);
+    box-shadow: none;
+  }
+
+  .colab-df-spinner {
+    border: 2px solid var(--fill-color);
+    border-color: transparent;
+    border-bottom-color: var(--fill-color);
+    animation:
+      spin 1s steps(1) infinite;
+  }
+
+  @keyframes spin {
+    0% {
+      border-color: transparent;
+      border-bottom-color: var(--fill-color);
+      border-left-color: var(--fill-color);
+    }
+    20% {
+      border-color: transparent;
+      border-left-color: var(--fill-color);
+      border-top-color: var(--fill-color);
+    }
+    30% {
+      border-color: transparent;
+      border-left-color: var(--fill-color);
+      border-top-color: var(--fill-color);
+      border-right-color: var(--fill-color);
+    }
+    40% {
+      border-color: transparent;
+      border-right-color: var(--fill-color);
+      border-top-color: var(--fill-color);
+    }
+    60% {
+      border-color: transparent;
+      border-right-color: var(--fill-color);
+    }
+    80% {
+      border-color: transparent;
+      border-right-color: var(--fill-color);
+      border-bottom-color: var(--fill-color);
+    }
+    90% {
+      border-color: transparent;
+      border-bottom-color: var(--fill-color);
+    }
+  }
+</style>
+
+  <script>
+    async function quickchart(key) {
+      const quickchartButtonEl =
+        document.querySelector('#' + key + ' button');
+      quickchartButtonEl.disabled = true;  // To prevent multiple clicks.
+      quickchartButtonEl.classList.add('colab-df-spinner');
+      try {
+        const charts = await google.colab.kernel.invokeFunction(
+            'suggestCharts', [key], {});
+      } catch (error) {
+        console.error('Error during call to suggestCharts:', error);
+      }
+      quickchartButtonEl.classList.remove('colab-df-spinner');
+      quickchartButtonEl.classList.add('colab-df-quickchart-complete');
+    }
+    (() => {
+      let quickchartButtonEl =
+        document.querySelector('#df-e46d9091-b5b9-48cd-a16c-e8bf959431ec button');
+      quickchartButtonEl.style.display =
+        google.colab.kernel.accessAllowed ? 'block' : 'none';
+    })();
+  </script>
+</div>
 
     </div>
   </div>
@@ -8201,6 +8784,15 @@ Dokumen 1: adanyaspesialis
         <p class="prev-next-title"><strong>Tugas 3 : Modeling &amp; Evaluasi model</strong></p>
       </div>
     </a>
+    <a class="right-next"
+       href="Tugas%205.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Tugas 5 : Query kalimat dengan cosin &amp; Klasifikasi dengan SVD</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
 </div>
                 </footer>
               
@@ -8208,7 +8800,8 @@ Dokumen 1: adanyaspesialis
             
             
               
-                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
 
 
   <div class="sidebar-secondary-item">
@@ -8217,7 +8810,7 @@ Dokumen 1: adanyaspesialis
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#"><strong>Tugas 4 : Centrality</strong></a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#"><strong>Tugas 4 : Centrality Rangkuman berita</strong></a></li>
 <li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#ke-1-hubungan-antar-2-berita">Ke 1 : Hubungan antar 2 berita</a></li>
 <li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#ke-2-1-berita-menjadi-beberapa-kalimat-berdasarkan-tanda-titik">Ke 2 : 1 berita menjadi beberapa kalimat berdasarkan tanda titik</a></li>
 <li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#ke-3-fitur-extraction-dari-semua-dokumen">Ke 3 : Fitur extraction dari semua dokumen</a></li>
@@ -8272,8 +8865,8 @@ By The Jupyter Book Community
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
-<script src="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+  <script defer src="../_static/scripts/bootstrap.js?digest=26a4bc78f4c0ddb94549"></script>
+<script defer src="../_static/scripts/pydata-sphinx-theme.js?digest=26a4bc78f4c0ddb94549"></script>
 
   <footer class="bd-footer">
   </footer>

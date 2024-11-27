@@ -16,17 +16,19 @@
     document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
     document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
   </script>
+  <!-- 
+    this give us a css class that will be invisible only if js is disabled 
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
-<link href="../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
-<link href="../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
-
-  
-  <link href="../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
-  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+  <link href="../_static/styles/theme.css?digest=26a4bc78f4c0ddb94549" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=26a4bc78f4c0ddb94549" rel="stylesheet" />
 
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=a3416100" />
@@ -36,10 +38,11 @@
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
   
+  <!-- So that users can add custom icons -->
+  <script src="../_static/scripts/fontawesome.js?digest=26a4bc78f4c0ddb94549"></script>
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
-<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
-  <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=26a4bc78f4c0ddb94549" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=26a4bc78f4c0ddb94549" />
 
     <script src="../_static/documentation_options.js?v=9eb32ce0"></script>
     <script src="../_static/doctools.js?v=9a2dae69"></script>
@@ -60,10 +63,11 @@
     <script>DOCUMENTATION_OPTIONS.pagename = 'tugas-ppw/tugas-3';</script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Tugas 4 : Centrality" href="Tugas%204.html" />
+    <link rel="next" title="Tugas 4 : Centrality Rangkuman berita" href="Tugas%204.html" />
     <link rel="prev" title="Tugas 2 : Preprocessing &amp; TfIdf" href="tugas-2.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
   </head>
   
   
@@ -79,19 +83,8 @@
     <i class="fa-solid fa-arrow-up"></i>Back to top</button>
 
   
-  <input type="checkbox"
-          class="sidebar-toggle"
-          id="pst-primary-sidebar-checkbox"/>
-  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
-  
-  <input type="checkbox"
-          class="sidebar-toggle"
-          id="pst-secondary-sidebar-checkbox"/>
-  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
-  
-  <div class="search-button__wrapper">
-    <div class="search-button__overlay"></div>
-    <div class="search-button__search-container">
+  <dialog id="pst-search-dialog">
+    
 <form class="bd-search d-flex align-items-center"
       action="../search.html"
       method="get">
@@ -99,7 +92,6 @@
   <input type="search"
          class="form-control"
          name="q"
-         id="search-input"
          placeholder="Search this book..."
          aria-label="Search this book..."
          autocomplete="off"
@@ -107,8 +99,8 @@
          autocapitalize="off"
          spellcheck="false"/>
   <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
-</form></div>
-  </div>
+</form>
+  </dialog>
 
   <div class="pst-async-banner-revealer d-none">
   <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
@@ -124,7 +116,8 @@
       
       
       
-      <div class="bd-sidebar-primary bd-sidebar">
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
         
 
   
@@ -154,21 +147,17 @@
     
     
     <img src="../_static/Potopendat.jpeg" class="logo__image only-light" alt="My sample book - Home"/>
-    <script>document.write(`<img src="../_static/Potopendat.jpeg" class="logo__image only-dark" alt="My sample book - Home"/>`);</script>
+    <img src="../_static/Potopendat.jpeg" class="logo__image only-dark pst-js-only" alt="My sample book - Home"/>
   
   
 </a></div>
         <div class="sidebar-primary-item">
 
- <script>
- document.write(`
-   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <i class="fa-solid fa-magnifying-glass"></i>
-    <span class="search-button__default-text">Search</span>
-    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
-   </button>
- `);
- </script></div>
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button></div>
         <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
     <div class="bd-toc-item navbar-nav active">
         
@@ -190,11 +179,17 @@
 
 
 
-<li class="toctree-l1"><a class="reference internal" href="Tugas%204.html"><strong>Tugas 4 : Centrality</strong></a></li>
+<li class="toctree-l1"><a class="reference internal" href="Tugas%204.html"><strong>Tugas 4 : Centrality Rangkuman berita</strong></a></li>
 
 
 
 
+
+<li class="toctree-l1"><a class="reference internal" href="Tugas%205.html">Tugas 5 : Query kalimat dengan cosin &amp; Klasifikasi dengan SVD</a></li>
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="Tugas%206.html">Test fuzzy c-means 1 tanpa svd</a></li>
 
 </ul>
 
@@ -381,24 +376,16 @@
 
 
 
-<script>
-document.write(`
-  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
-    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
-    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
-  </button>
-`);
-</script>
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button>
 
 
-<script>
-document.write(`
-  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
     <i class="fa-solid fa-magnifying-glass fa-lg"></i>
-  </button>
-`);
-</script>
+</button>
 <button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
     <span class="fa-solid fa-list"></span>
 </button>
@@ -454,9 +441,9 @@ document.write(`
 </div>
 <div class="cell_output docutils container">
 <div class="output text_html">
-     <input type="file" id="files-93305a0c-407c-4cde-b5bd-4a0e17a18bc9" name="files[]" multiple disabled
+     <input type="file" id="files-5317cafe-fc5e-4921-a35c-1321d3f044a8" name="files[]" multiple disabled
         style="border:none" />
-     <output id="result-93305a0c-407c-4cde-b5bd-4a0e17a18bc9">
+     <output id="result-5317cafe-fc5e-4921-a35c-1321d3f044a8">
       Upload widget is only available when the cell has been executed in the
       current browser session. Please rerun this cell to enable.
       </output>
@@ -688,7 +675,7 @@ scope.google.colab._files = {
 </div>
 <div class="cell_output docutils container">
 <div class="output text_html">
-  <div id="df-4f1a2ab4-c2b2-45be-bba5-1c9ddb18cd7f" class="colab-df-container">
+  <div id="df-6fd24151-4ac9-464a-9b41-972b5054465c" class="colab-df-container">
     <div>
 <style scoped>
     .dataframe tbody tr th:only-of-type {
@@ -779,7 +766,7 @@ scope.google.colab._files = {
     <div class="colab-df-buttons">
 
   <div class="colab-df-container">
-    <button class="colab-df-convert" onclick="convertToInteractive('df-4f1a2ab4-c2b2-45be-bba5-1c9ddb18cd7f')"
+    <button class="colab-df-convert" onclick="convertToInteractive('df-6fd24151-4ac9-464a-9b41-972b5054465c')"
             title="Convert this dataframe to an interactive table."
             style="display:none;">
 
@@ -831,12 +818,12 @@ scope.google.colab._files = {
 
     <script>
       const buttonEl =
-        document.querySelector('#df-4f1a2ab4-c2b2-45be-bba5-1c9ddb18cd7f button.colab-df-convert');
+        document.querySelector('#df-6fd24151-4ac9-464a-9b41-972b5054465c button.colab-df-convert');
       buttonEl.style.display =
         google.colab.kernel.accessAllowed ? 'block' : 'none';
 
       async function convertToInteractive(key) {
-        const element = document.querySelector('#df-4f1a2ab4-c2b2-45be-bba5-1c9ddb18cd7f');
+        const element = document.querySelector('#df-6fd24151-4ac9-464a-9b41-972b5054465c');
         const dataTable =
           await google.colab.kernel.invokeFunction('convertToInteractive',
                                                     [key], {});
@@ -856,8 +843,8 @@ scope.google.colab._files = {
   </div>
 
 
-<div id="df-07ba70d2-c5cc-4e39-b418-05002563184b">
-  <button class="colab-df-quickchart" onclick="quickchart('df-07ba70d2-c5cc-4e39-b418-05002563184b')"
+<div id="df-0b116e04-318e-49d6-88b2-71c6ad755a58">
+  <button class="colab-df-quickchart" onclick="quickchart('df-0b116e04-318e-49d6-88b2-71c6ad755a58')"
             title="Suggest charts"
             style="display:none;">
 
@@ -976,7 +963,7 @@ scope.google.colab._files = {
     }
     (() => {
       let quickchartButtonEl =
-        document.querySelector('#df-07ba70d2-c5cc-4e39-b418-05002563184b button');
+        document.querySelector('#df-0b116e04-318e-49d6-88b2-71c6ad755a58 button');
       quickchartButtonEl.style.display =
         google.colab.kernel.accessAllowed ? 'block' : 'none';
     })();
@@ -1004,7 +991,7 @@ scope.google.colab._files = {
 </div>
 <div class="cell_output docutils container">
 <div class="output text_html">
-  <div id="df-e574647c-ae33-401f-90a4-161e36c28cbe" class="colab-df-container">
+  <div id="df-978eb4c6-eb59-46b9-938e-be6ef776a83b" class="colab-df-container">
     <div>
 <style scoped>
     .dataframe tbody tr th:only-of-type {
@@ -1174,7 +1161,7 @@ scope.google.colab._files = {
     <div class="colab-df-buttons">
 
   <div class="colab-df-container">
-    <button class="colab-df-convert" onclick="convertToInteractive('df-e574647c-ae33-401f-90a4-161e36c28cbe')"
+    <button class="colab-df-convert" onclick="convertToInteractive('df-978eb4c6-eb59-46b9-938e-be6ef776a83b')"
             title="Convert this dataframe to an interactive table."
             style="display:none;">
 
@@ -1226,12 +1213,12 @@ scope.google.colab._files = {
 
     <script>
       const buttonEl =
-        document.querySelector('#df-e574647c-ae33-401f-90a4-161e36c28cbe button.colab-df-convert');
+        document.querySelector('#df-978eb4c6-eb59-46b9-938e-be6ef776a83b button.colab-df-convert');
       buttonEl.style.display =
         google.colab.kernel.accessAllowed ? 'block' : 'none';
 
       async function convertToInteractive(key) {
-        const element = document.querySelector('#df-e574647c-ae33-401f-90a4-161e36c28cbe');
+        const element = document.querySelector('#df-978eb4c6-eb59-46b9-938e-be6ef776a83b');
         const dataTable =
           await google.colab.kernel.invokeFunction('convertToInteractive',
                                                     [key], {});
@@ -1251,8 +1238,8 @@ scope.google.colab._files = {
   </div>
 
 
-<div id="df-b6b6bbf6-b524-4437-b19d-a6834845b32c">
-  <button class="colab-df-quickchart" onclick="quickchart('df-b6b6bbf6-b524-4437-b19d-a6834845b32c')"
+<div id="df-d9f4732a-df6c-4297-99b7-5cd2da0b0732">
+  <button class="colab-df-quickchart" onclick="quickchart('df-d9f4732a-df6c-4297-99b7-5cd2da0b0732')"
             title="Suggest charts"
             style="display:none;">
 
@@ -1371,14 +1358,14 @@ scope.google.colab._files = {
     }
     (() => {
       let quickchartButtonEl =
-        document.querySelector('#df-b6b6bbf6-b524-4437-b19d-a6834845b32c button');
+        document.querySelector('#df-d9f4732a-df6c-4297-99b7-5cd2da0b0732 button');
       quickchartButtonEl.style.display =
         google.colab.kernel.accessAllowed ? 'block' : 'none';
     })();
   </script>
 </div>
 
-  <div id="id_11fe0979-1c3b-4e7a-ab1f-6ab4bc13ee24">
+  <div id="id_ed8c5a1d-a7c6-4721-9118-434461783c72">
     <style>
       .colab-df-generate {
         background-color: #E8F0FE;
@@ -1422,7 +1409,7 @@ scope.google.colab._files = {
     <script>
       (() => {
       const buttonEl =
-        document.querySelector('#id_11fe0979-1c3b-4e7a-ab1f-6ab4bc13ee24 button.colab-df-generate');
+        document.querySelector('#id_ed8c5a1d-a7c6-4721-9118-434461783c72 button.colab-df-generate');
       buttonEl.style.display =
         google.colab.kernel.accessAllowed ? 'block' : 'none';
 
@@ -1818,7 +1805,7 @@ TF-IDF untuk data testing:
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_html"><style>#sk-container-id-1 {
+<div class="output text_html"><style>#sk-container-id-4 {
   /* Definition of color scheme common for light and dark mode */
   --sklearn-color-text: black;
   --sklearn-color-line: gray;
@@ -1848,15 +1835,15 @@ TF-IDF untuk data testing:
   }
 }
 
-#sk-container-id-1 {
+#sk-container-id-4 {
   color: var(--sklearn-color-text);
 }
 
-#sk-container-id-1 pre {
+#sk-container-id-4 pre {
   padding: 0;
 }
 
-#sk-container-id-1 input.sk-hidden--visually {
+#sk-container-id-4 input.sk-hidden--visually {
   border: 0;
   clip: rect(1px 1px 1px 1px);
   clip: rect(1px, 1px, 1px, 1px);
@@ -1868,7 +1855,7 @@ TF-IDF untuk data testing:
   width: 1px;
 }
 
-#sk-container-id-1 div.sk-dashed-wrapped {
+#sk-container-id-4 div.sk-dashed-wrapped {
   border: 1px dashed var(--sklearn-color-line);
   margin: 0 0.4em 0.5em 0.4em;
   box-sizing: border-box;
@@ -1876,7 +1863,7 @@ TF-IDF untuk data testing:
   background-color: var(--sklearn-color-background);
 }
 
-#sk-container-id-1 div.sk-container {
+#sk-container-id-4 div.sk-container {
   /* jupyter's `normalize.less` sets `[hidden] { display: none; }`
      but bootstrap.min.css set `[hidden] { display: none !important; }`
      so we also need the `!important` here to be able to override the
@@ -1886,7 +1873,7 @@ TF-IDF untuk data testing:
   position: relative;
 }
 
-#sk-container-id-1 div.sk-text-repr-fallback {
+#sk-container-id-4 div.sk-text-repr-fallback {
   display: none;
 }
 
@@ -1902,14 +1889,14 @@ div.sk-item {
 
 /* Parallel-specific style estimator block */
 
-#sk-container-id-1 div.sk-parallel-item::after {
+#sk-container-id-4 div.sk-parallel-item::after {
   content: "";
   width: 100%;
   border-bottom: 2px solid var(--sklearn-color-text-on-default-background);
   flex-grow: 1;
 }
 
-#sk-container-id-1 div.sk-parallel {
+#sk-container-id-4 div.sk-parallel {
   display: flex;
   align-items: stretch;
   justify-content: center;
@@ -1917,28 +1904,28 @@ div.sk-item {
   position: relative;
 }
 
-#sk-container-id-1 div.sk-parallel-item {
+#sk-container-id-4 div.sk-parallel-item {
   display: flex;
   flex-direction: column;
 }
 
-#sk-container-id-1 div.sk-parallel-item:first-child::after {
+#sk-container-id-4 div.sk-parallel-item:first-child::after {
   align-self: flex-end;
   width: 50%;
 }
 
-#sk-container-id-1 div.sk-parallel-item:last-child::after {
+#sk-container-id-4 div.sk-parallel-item:last-child::after {
   align-self: flex-start;
   width: 50%;
 }
 
-#sk-container-id-1 div.sk-parallel-item:only-child::after {
+#sk-container-id-4 div.sk-parallel-item:only-child::after {
   width: 0;
 }
 
 /* Serial-specific style estimator block */
 
-#sk-container-id-1 div.sk-serial {
+#sk-container-id-4 div.sk-serial {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -1956,14 +1943,14 @@ clickable and can be expanded/collapsed.
 
 /* Pipeline and ColumnTransformer style (default) */
 
-#sk-container-id-1 div.sk-toggleable {
+#sk-container-id-4 div.sk-toggleable {
   /* Default theme specific background. It is overwritten whether we have a
   specific estimator or a Pipeline/ColumnTransformer */
   background-color: var(--sklearn-color-background);
 }
 
 /* Toggleable label */
-#sk-container-id-1 label.sk-toggleable__label {
+#sk-container-id-4 label.sk-toggleable__label {
   cursor: pointer;
   display: block;
   width: 100%;
@@ -1973,7 +1960,7 @@ clickable and can be expanded/collapsed.
   text-align: center;
 }
 
-#sk-container-id-1 label.sk-toggleable__label-arrow:before {
+#sk-container-id-4 label.sk-toggleable__label-arrow:before {
   /* Arrow on the left of the label */
   content: "▸";
   float: left;
@@ -1981,13 +1968,13 @@ clickable and can be expanded/collapsed.
   color: var(--sklearn-color-icon);
 }
 
-#sk-container-id-1 label.sk-toggleable__label-arrow:hover:before {
+#sk-container-id-4 label.sk-toggleable__label-arrow:hover:before {
   color: var(--sklearn-color-text);
 }
 
 /* Toggleable content - dropdown */
 
-#sk-container-id-1 div.sk-toggleable__content {
+#sk-container-id-4 div.sk-toggleable__content {
   max-height: 0;
   max-width: 0;
   overflow: hidden;
@@ -1996,12 +1983,12 @@ clickable and can be expanded/collapsed.
   background-color: var(--sklearn-color-unfitted-level-0);
 }
 
-#sk-container-id-1 div.sk-toggleable__content.fitted {
+#sk-container-id-4 div.sk-toggleable__content.fitted {
   /* fitted */
   background-color: var(--sklearn-color-fitted-level-0);
 }
 
-#sk-container-id-1 div.sk-toggleable__content pre {
+#sk-container-id-4 div.sk-toggleable__content pre {
   margin: 0.2em;
   border-radius: 0.25em;
   color: var(--sklearn-color-text);
@@ -2009,79 +1996,79 @@ clickable and can be expanded/collapsed.
   background-color: var(--sklearn-color-unfitted-level-0);
 }
 
-#sk-container-id-1 div.sk-toggleable__content.fitted pre {
+#sk-container-id-4 div.sk-toggleable__content.fitted pre {
   /* unfitted */
   background-color: var(--sklearn-color-fitted-level-0);
 }
 
-#sk-container-id-1 input.sk-toggleable__control:checked~div.sk-toggleable__content {
+#sk-container-id-4 input.sk-toggleable__control:checked~div.sk-toggleable__content {
   /* Expand drop-down */
   max-height: 200px;
   max-width: 100%;
   overflow: auto;
 }
 
-#sk-container-id-1 input.sk-toggleable__control:checked~label.sk-toggleable__label-arrow:before {
+#sk-container-id-4 input.sk-toggleable__control:checked~label.sk-toggleable__label-arrow:before {
   content: "▾";
 }
 
 /* Pipeline/ColumnTransformer-specific style */
 
-#sk-container-id-1 div.sk-label input.sk-toggleable__control:checked~label.sk-toggleable__label {
+#sk-container-id-4 div.sk-label input.sk-toggleable__control:checked~label.sk-toggleable__label {
   color: var(--sklearn-color-text);
   background-color: var(--sklearn-color-unfitted-level-2);
 }
 
-#sk-container-id-1 div.sk-label.fitted input.sk-toggleable__control:checked~label.sk-toggleable__label {
+#sk-container-id-4 div.sk-label.fitted input.sk-toggleable__control:checked~label.sk-toggleable__label {
   background-color: var(--sklearn-color-fitted-level-2);
 }
 
 /* Estimator-specific style */
 
 /* Colorize estimator box */
-#sk-container-id-1 div.sk-estimator input.sk-toggleable__control:checked~label.sk-toggleable__label {
+#sk-container-id-4 div.sk-estimator input.sk-toggleable__control:checked~label.sk-toggleable__label {
   /* unfitted */
   background-color: var(--sklearn-color-unfitted-level-2);
 }
 
-#sk-container-id-1 div.sk-estimator.fitted input.sk-toggleable__control:checked~label.sk-toggleable__label {
+#sk-container-id-4 div.sk-estimator.fitted input.sk-toggleable__control:checked~label.sk-toggleable__label {
   /* fitted */
   background-color: var(--sklearn-color-fitted-level-2);
 }
 
-#sk-container-id-1 div.sk-label label.sk-toggleable__label,
-#sk-container-id-1 div.sk-label label {
+#sk-container-id-4 div.sk-label label.sk-toggleable__label,
+#sk-container-id-4 div.sk-label label {
   /* The background is the default theme color */
   color: var(--sklearn-color-text-on-default-background);
 }
 
 /* On hover, darken the color of the background */
-#sk-container-id-1 div.sk-label:hover label.sk-toggleable__label {
+#sk-container-id-4 div.sk-label:hover label.sk-toggleable__label {
   color: var(--sklearn-color-text);
   background-color: var(--sklearn-color-unfitted-level-2);
 }
 
 /* Label box, darken color on hover, fitted */
-#sk-container-id-1 div.sk-label.fitted:hover label.sk-toggleable__label.fitted {
+#sk-container-id-4 div.sk-label.fitted:hover label.sk-toggleable__label.fitted {
   color: var(--sklearn-color-text);
   background-color: var(--sklearn-color-fitted-level-2);
 }
 
 /* Estimator label */
 
-#sk-container-id-1 div.sk-label label {
+#sk-container-id-4 div.sk-label label {
   font-family: monospace;
   font-weight: bold;
   display: inline-block;
   line-height: 1.2em;
 }
 
-#sk-container-id-1 div.sk-label-container {
+#sk-container-id-4 div.sk-label-container {
   text-align: center;
 }
 
 /* Estimator-specific */
-#sk-container-id-1 div.sk-estimator {
+#sk-container-id-4 div.sk-estimator {
   font-family: monospace;
   border: 1px dotted var(--sklearn-color-border-box);
   border-radius: 0.25em;
@@ -2091,18 +2078,18 @@ clickable and can be expanded/collapsed.
   background-color: var(--sklearn-color-unfitted-level-0);
 }
 
-#sk-container-id-1 div.sk-estimator.fitted {
+#sk-container-id-4 div.sk-estimator.fitted {
   /* fitted */
   background-color: var(--sklearn-color-fitted-level-0);
 }
 
 /* on hover */
-#sk-container-id-1 div.sk-estimator:hover {
+#sk-container-id-4 div.sk-estimator:hover {
   /* unfitted */
   background-color: var(--sklearn-color-unfitted-level-2);
 }
 
-#sk-container-id-1 div.sk-estimator.fitted:hover {
+#sk-container-id-4 div.sk-estimator.fitted:hover {
   /* fitted */
   background-color: var(--sklearn-color-fitted-level-2);
 }
@@ -2189,7 +2176,7 @@ div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
 
 /* "?"-specific style due to the `<a>` HTML tag */
 
-#sk-container-id-1 a.estimator_doc_link {
+#sk-container-id-4 a.estimator_doc_link {
   float: right;
   font-size: 1rem;
   line-height: 1em;
@@ -2204,25 +2191,25 @@ div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
   border: var(--sklearn-color-unfitted-level-1) 1pt solid;
 }
 
-#sk-container-id-1 a.estimator_doc_link.fitted {
+#sk-container-id-4 a.estimator_doc_link.fitted {
   /* fitted */
   border: var(--sklearn-color-fitted-level-1) 1pt solid;
   color: var(--sklearn-color-fitted-level-1);
 }
 
 /* On hover */
-#sk-container-id-1 a.estimator_doc_link:hover {
+#sk-container-id-4 a.estimator_doc_link:hover {
   /* unfitted */
   background-color: var(--sklearn-color-unfitted-level-3);
   color: var(--sklearn-color-background);
   text-decoration: none;
 }
 
-#sk-container-id-1 a.estimator_doc_link.fitted:hover {
+#sk-container-id-4 a.estimator_doc_link.fitted:hover {
   /* fitted */
   background-color: var(--sklearn-color-fitted-level-3);
 }
-</style><div id="sk-container-id-1" class="sk-top-container"><div class="sk-text-repr-fallback"><pre>LogisticRegression()</pre><b>In a Jupyter environment, please rerun this cell to show the HTML representation or trust the notebook. <br />On GitHub, the HTML representation is unable to render, please try loading this page with nbviewer.org.</b></div><div class="sk-container" hidden><div class="sk-item"><div class="sk-estimator fitted sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-1" type="checkbox" checked><label for="sk-estimator-id-1" class="sk-toggleable__label fitted sk-toggleable__label-arrow fitted">&nbsp;&nbsp;LogisticRegression<a class="sk-estimator-doc-link fitted" rel="noreferrer" target="_blank" href="https://scikit-learn.org/1.5/modules/generated/sklearn.linear_model.LogisticRegression.html">?<span>Documentation for LogisticRegression</span></a><span class="sk-estimator-doc-link fitted">i<span>Fitted</span></span></label><div class="sk-toggleable__content fitted"><pre>LogisticRegression()</pre></div> </div></div></div></div></div></div>
+</style><div id="sk-container-id-4" class="sk-top-container"><div class="sk-text-repr-fallback"><pre>LogisticRegression()</pre><b>In a Jupyter environment, please rerun this cell to show the HTML representation or trust the notebook. <br />On GitHub, the HTML representation is unable to render, please try loading this page with nbviewer.org.</b></div><div class="sk-container" hidden><div class="sk-item"><div class="sk-estimator fitted sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-4" type="checkbox" checked><label for="sk-estimator-id-4" class="sk-toggleable__label fitted sk-toggleable__label-arrow fitted">&nbsp;&nbsp;LogisticRegression<a class="sk-estimator-doc-link fitted" rel="noreferrer" target="_blank" href="https://scikit-learn.org/1.5/modules/generated/sklearn.linear_model.LogisticRegression.html">?<span>Documentation for LogisticRegression</span></a><span class="sk-estimator-doc-link fitted">i<span>Fitted</span></span></label><div class="sk-toggleable__content fitted"><pre>LogisticRegression()</pre></div> </div></div></div></div></div></div>
 </div>
 </section>
 <section class="tex2jax_ignore mathjax_ignore" id="model-evaluation">
@@ -2268,7 +2255,7 @@ div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
 weighted avg       0.96      0.95      0.95        20
 </pre></div>
 </div>
-<img alt="../_images/c47cbc966497fa961efa61ed939a5a99f802f58fb10b8dde2e845574d5b52f8a.png" src="../_images/c47cbc966497fa961efa61ed939a5a99f802f58fb10b8dde2e845574d5b52f8a.png" />
+<img alt="../_images/dda71037f05e336293c8d5209fe8b694b1473e0df111c7e5da9e38edaf4b0945.png" src="../_images/dda71037f05e336293c8d5209fe8b694b1473e0df111c7e5da9e38edaf4b0945.png" />
 </div>
 </div>
 </section>
@@ -2315,10 +2302,11 @@ teks 2: [&#39;Kesehatan masyarakat perlu diperhatikan dengan baik. Dalam beberap
 </div>
 <div class="cell_output docutils container">
 <div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[nltk_data] Downloading package stopwords to /root/nltk_data...
-[nltk_data]   Unzipping corpora/stopwords.zip.
+[nltk_data]   Package stopwords is already up-to-date!
 [nltk_data] Downloading package punkt to /root/nltk_data...
-[nltk_data]   Unzipping tokenizers/punkt.zip.
+[nltk_data]   Package punkt is already up-to-date!
 [nltk_data] Downloading package wordnet to /root/nltk_data...
+[nltk_data]   Package wordnet is already up-to-date!
 </pre></div>
 </div>
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>True
@@ -2407,12 +2395,12 @@ Hasil prediksi kategori untuk new_text_2: Kesehatan
 <span class="n">joblib</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">logistic_model</span><span class="p">,</span> <span class="s1">&#39;logistic_model.pkl&#39;</span><span class="p">)</span>
 
 <span class="c1"># Simpan TF-IDF Vectorizer</span>
-<span class="n">joblib</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">tfidf</span><span class="p">,</span> <span class="s1">&#39;tfidf_vectorizer.pkl&#39;</span><span class="p">)</span>
+<span class="n">joblib</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">tfidf</span><span class="p">,</span> <span class="s1">&#39;tfidf.pkl&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&#39;tfidf_vectorizer.pkl&#39;]
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&#39;tfidf.pkl&#39;]
 </pre></div>
 </div>
 </div>
@@ -2423,7 +2411,7 @@ Hasil prediksi kategori untuk new_text_2: Kesehatan
 <span class="n">loaded_model</span> <span class="o">=</span> <span class="n">joblib</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s1">&#39;logistic_model.pkl&#39;</span><span class="p">)</span>
 
 <span class="c1"># Muat TF-IDF Vectorizer</span>
-<span class="n">loaded_tfidf</span> <span class="o">=</span> <span class="n">joblib</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s1">&#39;tfidf_vectorizer.pkl&#39;</span><span class="p">)</span>
+<span class="n">loaded_tfidf</span> <span class="o">=</span> <span class="n">joblib</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s1">&#39;tfidf.pkl&#39;</span><span class="p">)</span>
 
 <span class="c1">#teks baruuu cuyy</span>
 <span class="n">teks_baru_cuy</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;&#39;&#39; Kesehatan merupakan topik utama dalam kedokteran. Memiliki badan yang sehat sekali adalah impian setiap orang</span><span class="se">\n</span><span class="s1"> Dengan tubuh yang sering melakukan olah raga, tubuh akan merasa lebih segar dan bugar. anjayy kelazz&#39;&#39;&#39;</span><span class="p">]</span>
@@ -2496,7 +2484,7 @@ Hasil prediksi kategori untuk new_text_2: Kesehatan
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title"><strong>Tugas 4 : Centrality</strong></p>
+        <p class="prev-next-title"><strong>Tugas 4 : Centrality Rangkuman berita</strong></p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -2507,7 +2495,8 @@ Hasil prediksi kategori untuk new_text_2: Kesehatan
             
             
               
-                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
 
 
   <div class="sidebar-secondary-item">
@@ -2572,8 +2561,8 @@ By The Jupyter Book Community
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
-<script src="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+  <script defer src="../_static/scripts/bootstrap.js?digest=26a4bc78f4c0ddb94549"></script>
+<script defer src="../_static/scripts/pydata-sphinx-theme.js?digest=26a4bc78f4c0ddb94549"></script>
 
   <footer class="bd-footer">
   </footer>
