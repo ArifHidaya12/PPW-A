@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Test fuzzy c-means 1 tanpa svd &#8212; My sample book</title>
+    <title>Tugas 6 Fuzzy c-means &#8212; My sample book</title>
   
   
   
@@ -63,6 +63,7 @@
     <script>DOCUMENTATION_OPTIONS.pagename = 'tugas-ppw/Tugas 6';</script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="&lt;no title&gt;" href="Link%20gradio.html" />
     <link rel="prev" title="Tugas 5 : Query kalimat dengan cosin &amp; Klasifikasi dengan SVD" href="Tugas%205.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
@@ -188,7 +189,7 @@
 
 
 
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">Test fuzzy c-means 1 tanpa svd</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Tugas 6 Fuzzy c-means</a></li>
 
 </ul>
 
@@ -398,7 +399,7 @@
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>Test fuzzy c-means 1 tanpa svd</h1>
+    <h1>Tugas 6 Fuzzy c-means</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -408,8 +409,8 @@
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Test fuzzy c-means 1 tanpa svd</a></li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#test-fuzzy-c-means-2-dengan-svd">Test fuzzy c-means 2 dengan svd</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Tugas 6 Fuzzy c-means</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#clustering">Clustering</a></li>
 </ul>
 
             </nav>
@@ -422,8 +423,38 @@
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="test-fuzzy-c-means-1-tanpa-svd">
-<h1>Test fuzzy c-means 1 tanpa svd<a class="headerlink" href="#test-fuzzy-c-means-1-tanpa-svd" title="Link to this heading">#</a></h1>
+  <section class="tex2jax_ignore mathjax_ignore" id="tugas-6-fuzzy-c-means">
+<h1>Tugas 6 Fuzzy c-means<a class="headerlink" href="#tugas-6-fuzzy-c-means" title="Link to this heading">#</a></h1>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">!</span>pip<span class="w"> </span>install<span class="w"> </span>fuzzy-c-means
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">sklearn.feature_extraction.text</span> <span class="kn">import</span> <span class="n">TfidfVectorizer</span>
+<span class="kn">from</span> <span class="nn">sklearn.preprocessing</span> <span class="kn">import</span> <span class="n">StandardScaler</span>
+<span class="kn">from</span> <span class="nn">sklearn.decomposition</span> <span class="kn">import</span> <span class="n">TruncatedSVD</span>  <span class="c1"># Import TruncatedSVD untuk reduksi dimensi</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">from</span> <span class="nn">fcmeans</span> <span class="kn">import</span> <span class="n">FCM</span>
+<span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">silhouette_score</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Requirement already satisfied: fuzzy-c-means in /usr/local/lib/python3.10/dist-packages (1.7.2)
+Requirement already satisfied: joblib&lt;2.0.0,&gt;=1.2.0 in /usr/local/lib/python3.10/dist-packages (from fuzzy-c-means) (1.4.2)
+Requirement already satisfied: numpy&lt;2.0.0,&gt;=1.21.1 in /usr/local/lib/python3.10/dist-packages (from fuzzy-c-means) (1.26.4)
+Requirement already satisfied: pydantic&lt;3.0.0,&gt;=2.6.4 in /usr/local/lib/python3.10/dist-packages (from fuzzy-c-means) (2.9.2)
+Requirement already satisfied: tabulate&lt;0.9.0,&gt;=0.8.9 in /usr/local/lib/python3.10/dist-packages (from fuzzy-c-means) (0.8.10)
+Requirement already satisfied: tqdm&lt;5.0.0,&gt;=4.64.1 in /usr/local/lib/python3.10/dist-packages (from fuzzy-c-means) (4.66.6)
+Requirement already satisfied: typer&lt;0.10.0,&gt;=0.9.0 in /usr/local/lib/python3.10/dist-packages (from fuzzy-c-means) (0.9.4)
+Requirement already satisfied: annotated-types&gt;=0.6.0 in /usr/local/lib/python3.10/dist-packages (from pydantic&lt;3.0.0,&gt;=2.6.4-&gt;fuzzy-c-means) (0.7.0)
+Requirement already satisfied: pydantic-core==2.23.4 in /usr/local/lib/python3.10/dist-packages (from pydantic&lt;3.0.0,&gt;=2.6.4-&gt;fuzzy-c-means) (2.23.4)
+Requirement already satisfied: typing-extensions&gt;=4.6.1 in /usr/local/lib/python3.10/dist-packages (from pydantic&lt;3.0.0,&gt;=2.6.4-&gt;fuzzy-c-means) (4.12.2)
+Requirement already satisfied: click&lt;9.0.0,&gt;=7.1.1 in /usr/local/lib/python3.10/dist-packages (from typer&lt;0.10.0,&gt;=0.9.0-&gt;fuzzy-c-means) (8.1.7)
+</pre></div>
+</div>
+</div>
+</div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">google.colab</span> <span class="kn">import</span> <span class="n">files</span>
@@ -435,9 +466,9 @@
 </div>
 <div class="cell_output docutils container">
 <div class="output text_html">
-     <input type="file" id="files-e1e3d599-4cb3-40f4-9292-6c682cbff9c2" name="files[]" multiple disabled
+     <input type="file" id="files-0956773d-a2f1-49cf-a3c9-c16eb59d3002" name="files[]" multiple disabled
         style="border:none" />
-     <output id="result-e1e3d599-4cb3-40f4-9292-6c682cbff9c2">
+     <output id="result-0956773d-a2f1-49cf-a3c9-c16eb59d3002">
       Upload widget is only available when the cell has been executed in the
       current browser session. Please rerun this cell to enable.
       </output>
@@ -618,7 +649,7 @@ scope.google.colab._files = {
 })(self);
 </script> </div><div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
 <span class="ne">KeyboardInterrupt</span><span class="g g-Whitespace">                         </span>Traceback (most recent call last)
-<span class="nn">&lt;ipython-input-1-5ae78e3a93f1&gt;</span> in <span class="ni">&lt;cell line: 4&gt;</span><span class="nt">()</span>
+<span class="nn">&lt;ipython-input-2-5ae78e3a93f1&gt;</span> in <span class="ni">&lt;cell line: 4&gt;</span><span class="nt">()</span>
 <span class="g g-Whitespace">      </span><span class="mi">2</span> 
 <span class="g g-Whitespace">      </span><span class="mi">3</span> <span class="c1"># Upload file  dari komputer</span>
 <span class="ne">----&gt; </span><span class="mi">4</span> <span class="n">upload_file</span> <span class="o">=</span> <span class="n">files</span><span class="o">.</span><span class="n">upload</span><span class="p">()</span>
@@ -670,7 +701,7 @@ scope.google.colab._files = {
 </div>
 <div class="cell_output docutils container">
 <div class="output text_html">
-  <div id="df-605de8d5-cff3-4306-913a-a1d39bcf9871" class="colab-df-container">
+  <div id="df-ca5ab158-b184-43fe-b63b-faacc1d14857" class="colab-df-container">
     <div>
 <style scoped>
     .dataframe tbody tr th:only-of-type {
@@ -773,7 +804,7 @@ scope.google.colab._files = {
     <div class="colab-df-buttons">
 
   <div class="colab-df-container">
-    <button class="colab-df-convert" onclick="convertToInteractive('df-605de8d5-cff3-4306-913a-a1d39bcf9871')"
+    <button class="colab-df-convert" onclick="convertToInteractive('df-ca5ab158-b184-43fe-b63b-faacc1d14857')"
             title="Convert this dataframe to an interactive table."
             style="display:none;">
 
@@ -825,12 +856,12 @@ scope.google.colab._files = {
 
     <script>
       const buttonEl =
-        document.querySelector('#df-605de8d5-cff3-4306-913a-a1d39bcf9871 button.colab-df-convert');
+        document.querySelector('#df-ca5ab158-b184-43fe-b63b-faacc1d14857 button.colab-df-convert');
       buttonEl.style.display =
         google.colab.kernel.accessAllowed ? 'block' : 'none';
 
       async function convertToInteractive(key) {
-        const element = document.querySelector('#df-605de8d5-cff3-4306-913a-a1d39bcf9871');
+        const element = document.querySelector('#df-ca5ab158-b184-43fe-b63b-faacc1d14857');
         const dataTable =
           await google.colab.kernel.invokeFunction('convertToInteractive',
                                                     [key], {});
@@ -850,8 +881,8 @@ scope.google.colab._files = {
   </div>
 
 
-<div id="df-6c18f398-a30a-450b-b32b-65137c2e66ec">
-  <button class="colab-df-quickchart" onclick="quickchart('df-6c18f398-a30a-450b-b32b-65137c2e66ec')"
+<div id="df-dd93b25a-119c-4e77-a979-ce0004bae676">
+  <button class="colab-df-quickchart" onclick="quickchart('df-dd93b25a-119c-4e77-a979-ce0004bae676')"
             title="Suggest charts"
             style="display:none;">
 
@@ -970,7 +1001,7 @@ scope.google.colab._files = {
     }
     (() => {
       let quickchartButtonEl =
-        document.querySelector('#df-6c18f398-a30a-450b-b32b-65137c2e66ec button');
+        document.querySelector('#df-dd93b25a-119c-4e77-a979-ce0004bae676 button');
       quickchartButtonEl.style.display =
         google.colab.kernel.accessAllowed ? 'block' : 'none';
     })();
@@ -983,321 +1014,401 @@ scope.google.colab._files = {
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">!</span>pip<span class="w"> </span>install<span class="w"> </span>scikit-fuzzy
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Collecting scikit-fuzzy
-  Downloading scikit_fuzzy-0.5.0-py2.py3-none-any.whl.metadata (2.6 kB)
-Downloading scikit_fuzzy-0.5.0-py2.py3-none-any.whl (920 kB)
-?25l   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ <span class=" -Color -Color-Green">0.0/920.8 kB</span> <span class=" -Color -Color-Red">?</span> eta <span class=" -Color -Color-Cyan">-:--:--</span>
-   ━━━━━━━━━━━━━━╸━━━━━━━━━━━━━━━━━━━━━━━━━ <span class=" -Color -Color-Green">337.9/920.8 kB</span> <span class=" -Color -Color-Red">10.6 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:01</span>
-   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ <span class=" -Color -Color-Green">920.8/920.8 kB</span> <span class=" -Color -Color-Red">15.7 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:00</span>
-?25hInstalling collected packages: scikit-fuzzy
-Successfully installed scikit-fuzzy-0.5.0
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">texts</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;clean_text&#39;</span><span class="p">]</span>
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.feature_extraction.text</span> <span class="kn">import</span> <span class="n">TfidfVectorizer</span>
-
-<span class="c1"># Extract the `clean_text` column</span>
-<span class="n">clean_texts</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;clean_text&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">dropna</span><span class="p">()</span>
-
-<span class="c1"># Convert text data into TF-IDF features</span>
-<span class="n">tfidf_vectorizer</span> <span class="o">=</span> <span class="n">TfidfVectorizer</span><span class="p">(</span><span class="n">max_features</span><span class="o">=</span><span class="mi">500</span><span class="p">)</span>  <span class="c1"># Limit to top 500 features for efficiency</span>
-<span class="n">tfidf_matrix</span> <span class="o">=</span> <span class="n">tfidf_vectorizer</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">clean_texts</span><span class="p">)</span>
-
-<span class="n">tfidf_matrix</span><span class="o">.</span><span class="n">shape</span>  <span class="c1"># Show the shape of the resulting matrix</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(100, 500)
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Step 2: Vektorisasi TF-IDF</span>
+<span class="n">tfidf_vectorizer</span> <span class="o">=</span> <span class="n">TfidfVectorizer</span><span class="p">()</span>
+<span class="n">tfidf_matrix</span> <span class="o">=</span> <span class="n">tfidf_vectorizer</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">texts</span><span class="p">)</span>
+<span class="n">X_tfidf</span> <span class="o">=</span> <span class="n">tfidf_matrix</span><span class="o">.</span><span class="n">toarray</span><span class="p">()</span>
+<span class="n">scaler</span> <span class="o">=</span> <span class="n">StandardScaler</span><span class="p">()</span>
+<span class="n">X_scaled</span> <span class="o">=</span> <span class="n">scaler</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">X_tfidf</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Mendapatkan nama fitur dari TF-IDF</span>
+<span class="n">feature_names</span> <span class="o">=</span> <span class="n">tfidf_vectorizer</span><span class="o">.</span><span class="n">get_feature_names_out</span><span class="p">()</span>
+
+<span class="c1"># Konversi TF-IDF hasil training ke DataFrame</span>
+<span class="n">df_train_tfidf</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">tfidf_matrix</span><span class="o">.</span><span class="n">toarray</span><span class="p">(),</span> <span class="n">columns</span><span class="o">=</span><span class="n">feature_names</span><span class="p">)</span>
+<span class="n">df_train_tfidf</span>
+<span class="n">df_train_tfidf</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="s2">&quot;tf-idf.csv&quot;</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">X_tfidf</span><span class="o">.</span><span class="n">shape</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(100, 6239)
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">adjusted_rand_score</span><span class="p">,</span> <span class="n">normalized_mutual_info_score</span>
 <span class="kn">from</span> <span class="nn">fcmeans</span> <span class="kn">import</span> <span class="n">FCM</span>
-<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">from</span> <span class="nn">sklearn.decomposition</span> <span class="kn">import</span> <span class="n">TruncatedSVD</span>
+<span class="kn">from</span> <span class="nn">sklearn.preprocessing</span> <span class="kn">import</span> <span class="n">StandardScaler</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 
-<span class="c1"># Set random seed for reproducibility</span>
-<span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
+<span class="c1"># Pastikan X_scaled sudah terdefinisi sebelumnya</span>
 
-<span class="c1"># Initialize Fuzzy C-Means with a reasonable number of clusters (e.g., 2)</span>
-<span class="n">n_clusters</span> <span class="o">=</span> <span class="mi">2</span>
-<span class="n">fcm</span> <span class="o">=</span> <span class="n">FCM</span><span class="p">(</span><span class="n">n_clusters</span><span class="o">=</span><span class="n">n_clusters</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">11</span><span class="p">)</span>
+<span class="c1"># Inisialisasi variabel untuk menyimpan hasil</span>
+<span class="n">best_silhouette</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
+<span class="n">best_ari</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
+<span class="n">best_nmi</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
+<span class="n">best_n_components</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="n">results</span> <span class="o">=</span> <span class="p">{}</span>
 
-<span class="c1"># Fit Fuzzy C-Means on the original TF-IDF matrix (without dimensionality reduction)</span>
-<span class="n">fcm</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">tfidf_matrix</span><span class="o">.</span><span class="n">toarray</span><span class="p">())</span>  <span class="c1"># Assuming tfidf_matrix is already computed</span>
+<span class="c1"># Asumsikan y_true adalah label asli dari dataset Anda</span>
+<span class="n">y_true</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;kategori_encoded&#39;</span><span class="p">]</span>  <span class="c1"># Ganti &#39;kategori&#39; dengan nama kolom label asli</span>
 
-<span class="c1"># Get the fuzzy membership and cluster centers</span>
-<span class="n">membership</span> <span class="o">=</span> <span class="n">fcm</span><span class="o">.</span><span class="n">u</span>
-<span class="n">cluster_centers</span> <span class="o">=</span> <span class="n">fcm</span><span class="o">.</span><span class="n">centers</span>
+<span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">100</span><span class="p">):</span>  <span class="c1"># Rentang nilai n_components</span>
+    <span class="n">svd</span> <span class="o">=</span> <span class="n">TruncatedSVD</span><span class="p">(</span><span class="n">n_components</span><span class="o">=</span><span class="n">n</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
+    <span class="n">data_reduced</span> <span class="o">=</span> <span class="n">svd</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">X_scaled</span><span class="p">)</span>
 
-<span class="c1"># Find the cluster with the highest membership for each document</span>
-<span class="n">cluster_labels</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">membership</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+    <span class="c1"># Fuzzy C-Means Clustering</span>
+    <span class="n">fcm</span> <span class="o">=</span> <span class="n">FCM</span><span class="p">(</span><span class="n">n_clusters</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">m</span><span class="o">=</span><span class="mf">2.0</span><span class="p">,</span> <span class="n">max_iter</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span> <span class="n">error</span><span class="o">=</span><span class="mf">0.00001</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
+    <span class="n">fcm</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">data_reduced</span><span class="p">)</span>
+    <span class="n">cluster_labels</span> <span class="o">=</span> <span class="n">fcm</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">data_reduced</span><span class="p">)</span>
 
-<span class="c1"># Plot the results using the first two features of the TF-IDF matrix (for visualization)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">7</span><span class="p">))</span>
+    <span class="c1"># Evaluasi dengan Silhouette Score, ARI, dan NMI</span>
+    <span class="n">silhouette</span> <span class="o">=</span> <span class="n">silhouette_score</span><span class="p">(</span><span class="n">data_reduced</span><span class="p">,</span> <span class="n">cluster_labels</span><span class="p">)</span>
+    <span class="n">ari</span> <span class="o">=</span> <span class="n">adjusted_rand_score</span><span class="p">(</span><span class="n">y_true</span><span class="p">,</span> <span class="n">cluster_labels</span><span class="p">)</span>
+    <span class="n">nmi</span> <span class="o">=</span> <span class="n">normalized_mutual_info_score</span><span class="p">(</span><span class="n">y_true</span><span class="p">,</span> <span class="n">cluster_labels</span><span class="p">)</span>
 
-<span class="c1"># Visualize the clustering</span>
-<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n_clusters</span><span class="p">):</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">cluster_labels</span><span class="p">))[</span><span class="n">cluster_labels</span> <span class="o">==</span> <span class="n">i</span><span class="p">],</span>
-                <span class="n">np</span><span class="o">.</span><span class="n">zeros_like</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">cluster_labels</span><span class="p">)))[</span><span class="n">cluster_labels</span> <span class="o">==</span> <span class="n">i</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="sa">f</span><span class="s1">&#39;Cluster </span><span class="si">{</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+    <span class="n">results</span><span class="p">[</span><span class="n">n</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s1">&#39;silhouette&#39;</span><span class="p">:</span> <span class="n">silhouette</span><span class="p">,</span>
+        <span class="s1">&#39;ari&#39;</span><span class="p">:</span> <span class="n">ari</span><span class="p">,</span>
+        <span class="s1">&#39;nmi&#39;</span><span class="p">:</span> <span class="n">nmi</span>
+    <span class="p">}</span>
 
-<span class="c1"># Plot centroids</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">n_clusters</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">n_clusters</span><span class="p">),</span> <span class="n">s</span><span class="o">=</span><span class="mi">300</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s1">&#39;X&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Centroids&#39;</span><span class="p">)</span>
+    <span class="c1"># Log setiap iterasi</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Iterasi dengan n_components=</span><span class="si">{</span><span class="n">n</span><span class="si">}</span><span class="s2">: Silhouette=</span><span class="si">{</span><span class="n">silhouette</span><span class="si">}</span><span class="s2">, ARI=</span><span class="si">{</span><span class="n">ari</span><span class="si">}</span><span class="s2">, NMI=</span><span class="si">{</span><span class="n">nmi</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 
-<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Fuzzy C-Means Clustering of Text Data (No Dimensionality Reduction)&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Documents&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Cluster Assignments&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+    <span class="c1"># Perbarui nilai terbaik</span>
+    <span class="k">if</span> <span class="n">silhouette</span> <span class="o">&gt;</span> <span class="n">best_silhouette</span><span class="p">:</span>
+        <span class="n">best_silhouette</span> <span class="o">=</span> <span class="n">silhouette</span>
+        <span class="n">best_n_components</span> <span class="o">=</span> <span class="n">n</span>
+    <span class="k">if</span> <span class="n">ari</span> <span class="o">&gt;</span> <span class="n">best_ari</span><span class="p">:</span>
+        <span class="n">best_ari</span> <span class="o">=</span> <span class="n">ari</span>
+    <span class="k">if</span> <span class="n">nmi</span> <span class="o">&gt;</span> <span class="n">best_nmi</span><span class="p">:</span>
+        <span class="n">best_nmi</span> <span class="o">=</span> <span class="n">nmi</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Iterasi dengan n_components=2: Silhouette=0.9609456224110352, ARI=0.0, NMI=0.018639764244343528
+Iterasi dengan n_components=3: Silhouette=0.9404878627957127, ARI=-0.0007766707522784365, NMI=0.0042289170055858855
+Iterasi dengan n_components=4: Silhouette=0.9164433455314719, ARI=4.85601903559462e-05, NMI=0.012637056407904105
+Iterasi dengan n_components=5: Silhouette=0.8641353965736649, ARI=0.004130624939255516, NMI=0.03348817079820381
+Iterasi dengan n_components=6: Silhouette=0.8667871927985338, ARI=0.004130624939255516, NMI=0.03348817079820381
+Iterasi dengan n_components=7: Silhouette=0.8249850655545596, ARI=0.007389132627638759, NMI=0.04469202501254566
+Iterasi dengan n_components=8: Silhouette=0.815632615257052, ARI=0.0034364818206869723, NMI=0.023324640861378393
+Iterasi dengan n_components=9: Silhouette=0.2944754484315648, ARI=0.12142123036264865, NMI=0.10805204632615578
+Iterasi dengan n_components=10: Silhouette=0.10864507426457416, ARI=0.3068788249694002, NMI=0.2578242535998632
+Iterasi dengan n_components=11: Silhouette=0.2693479409858241, ARI=0.03982241356114624, NMI=0.041828094549225966
+Iterasi dengan n_components=12: Silhouette=0.2068989020151239, ARI=0.06954279933426884, NMI=0.06240837923076702
+Iterasi dengan n_components=13: Silhouette=0.18219439569156584, ARI=0.37832390107760294, NMI=0.3180138549429572
+Iterasi dengan n_components=14: Silhouette=0.17128061695518626, ARI=0.3535643742144011, NMI=0.2855817360372474
+Iterasi dengan n_components=15: Silhouette=0.1784260302577336, ARI=0.456994074340097, NMI=0.3769685615198214
+Iterasi dengan n_components=16: Silhouette=0.24180855319051972, ARI=0.37842534911329506, NMI=0.32885237991265603
+Iterasi dengan n_components=17: Silhouette=0.12142492809687956, ARI=-0.009762906668734618, NMI=0.00028997790097287234
+Iterasi dengan n_components=18: Silhouette=0.04011464519104109, ARI=0.4298989898989899, NMI=0.3492721107165225
+Iterasi dengan n_components=19: Silhouette=0.12507501353500775, ARI=0.5430303030303031, NMI=0.4532839480340869
+Iterasi dengan n_components=20: Silhouette=0.12633928246569745, ARI=-0.008521892447840141, NMI=0.0011646013497918254
+Iterasi dengan n_components=21: Silhouette=0.0565930865088939, ARI=0.5135571915963368, NMI=0.42977137131885157
+Iterasi dengan n_components=22: Silhouette=0.12084670913210699, ARI=0.004602879247869944, NMI=0.010789584794377008
+Iterasi dengan n_components=23: Silhouette=0.08839065782013168, ARI=-0.0037223882059068424, NMI=0.004631680941037668
+Iterasi dengan n_components=24: Silhouette=0.07225485488139927, ARI=-0.009696969696969697, NMI=0.0002925308140970916
+Iterasi dengan n_components=25: Silhouette=0.03315099597587332, ARI=0.0043591125042856445, NMI=0.010435392710893103
+Iterasi dengan n_components=26: Silhouette=0.14309310402808603, ARI=0.009793959575431853, NMI=0.014576828435880821
+Iterasi dengan n_components=27: Silhouette=0.09914910424377721, ARI=-0.006530372353668641, NMI=0.002611220469271829
+Iterasi dengan n_components=28: Silhouette=0.04625043953866248, ARI=0.004342857142857143, NMI=0.010412478777945247
+Iterasi dengan n_components=29: Silhouette=0.018024282698405968, ARI=0.1681622859101649, NMI=0.13534965598921833
+Iterasi dengan n_components=30: Silhouette=0.09937025021184505, ARI=0.015721422274463707, NMI=0.01871144634398399
+Iterasi dengan n_components=31: Silhouette=0.06799013627843005, ARI=-0.0065632385173938065, NMI=0.0025998294462112
+Iterasi dengan n_components=32: Silhouette=0.04058792770697673, ARI=0.05818181818181818, NMI=0.050037551925623425
+Iterasi dengan n_components=33: Silhouette=0.10511089492562282, ARI=0.009923249864330567, NMI=0.014842747072989914
+Iterasi dengan n_components=34: Silhouette=0.023173379236929425, ARI=0.12077578607111372, NMI=0.09653450898202479
+Iterasi dengan n_components=35: Silhouette=0.026442590166086813, ARI=-0.010187588774060832, NMI=0.0
+Iterasi dengan n_components=36: Silhouette=0.03648322856099927, ARI=0.08074805415311274, NMI=0.06627595469152042
+Iterasi dengan n_components=37: Silhouette=0.003435569668783096, ARI=0.06937576499388005, NMI=0.0607708675871891
+Iterasi dengan n_components=38: Silhouette=0.019475988787597844, ARI=0.12077578607111372, NMI=0.09653450898202479
+Iterasi dengan n_components=39: Silhouette=0.02374156811819705, ARI=0.015673213498555126, NMI=0.018587207287721865
+Iterasi dengan n_components=40: Silhouette=0.04811517062439924, ARI=-0.0037223882059068424, NMI=0.004631680941037668
+Iterasi dengan n_components=41: Silhouette=0.0204014229412198, ARI=-6.530372353668641e-05, NMI=0.007261306984853738
+Iterasi dengan n_components=42: Silhouette=-0.011831265663876019, ARI=0.023200323042472742, NMI=0.025896169931971025
+Iterasi dengan n_components=43: Silhouette=0.01783565249448607, ARI=-0.0036732295033793712, NMI=0.004662264774345075
+Iterasi dengan n_components=44: Silhouette=0.018220172862593798, ARI=-0.0037223882059068424, NMI=0.004631680941037668
+Iterasi dengan n_components=45: Silhouette=0.00577341235492432, ARI=0.0003916433108546391, NMI=0.00773252967543183
+Iterasi dengan n_components=46: Silhouette=0.016353379964321523, ARI=-0.003738775510204082, NMI=0.00462156117977532
+Iterasi dengan n_components=47: Silhouette=0.014223987369441018, ARI=0.03878787878787879, NMI=0.03570031803557409
+Iterasi dengan n_components=48: Silhouette=0.012336507548346445, ARI=0.00448913629017777, NMI=0.010621809793435164
+Iterasi dengan n_components=49: Silhouette=0.022153143258217226, ARI=-0.006530372353668641, NMI=0.002611220469271829
+Iterasi dengan n_components=50: Silhouette=0.010054645745595371, ARI=-0.010055665289998204, NMI=6.440383184243714e-16
+Iterasi dengan n_components=51: Silhouette=0.0010352038640803177, ARI=-0.009466258094262714, NMI=0.0003017697373495547
+Iterasi dengan n_components=52: Silhouette=0.0009700642968050039, ARI=0.09361077111383109, NMI=0.0797957030202867
+Iterasi dengan n_components=53: Silhouette=0.007882143659931637, ARI=0.00448913629017777, NMI=0.010621809793435164
+Iterasi dengan n_components=54: Silhouette=0.02661564941632787, ARI=0.28444444444444444, NMI=0.22582638531252477
+Iterasi dengan n_components=55: Silhouette=0.03187421527462817, ARI=-0.003591309032142216, NMI=0.004713998200230879
+Iterasi dengan n_components=56: Silhouette=0.008769188224132503, ARI=0.06913269886873766, NMI=0.058519792136740086
+Iterasi dengan n_components=57: Silhouette=0.005959364078800655, ARI=0.009793959575431853, NMI=0.014576828435880821
+Iterasi dengan n_components=58: Silhouette=0.010221792799541995, ARI=0.22274997551659975, NMI=0.18068148860961386
+Iterasi dengan n_components=59: Silhouette=0.003256680578468022, ARI=0.08116807617462396, NMI=0.07083693545803353
+Iterasi dengan n_components=60: Silhouette=0.012246915251385859, ARI=0.01580175974142575, NMI=0.018921669336916504
+Iterasi dengan n_components=61: Silhouette=0.009877136796951104, ARI=-0.0036732295033793712, NMI=0.004662264774345075
+Iterasi dengan n_components=62: Silhouette=0.013565869568740663, ARI=0.030346561321601725, NMI=0.02964327933391515
+Iterasi dengan n_components=63: Silhouette=-0.005949031614481936, ARI=0.04854289723591032, NMI=0.045626023826804925
+Iterasi dengan n_components=64: Silhouette=0.009003182597096659, ARI=0.12107711138310893, NMI=0.10161583526102293
+Iterasi dengan n_components=65: Silhouette=0.024359775798592883, ARI=0.20363636363636364, NMI=0.16108192607888686
+Iterasi dengan n_components=66: Silhouette=0.007154553602912899, ARI=0.009793959575431853, NMI=0.014576828435880821
+Iterasi dengan n_components=67: Silhouette=-0.014030427384689322, ARI=0.18602261048304214, NMI=0.16455265253877288
+Iterasi dengan n_components=68: Silhouette=0.012602788886081635, ARI=0.03045734991675644, NMI=0.030119699730181713
+Iterasi dengan n_components=69: Silhouette=0.004284843976321852, ARI=0.03878787878787879, NMI=0.03570031803557409
+Iterasi dengan n_components=70: Silhouette=-0.019919953498364305, ARI=0.040104173034834385, NMI=0.043823204084947665
+Iterasi dengan n_components=71: Silhouette=0.013983533890090327, ARI=-0.0065632385173938065, NMI=0.0025998294462112
+Iterasi dengan n_components=72: Silhouette=-0.00582797338732294, ARI=0.16875930268121114, NMI=0.15217136598067355
+Iterasi dengan n_components=73: Silhouette=0.007140141499427398, ARI=-0.0036732295033793712, NMI=0.004662264774345075
+Iterasi dengan n_components=74: Silhouette=-0.019649775703752898, ARI=0.15254928176615415, NMI=0.14732159517119764
+Iterasi dengan n_components=75: Silhouette=-0.012839443628124449, ARI=0.1076281447598547, NMI=0.10211525294052909
+Iterasi dengan n_components=76: Silhouette=0.0048013023683126585, ARI=0.022721986215001898, NMI=0.02415423012293781
+Iterasi dengan n_components=77: Silhouette=-0.02103843470391284, ARI=0.13668774384501547, NMI=0.12886573678714794
+Iterasi dengan n_components=78: Silhouette=-0.008774127735989823, ARI=0.09396564381148143, NMI=0.08472444119491121
+Iterasi dengan n_components=79: Silhouette=0.005364587928339905, ARI=0.009632299221661245, NMI=0.014255592878046928
+Iterasi dengan n_components=80: Silhouette=-0.028660598768997465, ARI=0.04986068338466051, NMI=0.056935743822353245
+Iterasi dengan n_components=81: Silhouette=-0.04109971332336, ARI=0.05021663354725218, NMI=0.0608797766294899
+Iterasi dengan n_components=82: Silhouette=-0.033601867460084964, ARI=0.0950285965684118, NMI=0.10345369088652681
+Iterasi dengan n_components=83: Silhouette=-0.04436298322675165, ARI=0.0604824427480916, NMI=0.07461767443636569
+Iterasi dengan n_components=84: Silhouette=-0.040968595310071576, ARI=0.040760969172684285, NMI=0.04918785501957698
+Iterasi dengan n_components=85: Silhouette=-0.05555309910935392, ARI=0.13862618521727457, NMI=0.2127924293298967
+Iterasi dengan n_components=86: Silhouette=-0.05564567934541368, ARI=0.12352309344790548, NMI=0.1744676128096239
+Iterasi dengan n_components=87: Silhouette=-0.047980758569661906, ARI=0.1537634933815269, NMI=0.19955031236814003
+Iterasi dengan n_components=88: Silhouette=-0.0519489192823101, ARI=0.13823358252383725, NMI=0.18688099581494588
+Iterasi dengan n_components=89: Silhouette=-0.050014107818825336, ARI=0.10922601727919781, NMI=0.14489620677329224
+Iterasi dengan n_components=90: Silhouette=-0.046933653255532004, ARI=0.1231377912372393, NMI=0.1566436964174006
+Iterasi dengan n_components=91: Silhouette=-0.04690141825388358, ARI=0.1231377912372393, NMI=0.1566436964174006
+Iterasi dengan n_components=92: Silhouette=-0.04636505431405298, ARI=0.1231377912372393, NMI=0.1566436964174006
+Iterasi dengan n_components=93: Silhouette=-0.042307077076352825, ARI=0.10884885496183207, NMI=0.13190860114521943
+Iterasi dengan n_components=94: Silhouette=-0.037433304781623475, ARI=0.10884885496183207, NMI=0.13190860114521943
+Iterasi dengan n_components=95: Silhouette=-0.03883447594509382, ARI=0.1231377912372393, NMI=0.1566436964174006
+Iterasi dengan n_components=96: Silhouette=-0.030618093841066438, ARI=0.13786870229007633, NMI=0.16867857255934546
+Iterasi dengan n_components=97: Silhouette=-0.018401503332162047, ARI=0.0950285965684118, NMI=0.10345369088652681
+Iterasi dengan n_components=98: Silhouette=-0.017283261274151217, ARI=0.08236602686592705, NMI=0.08755514506746456
+Iterasi dengan n_components=99: Silhouette=-0.015944023992258718, ARI=0.07051344743276283, NMI=0.07371785121348161
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Menyimpan hasil terbaik untuk setiap metrik</span>
+<span class="n">best_silhouette_n_components</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">results</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">results</span><span class="p">[</span><span class="n">x</span><span class="p">][</span><span class="s1">&#39;silhouette&#39;</span><span class="p">])</span>
+<span class="n">best_ari_n_components</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">results</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">results</span><span class="p">[</span><span class="n">x</span><span class="p">][</span><span class="s1">&#39;ari&#39;</span><span class="p">])</span>
+<span class="n">best_nmi_n_components</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">results</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">results</span><span class="p">[</span><span class="n">x</span><span class="p">][</span><span class="s1">&#39;nmi&#39;</span><span class="p">])</span>
+
+<span class="c1"># Menampilkan hasil terbaik</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Best Silhouette Score is achieved by n_components=</span><span class="si">{</span><span class="n">best_silhouette_n_components</span><span class="si">}</span><span class="s2"> with score: </span><span class="si">{</span><span class="n">results</span><span class="p">[</span><span class="n">best_silhouette_n_components</span><span class="p">][</span><span class="s1">&#39;silhouette&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Best ARI is achieved by n_components=</span><span class="si">{</span><span class="n">best_ari_n_components</span><span class="si">}</span><span class="s2"> with score: </span><span class="si">{</span><span class="n">results</span><span class="p">[</span><span class="n">best_ari_n_components</span><span class="p">][</span><span class="s1">&#39;ari&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Best NMI is achieved by n_components=</span><span class="si">{</span><span class="n">best_nmi_n_components</span><span class="si">}</span><span class="s2"> with score: </span><span class="si">{</span><span class="n">results</span><span class="p">[</span><span class="n">best_nmi_n_components</span><span class="p">][</span><span class="s1">&#39;nmi&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Best Silhouette Score is achieved by n_components=2 with score: 0.9609456224110352
+Best ARI is achieved by n_components=19 with score: 0.5430303030303031
+Best NMI is achieved by n_components=19 with score: 0.4532839480340869
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Mengurutkan hasil berdasarkan silhouette score (dari tertinggi ke terendah)</span>
+<span class="n">sorted_results</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">results</span><span class="o">.</span><span class="n">items</span><span class="p">(),</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="s1">&#39;silhouette&#39;</span><span class="p">],</span> <span class="n">reverse</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="c1"># Menampilkan hasil akhir</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Best n_components: </span><span class="si">{</span><span class="n">best_n_components</span><span class="si">}</span><span class="s2"> with silhouette score: </span><span class="si">{</span><span class="n">best_silhouette</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">All results (sorted by silhouette score):&quot;</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">n</span><span class="p">,</span> <span class="n">score</span> <span class="ow">in</span> <span class="n">sorted_results</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;n_components=</span><span class="si">{</span><span class="n">n</span><span class="si">}</span><span class="s2">: Silhouette Score=</span><span class="si">{</span><span class="n">score</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Best n_components: 2 with silhouette score: 0.9609456224110352
+
+All results (sorted by silhouette score):
+n_components=2: Silhouette Score={&#39;silhouette&#39;: 0.9609456224110352, &#39;ari&#39;: 0.0, &#39;nmi&#39;: 0.018639764244343528}
+n_components=3: Silhouette Score={&#39;silhouette&#39;: 0.9404878627957127, &#39;ari&#39;: -0.0007766707522784365, &#39;nmi&#39;: 0.0042289170055858855}
+n_components=4: Silhouette Score={&#39;silhouette&#39;: 0.9164433455314719, &#39;ari&#39;: 4.85601903559462e-05, &#39;nmi&#39;: 0.012637056407904105}
+n_components=6: Silhouette Score={&#39;silhouette&#39;: 0.8667871927985338, &#39;ari&#39;: 0.004130624939255516, &#39;nmi&#39;: 0.03348817079820381}
+n_components=5: Silhouette Score={&#39;silhouette&#39;: 0.8641353965736649, &#39;ari&#39;: 0.004130624939255516, &#39;nmi&#39;: 0.03348817079820381}
+n_components=7: Silhouette Score={&#39;silhouette&#39;: 0.8249850655545596, &#39;ari&#39;: 0.007389132627638759, &#39;nmi&#39;: 0.04469202501254566}
+n_components=8: Silhouette Score={&#39;silhouette&#39;: 0.815632615257052, &#39;ari&#39;: 0.0034364818206869723, &#39;nmi&#39;: 0.023324640861378393}
+n_components=9: Silhouette Score={&#39;silhouette&#39;: 0.2944754484315648, &#39;ari&#39;: 0.12142123036264865, &#39;nmi&#39;: 0.10805204632615578}
+n_components=11: Silhouette Score={&#39;silhouette&#39;: 0.2693479409858241, &#39;ari&#39;: 0.03982241356114624, &#39;nmi&#39;: 0.041828094549225966}
+n_components=16: Silhouette Score={&#39;silhouette&#39;: 0.24180855319051972, &#39;ari&#39;: 0.37842534911329506, &#39;nmi&#39;: 0.32885237991265603}
+n_components=12: Silhouette Score={&#39;silhouette&#39;: 0.2068989020151239, &#39;ari&#39;: 0.06954279933426884, &#39;nmi&#39;: 0.06240837923076702}
+n_components=13: Silhouette Score={&#39;silhouette&#39;: 0.18219439569156584, &#39;ari&#39;: 0.37832390107760294, &#39;nmi&#39;: 0.3180138549429572}
+n_components=15: Silhouette Score={&#39;silhouette&#39;: 0.1784260302577336, &#39;ari&#39;: 0.456994074340097, &#39;nmi&#39;: 0.3769685615198214}
+n_components=14: Silhouette Score={&#39;silhouette&#39;: 0.17128061695518626, &#39;ari&#39;: 0.3535643742144011, &#39;nmi&#39;: 0.2855817360372474}
+n_components=26: Silhouette Score={&#39;silhouette&#39;: 0.14309310402808603, &#39;ari&#39;: 0.009793959575431853, &#39;nmi&#39;: 0.014576828435880821}
+n_components=20: Silhouette Score={&#39;silhouette&#39;: 0.12633928246569745, &#39;ari&#39;: -0.008521892447840141, &#39;nmi&#39;: 0.0011646013497918254}
+n_components=19: Silhouette Score={&#39;silhouette&#39;: 0.12507501353500775, &#39;ari&#39;: 0.5430303030303031, &#39;nmi&#39;: 0.4532839480340869}
+n_components=17: Silhouette Score={&#39;silhouette&#39;: 0.12142492809687956, &#39;ari&#39;: -0.009762906668734618, &#39;nmi&#39;: 0.00028997790097287234}
+n_components=22: Silhouette Score={&#39;silhouette&#39;: 0.12084670913210699, &#39;ari&#39;: 0.004602879247869944, &#39;nmi&#39;: 0.010789584794377008}
+n_components=10: Silhouette Score={&#39;silhouette&#39;: 0.10864507426457416, &#39;ari&#39;: 0.3068788249694002, &#39;nmi&#39;: 0.2578242535998632}
+n_components=33: Silhouette Score={&#39;silhouette&#39;: 0.10511089492562282, &#39;ari&#39;: 0.009923249864330567, &#39;nmi&#39;: 0.014842747072989914}
+n_components=30: Silhouette Score={&#39;silhouette&#39;: 0.09937025021184505, &#39;ari&#39;: 0.015721422274463707, &#39;nmi&#39;: 0.01871144634398399}
+n_components=27: Silhouette Score={&#39;silhouette&#39;: 0.09914910424377721, &#39;ari&#39;: -0.006530372353668641, &#39;nmi&#39;: 0.002611220469271829}
+n_components=23: Silhouette Score={&#39;silhouette&#39;: 0.08839065782013168, &#39;ari&#39;: -0.0037223882059068424, &#39;nmi&#39;: 0.004631680941037668}
+n_components=24: Silhouette Score={&#39;silhouette&#39;: 0.07225485488139927, &#39;ari&#39;: -0.009696969696969697, &#39;nmi&#39;: 0.0002925308140970916}
+n_components=31: Silhouette Score={&#39;silhouette&#39;: 0.06799013627843005, &#39;ari&#39;: -0.0065632385173938065, &#39;nmi&#39;: 0.0025998294462112}
+n_components=21: Silhouette Score={&#39;silhouette&#39;: 0.0565930865088939, &#39;ari&#39;: 0.5135571915963368, &#39;nmi&#39;: 0.42977137131885157}
+n_components=40: Silhouette Score={&#39;silhouette&#39;: 0.04811517062439924, &#39;ari&#39;: -0.0037223882059068424, &#39;nmi&#39;: 0.004631680941037668}
+n_components=28: Silhouette Score={&#39;silhouette&#39;: 0.04625043953866248, &#39;ari&#39;: 0.004342857142857143, &#39;nmi&#39;: 0.010412478777945247}
+n_components=32: Silhouette Score={&#39;silhouette&#39;: 0.04058792770697673, &#39;ari&#39;: 0.05818181818181818, &#39;nmi&#39;: 0.050037551925623425}
+n_components=18: Silhouette Score={&#39;silhouette&#39;: 0.04011464519104109, &#39;ari&#39;: 0.4298989898989899, &#39;nmi&#39;: 0.3492721107165225}
+n_components=36: Silhouette Score={&#39;silhouette&#39;: 0.03648322856099927, &#39;ari&#39;: 0.08074805415311274, &#39;nmi&#39;: 0.06627595469152042}
+n_components=25: Silhouette Score={&#39;silhouette&#39;: 0.03315099597587332, &#39;ari&#39;: 0.0043591125042856445, &#39;nmi&#39;: 0.010435392710893103}
+n_components=55: Silhouette Score={&#39;silhouette&#39;: 0.03187421527462817, &#39;ari&#39;: -0.003591309032142216, &#39;nmi&#39;: 0.004713998200230879}
+n_components=54: Silhouette Score={&#39;silhouette&#39;: 0.02661564941632787, &#39;ari&#39;: 0.28444444444444444, &#39;nmi&#39;: 0.22582638531252477}
+n_components=35: Silhouette Score={&#39;silhouette&#39;: 0.026442590166086813, &#39;ari&#39;: -0.010187588774060832, &#39;nmi&#39;: 0.0}
+n_components=65: Silhouette Score={&#39;silhouette&#39;: 0.024359775798592883, &#39;ari&#39;: 0.20363636363636364, &#39;nmi&#39;: 0.16108192607888686}
+n_components=39: Silhouette Score={&#39;silhouette&#39;: 0.02374156811819705, &#39;ari&#39;: 0.015673213498555126, &#39;nmi&#39;: 0.018587207287721865}
+n_components=34: Silhouette Score={&#39;silhouette&#39;: 0.023173379236929425, &#39;ari&#39;: 0.12077578607111372, &#39;nmi&#39;: 0.09653450898202479}
+n_components=49: Silhouette Score={&#39;silhouette&#39;: 0.022153143258217226, &#39;ari&#39;: -0.006530372353668641, &#39;nmi&#39;: 0.002611220469271829}
+n_components=41: Silhouette Score={&#39;silhouette&#39;: 0.0204014229412198, &#39;ari&#39;: -6.530372353668641e-05, &#39;nmi&#39;: 0.007261306984853738}
+n_components=38: Silhouette Score={&#39;silhouette&#39;: 0.019475988787597844, &#39;ari&#39;: 0.12077578607111372, &#39;nmi&#39;: 0.09653450898202479}
+n_components=44: Silhouette Score={&#39;silhouette&#39;: 0.018220172862593798, &#39;ari&#39;: -0.0037223882059068424, &#39;nmi&#39;: 0.004631680941037668}
+n_components=29: Silhouette Score={&#39;silhouette&#39;: 0.018024282698405968, &#39;ari&#39;: 0.1681622859101649, &#39;nmi&#39;: 0.13534965598921833}
+n_components=43: Silhouette Score={&#39;silhouette&#39;: 0.01783565249448607, &#39;ari&#39;: -0.0036732295033793712, &#39;nmi&#39;: 0.004662264774345075}
+n_components=46: Silhouette Score={&#39;silhouette&#39;: 0.016353379964321523, &#39;ari&#39;: -0.003738775510204082, &#39;nmi&#39;: 0.00462156117977532}
+n_components=47: Silhouette Score={&#39;silhouette&#39;: 0.014223987369441018, &#39;ari&#39;: 0.03878787878787879, &#39;nmi&#39;: 0.03570031803557409}
+n_components=71: Silhouette Score={&#39;silhouette&#39;: 0.013983533890090327, &#39;ari&#39;: -0.0065632385173938065, &#39;nmi&#39;: 0.0025998294462112}
+n_components=62: Silhouette Score={&#39;silhouette&#39;: 0.013565869568740663, &#39;ari&#39;: 0.030346561321601725, &#39;nmi&#39;: 0.02964327933391515}
+n_components=68: Silhouette Score={&#39;silhouette&#39;: 0.012602788886081635, &#39;ari&#39;: 0.03045734991675644, &#39;nmi&#39;: 0.030119699730181713}
+n_components=48: Silhouette Score={&#39;silhouette&#39;: 0.012336507548346445, &#39;ari&#39;: 0.00448913629017777, &#39;nmi&#39;: 0.010621809793435164}
+n_components=60: Silhouette Score={&#39;silhouette&#39;: 0.012246915251385859, &#39;ari&#39;: 0.01580175974142575, &#39;nmi&#39;: 0.018921669336916504}
+n_components=58: Silhouette Score={&#39;silhouette&#39;: 0.010221792799541995, &#39;ari&#39;: 0.22274997551659975, &#39;nmi&#39;: 0.18068148860961386}
+n_components=50: Silhouette Score={&#39;silhouette&#39;: 0.010054645745595371, &#39;ari&#39;: -0.010055665289998204, &#39;nmi&#39;: 6.440383184243714e-16}
+n_components=61: Silhouette Score={&#39;silhouette&#39;: 0.009877136796951104, &#39;ari&#39;: -0.0036732295033793712, &#39;nmi&#39;: 0.004662264774345075}
+n_components=64: Silhouette Score={&#39;silhouette&#39;: 0.009003182597096659, &#39;ari&#39;: 0.12107711138310893, &#39;nmi&#39;: 0.10161583526102293}
+n_components=56: Silhouette Score={&#39;silhouette&#39;: 0.008769188224132503, &#39;ari&#39;: 0.06913269886873766, &#39;nmi&#39;: 0.058519792136740086}
+n_components=53: Silhouette Score={&#39;silhouette&#39;: 0.007882143659931637, &#39;ari&#39;: 0.00448913629017777, &#39;nmi&#39;: 0.010621809793435164}
+n_components=66: Silhouette Score={&#39;silhouette&#39;: 0.007154553602912899, &#39;ari&#39;: 0.009793959575431853, &#39;nmi&#39;: 0.014576828435880821}
+n_components=73: Silhouette Score={&#39;silhouette&#39;: 0.007140141499427398, &#39;ari&#39;: -0.0036732295033793712, &#39;nmi&#39;: 0.004662264774345075}
+n_components=57: Silhouette Score={&#39;silhouette&#39;: 0.005959364078800655, &#39;ari&#39;: 0.009793959575431853, &#39;nmi&#39;: 0.014576828435880821}
+n_components=45: Silhouette Score={&#39;silhouette&#39;: 0.00577341235492432, &#39;ari&#39;: 0.0003916433108546391, &#39;nmi&#39;: 0.00773252967543183}
+n_components=79: Silhouette Score={&#39;silhouette&#39;: 0.005364587928339905, &#39;ari&#39;: 0.009632299221661245, &#39;nmi&#39;: 0.014255592878046928}
+n_components=76: Silhouette Score={&#39;silhouette&#39;: 0.0048013023683126585, &#39;ari&#39;: 0.022721986215001898, &#39;nmi&#39;: 0.02415423012293781}
+n_components=69: Silhouette Score={&#39;silhouette&#39;: 0.004284843976321852, &#39;ari&#39;: 0.03878787878787879, &#39;nmi&#39;: 0.03570031803557409}
+n_components=37: Silhouette Score={&#39;silhouette&#39;: 0.003435569668783096, &#39;ari&#39;: 0.06937576499388005, &#39;nmi&#39;: 0.0607708675871891}
+n_components=59: Silhouette Score={&#39;silhouette&#39;: 0.003256680578468022, &#39;ari&#39;: 0.08116807617462396, &#39;nmi&#39;: 0.07083693545803353}
+n_components=51: Silhouette Score={&#39;silhouette&#39;: 0.0010352038640803177, &#39;ari&#39;: -0.009466258094262714, &#39;nmi&#39;: 0.0003017697373495547}
+n_components=52: Silhouette Score={&#39;silhouette&#39;: 0.0009700642968050039, &#39;ari&#39;: 0.09361077111383109, &#39;nmi&#39;: 0.0797957030202867}
+n_components=72: Silhouette Score={&#39;silhouette&#39;: -0.00582797338732294, &#39;ari&#39;: 0.16875930268121114, &#39;nmi&#39;: 0.15217136598067355}
+n_components=63: Silhouette Score={&#39;silhouette&#39;: -0.005949031614481936, &#39;ari&#39;: 0.04854289723591032, &#39;nmi&#39;: 0.045626023826804925}
+n_components=78: Silhouette Score={&#39;silhouette&#39;: -0.008774127735989823, &#39;ari&#39;: 0.09396564381148143, &#39;nmi&#39;: 0.08472444119491121}
+n_components=42: Silhouette Score={&#39;silhouette&#39;: -0.011831265663876019, &#39;ari&#39;: 0.023200323042472742, &#39;nmi&#39;: 0.025896169931971025}
+n_components=75: Silhouette Score={&#39;silhouette&#39;: -0.012839443628124449, &#39;ari&#39;: 0.1076281447598547, &#39;nmi&#39;: 0.10211525294052909}
+n_components=67: Silhouette Score={&#39;silhouette&#39;: -0.014030427384689322, &#39;ari&#39;: 0.18602261048304214, &#39;nmi&#39;: 0.16455265253877288}
+n_components=99: Silhouette Score={&#39;silhouette&#39;: -0.015944023992258718, &#39;ari&#39;: 0.07051344743276283, &#39;nmi&#39;: 0.07371785121348161}
+n_components=98: Silhouette Score={&#39;silhouette&#39;: -0.017283261274151217, &#39;ari&#39;: 0.08236602686592705, &#39;nmi&#39;: 0.08755514506746456}
+n_components=97: Silhouette Score={&#39;silhouette&#39;: -0.018401503332162047, &#39;ari&#39;: 0.0950285965684118, &#39;nmi&#39;: 0.10345369088652681}
+n_components=74: Silhouette Score={&#39;silhouette&#39;: -0.019649775703752898, &#39;ari&#39;: 0.15254928176615415, &#39;nmi&#39;: 0.14732159517119764}
+n_components=70: Silhouette Score={&#39;silhouette&#39;: -0.019919953498364305, &#39;ari&#39;: 0.040104173034834385, &#39;nmi&#39;: 0.043823204084947665}
+n_components=77: Silhouette Score={&#39;silhouette&#39;: -0.02103843470391284, &#39;ari&#39;: 0.13668774384501547, &#39;nmi&#39;: 0.12886573678714794}
+n_components=80: Silhouette Score={&#39;silhouette&#39;: -0.028660598768997465, &#39;ari&#39;: 0.04986068338466051, &#39;nmi&#39;: 0.056935743822353245}
+n_components=96: Silhouette Score={&#39;silhouette&#39;: -0.030618093841066438, &#39;ari&#39;: 0.13786870229007633, &#39;nmi&#39;: 0.16867857255934546}
+n_components=82: Silhouette Score={&#39;silhouette&#39;: -0.033601867460084964, &#39;ari&#39;: 0.0950285965684118, &#39;nmi&#39;: 0.10345369088652681}
+n_components=94: Silhouette Score={&#39;silhouette&#39;: -0.037433304781623475, &#39;ari&#39;: 0.10884885496183207, &#39;nmi&#39;: 0.13190860114521943}
+n_components=95: Silhouette Score={&#39;silhouette&#39;: -0.03883447594509382, &#39;ari&#39;: 0.1231377912372393, &#39;nmi&#39;: 0.1566436964174006}
+n_components=84: Silhouette Score={&#39;silhouette&#39;: -0.040968595310071576, &#39;ari&#39;: 0.040760969172684285, &#39;nmi&#39;: 0.04918785501957698}
+n_components=81: Silhouette Score={&#39;silhouette&#39;: -0.04109971332336, &#39;ari&#39;: 0.05021663354725218, &#39;nmi&#39;: 0.0608797766294899}
+n_components=93: Silhouette Score={&#39;silhouette&#39;: -0.042307077076352825, &#39;ari&#39;: 0.10884885496183207, &#39;nmi&#39;: 0.13190860114521943}
+n_components=83: Silhouette Score={&#39;silhouette&#39;: -0.04436298322675165, &#39;ari&#39;: 0.0604824427480916, &#39;nmi&#39;: 0.07461767443636569}
+n_components=92: Silhouette Score={&#39;silhouette&#39;: -0.04636505431405298, &#39;ari&#39;: 0.1231377912372393, &#39;nmi&#39;: 0.1566436964174006}
+n_components=91: Silhouette Score={&#39;silhouette&#39;: -0.04690141825388358, &#39;ari&#39;: 0.1231377912372393, &#39;nmi&#39;: 0.1566436964174006}
+n_components=90: Silhouette Score={&#39;silhouette&#39;: -0.046933653255532004, &#39;ari&#39;: 0.1231377912372393, &#39;nmi&#39;: 0.1566436964174006}
+n_components=87: Silhouette Score={&#39;silhouette&#39;: -0.047980758569661906, &#39;ari&#39;: 0.1537634933815269, &#39;nmi&#39;: 0.19955031236814003}
+n_components=89: Silhouette Score={&#39;silhouette&#39;: -0.050014107818825336, &#39;ari&#39;: 0.10922601727919781, &#39;nmi&#39;: 0.14489620677329224}
+n_components=88: Silhouette Score={&#39;silhouette&#39;: -0.0519489192823101, &#39;ari&#39;: 0.13823358252383725, &#39;nmi&#39;: 0.18688099581494588}
+n_components=85: Silhouette Score={&#39;silhouette&#39;: -0.05555309910935392, &#39;ari&#39;: 0.13862618521727457, &#39;nmi&#39;: 0.2127924293298967}
+n_components=86: Silhouette Score={&#39;silhouette&#39;: -0.05564567934541368, &#39;ari&#39;: 0.12352309344790548, &#39;nmi&#39;: 0.1744676128096239}
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+
+<span class="c1"># Data untuk plotting</span>
+<span class="n">n_components</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">results</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
+<span class="n">silhouette_scores</span> <span class="o">=</span> <span class="p">[</span><span class="n">metrics</span><span class="p">[</span><span class="s1">&#39;silhouette&#39;</span><span class="p">]</span> <span class="k">for</span> <span class="n">metrics</span> <span class="ow">in</span> <span class="n">results</span><span class="o">.</span><span class="n">values</span><span class="p">()]</span>
+
+<span class="c1"># Ganti dengan style bawaan yang mirip</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">use</span><span class="p">(</span><span class="s2">&quot;dark_background&quot;</span><span class="p">)</span>
+
+<span class="c1"># Membuat figure dengan nuansa grafik trading</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">14</span><span class="p">,</span> <span class="mi">7</span><span class="p">))</span>
+
+<span class="c1"># Plot garis dengan marker</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">n_components</span><span class="p">,</span> <span class="n">silhouette_scores</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Silhouette Score&quot;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;lime&quot;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s2">&quot;o&quot;</span><span class="p">,</span> <span class="n">markersize</span><span class="o">=</span><span class="mi">8</span><span class="p">)</span>
+
+<span class="c1"># Menambahkan grid horizontal</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="s2">&quot;y&quot;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;gray&quot;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s2">&quot;--&quot;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mf">0.7</span><span class="p">)</span>
+
+<span class="c1"># Menambahkan judul dan label</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Silhouette Score vs n_components&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">16</span><span class="p">,</span> <span class="n">fontweight</span><span class="o">=</span><span class="s2">&quot;bold&quot;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;white&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;Number of Components (n_components)&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;white&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Silhouette Score&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;white&quot;</span><span class="p">)</span>
+
+<span class="c1"># Menambahkan anotasi untuk nilai maksimum</span>
+<span class="n">max_score</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">silhouette_scores</span><span class="p">)</span>
+<span class="n">best_n</span> <span class="o">=</span> <span class="n">n_components</span><span class="p">[</span><span class="n">silhouette_scores</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">max_score</span><span class="p">)]</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">annotate</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Best: </span><span class="si">{</span><span class="n">best_n</span><span class="si">}</span><span class="se">\n</span><span class="s2">Score: </span><span class="si">{</span><span class="n">max_score</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>
+             <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="n">best_n</span><span class="p">,</span> <span class="n">max_score</span><span class="p">),</span> <span class="n">xytext</span><span class="o">=</span><span class="p">(</span><span class="n">best_n</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">max_score</span> <span class="o">-</span> <span class="mf">0.05</span><span class="p">),</span>
+             <span class="n">arrowprops</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">facecolor</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">,</span> <span class="n">arrowstyle</span><span class="o">=</span><span class="s2">&quot;-&gt;&quot;</span><span class="p">),</span>
+             <span class="n">fontsize</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;white&quot;</span><span class="p">)</span>
+
+<span class="c1"># Menambahkan legenda</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">,</span> <span class="n">loc</span><span class="o">=</span><span class="s2">&quot;upper left&quot;</span><span class="p">,</span> <span class="n">facecolor</span><span class="o">=</span><span class="s2">&quot;black&quot;</span><span class="p">,</span> <span class="n">edgecolor</span><span class="o">=</span><span class="s2">&quot;white&quot;</span><span class="p">,</span> <span class="n">framealpha</span><span class="o">=</span><span class="mf">0.7</span><span class="p">)</span>
+
+<span class="c1"># Menampilkan grafik</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/7a548338eec96cf6ec4af65899de2565df36f5ad591f13d3e5ede5c13d24835a.png" src="../_images/7a548338eec96cf6ec4af65899de2565df36f5ad591f13d3e5ede5c13d24835a.png" />
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Output the number of members in each cluster</span>
-<span class="n">cluster_counts</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">bincount</span><span class="p">(</span><span class="n">cluster_labels</span><span class="p">)</span>
-<span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">count</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">cluster_counts</span><span class="p">):</span>
-    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Cluster </span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">count</span><span class="si">}</span><span class="s2"> anggota&quot;</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Cluster 0: 52 anggota
-Cluster 1: 48 anggota
-</pre></div>
-</div>
+<img alt="../_images/77d234a92250558b439719397016016d3fe0df9fcd5623427eb855de93102896.png" src="../_images/77d234a92250558b439719397016016d3fe0df9fcd5623427eb855de93102896.png" />
 </div>
 </div>
 </section>
-<section class="tex2jax_ignore mathjax_ignore" id="test-fuzzy-c-means-2-dengan-svd">
-<h1>Test fuzzy c-means 2 dengan svd<a class="headerlink" href="#test-fuzzy-c-means-2-dengan-svd" title="Link to this heading">#</a></h1>
+<section class="tex2jax_ignore mathjax_ignore" id="clustering">
+<h1>Clustering<a class="headerlink" href="#clustering" title="Link to this heading">#</a></h1>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">google.colab</span> <span class="kn">import</span> <span class="n">files</span>
-
-<span class="c1"># Upload file  dari komputer</span>
-<span class="n">upload_file</span> <span class="o">=</span> <span class="n">files</span><span class="o">.</span><span class="n">upload</span><span class="p">()</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_html">
-     <input type="file" id="files-cf022855-002f-432f-b0e8-7be04642266b" name="files[]" multiple disabled
-        style="border:none" />
-     <output id="result-cf022855-002f-432f-b0e8-7be04642266b">
-      Upload widget is only available when the cell has been executed in the
-      current browser session. Please rerun this cell to enable.
-      </output>
-      <script>// Copyright 2017 Google LLC
-//
-// Licensed under the Apache License, Version 2.0 (the "License");
-// you may not use this file except in compliance with the License.
-// You may obtain a copy of the License at
-//
-//      http://www.apache.org/licenses/LICENSE-2.0
-//
-// Unless required by applicable law or agreed to in writing, software
-// distributed under the License is distributed on an "AS IS" BASIS,
-// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-// See the License for the specific language governing permissions and
-// limitations under the License.
-
-/**
- * @fileoverview Helpers for google.colab Python module.
- */
-(function(scope) {
-function span(text, styleAttributes = {}) {
-  const element = document.createElement('span');
-  element.textContent = text;
-  for (const key of Object.keys(styleAttributes)) {
-    element.style[key] = styleAttributes[key];
-  }
-  return element;
-}
-
-// Max number of bytes which will be uploaded at a time.
-const MAX_PAYLOAD_SIZE = 100 * 1024;
-
-function _uploadFiles(inputId, outputId) {
-  const steps = uploadFilesStep(inputId, outputId);
-  const outputElement = document.getElementById(outputId);
-  // Cache steps on the outputElement to make it available for the next call
-  // to uploadFilesContinue from Python.
-  outputElement.steps = steps;
-
-  return _uploadFilesContinue(outputId);
-}
-
-// This is roughly an async generator (not supported in the browser yet),
-// where there are multiple asynchronous steps and the Python side is going
-// to poll for completion of each step.
-// This uses a Promise to block the python side on completion of each step,
-// then passes the result of the previous step as the input to the next step.
-function _uploadFilesContinue(outputId) {
-  const outputElement = document.getElementById(outputId);
-  const steps = outputElement.steps;
-
-  const next = steps.next(outputElement.lastPromiseValue);
-  return Promise.resolve(next.value.promise).then((value) => {
-    // Cache the last promise value to make it available to the next
-    // step of the generator.
-    outputElement.lastPromiseValue = value;
-    return next.value.response;
-  });
-}
-
-/**
- * Generator function which is called between each async step of the upload
- * process.
- * @param {string} inputId Element ID of the input file picker element.
- * @param {string} outputId Element ID of the output display.
- * @return {!Iterable<!Object>} Iterable of next steps.
- */
-function* uploadFilesStep(inputId, outputId) {
-  const inputElement = document.getElementById(inputId);
-  inputElement.disabled = false;
-
-  const outputElement = document.getElementById(outputId);
-  outputElement.innerHTML = '';
-
-  const pickedPromise = new Promise((resolve) => {
-    inputElement.addEventListener('change', (e) => {
-      resolve(e.target.files);
-    });
-  });
-
-  const cancel = document.createElement('button');
-  inputElement.parentElement.appendChild(cancel);
-  cancel.textContent = 'Cancel upload';
-  const cancelPromise = new Promise((resolve) => {
-    cancel.onclick = () => {
-      resolve(null);
-    };
-  });
-
-  // Wait for the user to pick the files.
-  const files = yield {
-    promise: Promise.race([pickedPromise, cancelPromise]),
-    response: {
-      action: 'starting',
-    }
-  };
-
-  cancel.remove();
-
-  // Disable the input element since further picks are not allowed.
-  inputElement.disabled = true;
-
-  if (!files) {
-    return {
-      response: {
-        action: 'complete',
-      }
-    };
-  }
-
-  for (const file of files) {
-    const li = document.createElement('li');
-    li.append(span(file.name, {fontWeight: 'bold'}));
-    li.append(span(
-        `(${file.type || 'n/a'}) - ${file.size} bytes, ` +
-        `last modified: ${
-            file.lastModifiedDate ? file.lastModifiedDate.toLocaleDateString() :
-                                    'n/a'} - `));
-    const percent = span('0% done');
-    li.appendChild(percent);
-
-    outputElement.appendChild(li);
-
-    const fileDataPromise = new Promise((resolve) => {
-      const reader = new FileReader();
-      reader.onload = (e) => {
-        resolve(e.target.result);
-      };
-      reader.readAsArrayBuffer(file);
-    });
-    // Wait for the data to be ready.
-    let fileData = yield {
-      promise: fileDataPromise,
-      response: {
-        action: 'continue',
-      }
-    };
-
-    // Use a chunked sending to avoid message size limits. See b/62115660.
-    let position = 0;
-    do {
-      const length = Math.min(fileData.byteLength - position, MAX_PAYLOAD_SIZE);
-      const chunk = new Uint8Array(fileData, position, length);
-      position += length;
-
-      const base64 = btoa(String.fromCharCode.apply(null, chunk));
-      yield {
-        response: {
-          action: 'append',
-          file: file.name,
-          data: base64,
-        },
-      };
-
-      let percentDone = fileData.byteLength === 0 ?
-          100 :
-          Math.round((position / fileData.byteLength) * 100);
-      percent.textContent = `${percentDone}% done`;
-
-    } while (position < fileData.byteLength);
-  }
-
-  // All done.
-  yield {
-    response: {
-      action: 'complete',
-    }
-  };
-}
-
-scope.google = scope.google || {};
-scope.google.colab = scope.google.colab || {};
-scope.google.colab._files = {
-  _uploadFiles,
-  _uploadFilesContinue,
-};
-})(self);
-</script> </div><div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Saving teks beneran bersih rill cuy.csv to teks beneran bersih rill cuy.csv
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
-
-<span class="c1"># Membaca file CSV</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Membaca file CSV</span>
 <span class="n">file_name</span> <span class="o">=</span> <span class="s1">&#39;teks beneran bersih rill cuy.csv&#39;</span>
 <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">file_name</span><span class="p">)</span>
-
-<span class="n">df</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+<span class="n">df</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
 <div class="output text_html">
-  <div id="df-2b4cd167-ec91-4ff9-847f-df6423d644b8" class="colab-df-container">
+  <div id="df-08a7f8e3-6377-47db-8129-31d37e519e0b" class="colab-df-container">
     <div>
 <style scoped>
     .dataframe tbody tr th:only-of-type {
@@ -1394,13 +1505,92 @@ scope.google.colab._files = {
       <td>jakarta aksi bullying perundungan masa program...</td>
       <td>0</td>
     </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>95</th>
+      <td>Iwh, Pekerja Speedboat Thailand Pamer BAB ke L...</td>
+      <td>Rabu, 04 Sep 2024 05:01 WIB</td>
+      <td>Jakarta - Warga Thailand dibuat jijik dengan k...</td>
+      <td>Pariwisata</td>
+      <td>Jakarta Warga Thailand dibuat jijik dengan kel...</td>
+      <td>jakarta warga thailand dibuat jijik dengan kel...</td>
+      <td>['jakarta', 'warga', 'thailand', 'dibuat', 'ji...</td>
+      <td>['jakarta', 'warga', 'thailand', 'dibuat', 'ji...</td>
+      <td>jakarta warga thailand dibuat jijik kelakuan s...</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>96</th>
+      <td>Ogah Bayar Layanan, 3 Turis Palestina Keroyok ...</td>
+      <td>Selasa, 03 Sep 2024 21:05 WIB</td>
+      <td>Taba - Seorang staf hotel di Mesir tewas usai ...</td>
+      <td>Pariwisata</td>
+      <td>Taba Seorang staf hotel di Mesir tewas usai be...</td>
+      <td>taba seorang staf hotel di mesir tewas usai be...</td>
+      <td>['taba', 'seorang', 'staf', 'hotel', 'di', 'me...</td>
+      <td>['taba', 'seorang', 'staf', 'hotel', 'mesir', ...</td>
+      <td>taba seorang staf hotel mesir tewas usai berke...</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>97</th>
+      <td>Licik, Keluarga Taruh Kecoa di Piring Agar Mak...</td>
+      <td>Selasa, 03 Sep 2024 20:37 WIB</td>
+      <td>Jakarta - Keluarga asal Meksiko dituduh melaku...</td>
+      <td>Pariwisata</td>
+      <td>Jakarta Keluarga asal Meksiko dituduh melakuka...</td>
+      <td>jakarta keluarga asal meksiko dituduh melakuka...</td>
+      <td>['jakarta', 'keluarga', 'asal', 'meksiko', 'di...</td>
+      <td>['jakarta', 'keluarga', 'asal', 'meksiko', 'di...</td>
+      <td>jakarta keluarga asal meksiko dituduh melakuka...</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>98</th>
+      <td>Terulang Lagi, Triatlon Paralimpiade Ditunda g...</td>
+      <td>Selasa, 03 Sep 2024 20:05 WIB</td>
+      <td>Paris - Saat Olimpiade Paris 2024 lalu, kompet...</td>
+      <td>Pariwisata</td>
+      <td>Paris Saat Olimpiade Paris lalu kompetisi tria...</td>
+      <td>paris saat olimpiade paris lalu kompetisi tria...</td>
+      <td>['paris', 'saat', 'olimpiade', 'paris', 'lalu'...</td>
+      <td>['paris', 'olimpiade', 'paris', 'lalu', 'kompe...</td>
+      <td>paris olimpiade paris lalu kompetisi triatlon ...</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>99</th>
+      <td>Wow, Super Air Jet Buka 8 Rute Baru dari Semar...</td>
+      <td>Selasa, 03 Sep 2024 19:37 WIB</td>
+      <td>Jakarta - Super Air Jet membuka delapan rute b...</td>
+      <td>Pariwisata</td>
+      <td>Jakarta Super Air Jet membuka delapan rute bar...</td>
+      <td>jakarta super air jet membuka delapan rute bar...</td>
+      <td>['jakarta', 'super', 'air', 'jet', 'membuka', ...</td>
+      <td>['jakarta', 'super', 'air', 'jet', 'membuka', ...</td>
+      <td>jakarta super air jet membuka delapan rute bar...</td>
+      <td>1</td>
+    </tr>
   </tbody>
 </table>
+<p>100 rows × 10 columns</p>
 </div>
     <div class="colab-df-buttons">
 
   <div class="colab-df-container">
-    <button class="colab-df-convert" onclick="convertToInteractive('df-2b4cd167-ec91-4ff9-847f-df6423d644b8')"
+    <button class="colab-df-convert" onclick="convertToInteractive('df-08a7f8e3-6377-47db-8129-31d37e519e0b')"
             title="Convert this dataframe to an interactive table."
             style="display:none;">
 
@@ -1452,12 +1642,12 @@ scope.google.colab._files = {
 
     <script>
       const buttonEl =
-        document.querySelector('#df-2b4cd167-ec91-4ff9-847f-df6423d644b8 button.colab-df-convert');
+        document.querySelector('#df-08a7f8e3-6377-47db-8129-31d37e519e0b button.colab-df-convert');
       buttonEl.style.display =
         google.colab.kernel.accessAllowed ? 'block' : 'none';
 
       async function convertToInteractive(key) {
-        const element = document.querySelector('#df-2b4cd167-ec91-4ff9-847f-df6423d644b8');
+        const element = document.querySelector('#df-08a7f8e3-6377-47db-8129-31d37e519e0b');
         const dataTable =
           await google.colab.kernel.invokeFunction('convertToInteractive',
                                                     [key], {});
@@ -1477,8 +1667,8 @@ scope.google.colab._files = {
   </div>
 
 
-<div id="df-a62c0962-da3f-406f-843e-f6a03f359485">
-  <button class="colab-df-quickchart" onclick="quickchart('df-a62c0962-da3f-406f-843e-f6a03f359485')"
+<div id="df-266b5bd3-1f30-46d1-b829-21309e1de72f">
+  <button class="colab-df-quickchart" onclick="quickchart('df-266b5bd3-1f30-46d1-b829-21309e1de72f')"
             title="Suggest charts"
             style="display:none;">
 
@@ -1597,12 +1787,67 @@ scope.google.colab._files = {
     }
     (() => {
       let quickchartButtonEl =
-        document.querySelector('#df-a62c0962-da3f-406f-843e-f6a03f359485 button');
+        document.querySelector('#df-266b5bd3-1f30-46d1-b829-21309e1de72f button');
       quickchartButtonEl.style.display =
         google.colab.kernel.accessAllowed ? 'block' : 'none';
     })();
   </script>
 </div>
+
+  <div id="id_7983899b-69ad-437c-b765-0792b75d6eec">
+    <style>
+      .colab-df-generate {
+        background-color: #E8F0FE;
+        border: none;
+        border-radius: 50%;
+        cursor: pointer;
+        display: none;
+        fill: #1967D2;
+        height: 32px;
+        padding: 0 0 0 0;
+        width: 32px;
+      }
+
+      .colab-df-generate:hover {
+        background-color: #E2EBFA;
+        box-shadow: 0px 1px 2px rgba(60, 64, 67, 0.3), 0px 1px 3px 1px rgba(60, 64, 67, 0.15);
+        fill: #174EA6;
+      }
+
+      [theme=dark] .colab-df-generate {
+        background-color: #3B4455;
+        fill: #D2E3FC;
+      }
+
+      [theme=dark] .colab-df-generate:hover {
+        background-color: #434B5C;
+        box-shadow: 0px 1px 3px 1px rgba(0, 0, 0, 0.15);
+        filter: drop-shadow(0px 1px 2px rgba(0, 0, 0, 0.3));
+        fill: #FFFFFF;
+      }
+    </style>
+    <button class="colab-df-generate" onclick="generateWithVariable('df')"
+            title="Generate code using this dataframe."
+            style="display:none;">
+
+  <svg xmlns="http://www.w3.org/2000/svg" height="24px"viewBox="0 0 24 24"
+       width="24px">
+    <path d="M7,19H8.4L18.45,9,17,7.55,7,17.6ZM5,21V16.75L18.45,3.32a2,2,0,0,1,2.83,0l1.4,1.43a1.91,1.91,0,0,1,.58,1.4,1.91,1.91,0,0,1-.58,1.4L9.25,21ZM18.45,9,17,7.55Zm-12,3A5.31,5.31,0,0,0,4.9,8.1,5.31,5.31,0,0,0,1,6.5,5.31,5.31,0,0,0,4.9,4.9,5.31,5.31,0,0,0,6.5,1,5.31,5.31,0,0,0,8.1,4.9,5.31,5.31,0,0,0,12,6.5,5.46,5.46,0,0,0,6.5,12Z"/>
+  </svg>
+    </button>
+    <script>
+      (() => {
+      const buttonEl =
+        document.querySelector('#id_7983899b-69ad-437c-b765-0792b75d6eec button.colab-df-generate');
+      buttonEl.style.display =
+        google.colab.kernel.accessAllowed ? 'block' : 'none';
+
+      buttonEl.onclick = () => {
+        google.colab.notebook.generateWithVariable('df');
+      }
+      })();
+    </script>
+  </div>
 
     </div>
   </div>
@@ -1610,142 +1855,63 @@ scope.google.colab._files = {
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
-<span class="kn">from</span> <span class="nn">sklearn.feature_extraction.text</span> <span class="kn">import</span> <span class="n">TfidfVectorizer</span>
-
-<span class="c1"># Extract the `clean_text` column</span>
-<span class="n">clean_texts</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;clean_text&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">dropna</span><span class="p">()</span>
-
-<span class="c1"># Convert text data into TF-IDF features</span>
-<span class="n">tfidf_vectorizer</span> <span class="o">=</span> <span class="n">TfidfVectorizer</span><span class="p">(</span><span class="n">max_features</span><span class="o">=</span><span class="mi">500</span><span class="p">)</span>  <span class="c1"># Limit to top 500 features for efficiency</span>
-<span class="n">tfidf_matrix</span> <span class="o">=</span> <span class="n">tfidf_vectorizer</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">clean_texts</span><span class="p">)</span>
-
-<span class="c1"># Mengonversi matriks TF-IDF ke dalam DataFrame untuk memudahkan visualisasi</span>
-<span class="n">tfidf_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">tfidf_matrix</span><span class="o">.</span><span class="n">toarray</span><span class="p">(),</span> <span class="n">columns</span><span class="o">=</span><span class="n">tfidf_vectorizer</span><span class="o">.</span><span class="n">get_feature_names_out</span><span class="p">())</span>
-
-<span class="c1"># Menampilkan DataFrame TF-IDF</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">tfidf_df</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">100</span><span class="p">))</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>       acara       ada    adalah  adanya  advertisement  agung   agustus  \
-0   0.000000  0.000000  0.000000     0.0       0.016420    0.0  0.000000   
-1   0.000000  0.022256  0.000000     0.0       0.012762    0.0  0.000000   
-2   0.000000  0.000000  0.000000     0.0       0.010738    0.0  0.000000   
-3   0.069173  0.072833  0.000000     0.0       0.020882    0.0  0.000000   
-4   0.000000  0.020832  0.000000     0.0       0.011946    0.0  0.035551   
-..       ...       ...       ...     ...            ...    ...       ...   
-95  0.000000  0.000000  0.000000     0.0       0.054988    0.0  0.000000   
-96  0.000000  0.000000  0.000000     0.0       0.058777    0.0  0.000000   
-97  0.000000  0.062269  0.000000     0.0       0.035707    0.0  0.000000   
-98  0.102326  0.026935  0.042085     0.0       0.030891    0.0  0.000000   
-99  0.000000  0.000000  0.000000     0.0       0.003662    0.0  0.000000   
-
-    ahli       air  airbus  ...     viral     waktu    wanita     warga  who  \
-0    0.0  0.000000     0.0  ...  0.000000  0.000000  0.000000  0.000000  0.0   
-1    0.0  0.000000     0.0  ...  0.000000  0.029135  0.000000  0.142013  0.0   
-2    0.0  0.000000     0.0  ...  0.000000  0.000000  0.000000  0.000000  0.0   
-3    0.0  0.000000     0.0  ...  0.000000  0.000000  0.000000  0.058092  0.0   
-4    0.0  0.000000     0.0  ...  0.000000  0.000000  0.000000  0.000000  0.0   
-..   ...       ...     ...  ...       ...       ...       ...       ...  ...   
-95   0.0  0.149829     0.0  ...  0.091075  0.000000  0.000000  0.152972  0.0   
-96   0.0  0.000000     0.0  ...  0.000000  0.000000  0.000000  0.081756  0.0   
-97   0.0  0.000000     0.0  ...  0.118279  0.000000  0.159398  0.000000  0.0   
-98   0.0  0.252508     0.0  ...  0.000000  0.000000  0.000000  0.000000  0.0   
-99   0.0  0.049895     0.0  ...  0.000000  0.008361  0.000000  0.000000  0.0   
-
-         wib    wisata  wisatawan      with      yang  
-0   0.000000  0.000000   0.000000  0.016420  0.000000  
-1   0.000000  0.000000   0.000000  0.012762  0.000000  
-2   0.000000  0.000000   0.000000  0.010738  0.020160  
-3   0.000000  0.000000   0.000000  0.020882  0.000000  
-4   0.000000  0.000000   0.000000  0.011946  0.000000  
-..       ...       ...        ...       ...       ...  
-95  0.000000  0.065882   0.079927  0.027494  0.154856  
-96  0.000000  0.070422   0.000000  0.029389  0.000000  
-97  0.000000  0.000000   0.000000  0.017853  0.000000  
-98  0.000000  0.037011   0.000000  0.015445  0.000000  
-99  0.309072  0.008776   0.000000  0.003662  0.000000  
-
-[100 rows x 500 columns]
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.preprocessing</span> <span class="kn">import</span> <span class="n">normalize</span>
-
-<span class="c1"># Normalisasi matriks TF-IDF</span>
-<span class="n">normalized_tfidf_matrix</span> <span class="o">=</span> <span class="n">normalize</span><span class="p">(</span><span class="n">tfidf_matrix</span><span class="p">,</span> <span class="n">norm</span><span class="o">=</span><span class="s1">&#39;l2&#39;</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
-
-<span class="c1"># Tampilkan ukuran matriks hasil normalisasi</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Shape of normalized TF-IDF matrix: </span><span class="si">{</span><span class="n">normalized_tfidf_matrix</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Shape of normalized TF-IDF matrix: (100, 500)
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">!</span><span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>fuzzy-c-means
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Requirement already satisfied: fuzzy-c-means in /usr/local/lib/python3.10/dist-packages (1.7.2)
-Requirement already satisfied: joblib&lt;2.0.0,&gt;=1.2.0 in /usr/local/lib/python3.10/dist-packages (from fuzzy-c-means) (1.4.2)
-Requirement already satisfied: numpy&lt;2.0.0,&gt;=1.21.1 in /usr/local/lib/python3.10/dist-packages (from fuzzy-c-means) (1.26.4)
-Requirement already satisfied: pydantic&lt;3.0.0,&gt;=2.6.4 in /usr/local/lib/python3.10/dist-packages (from fuzzy-c-means) (2.9.2)
-Requirement already satisfied: tabulate&lt;0.9.0,&gt;=0.8.9 in /usr/local/lib/python3.10/dist-packages (from fuzzy-c-means) (0.8.10)
-Requirement already satisfied: tqdm&lt;5.0.0,&gt;=4.64.1 in /usr/local/lib/python3.10/dist-packages (from fuzzy-c-means) (4.66.6)
-Requirement already satisfied: typer&lt;0.10.0,&gt;=0.9.0 in /usr/local/lib/python3.10/dist-packages (from fuzzy-c-means) (0.9.4)
-Requirement already satisfied: annotated-types&gt;=0.6.0 in /usr/local/lib/python3.10/dist-packages (from pydantic&lt;3.0.0,&gt;=2.6.4-&gt;fuzzy-c-means) (0.7.0)
-Requirement already satisfied: pydantic-core==2.23.4 in /usr/local/lib/python3.10/dist-packages (from pydantic&lt;3.0.0,&gt;=2.6.4-&gt;fuzzy-c-means) (2.23.4)
-Requirement already satisfied: typing-extensions&gt;=4.6.1 in /usr/local/lib/python3.10/dist-packages (from pydantic&lt;3.0.0,&gt;=2.6.4-&gt;fuzzy-c-means) (4.12.2)
-Requirement already satisfied: click&lt;9.0.0,&gt;=7.1.1 in /usr/local/lib/python3.10/dist-packages (from typer&lt;0.10.0,&gt;=0.9.0-&gt;fuzzy-c-means) (8.1.7)
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">fcmeans</span> <span class="kn">import</span> <span class="n">FCM</span>
 <span class="kn">from</span> <span class="nn">sklearn.decomposition</span> <span class="kn">import</span> <span class="n">TruncatedSVD</span>
+<span class="kn">from</span> <span class="nn">sklearn.feature_extraction.text</span> <span class="kn">import</span> <span class="n">TfidfVectorizer</span>
+<span class="kn">from</span> <span class="nn">sklearn.preprocessing</span> <span class="kn">import</span> <span class="n">StandardScaler</span>
+<span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">silhouette_score</span>
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 
-<span class="c1"># Reduksi dimensi menggunakan SVD (untuk efisiensi visualisasi)</span>
-<span class="n">svd_asli</span> <span class="o">=</span> <span class="n">TruncatedSVD</span><span class="p">(</span><span class="n">n_components</span><span class="o">=</span><span class="mi">499</span><span class="p">)</span>
-<span class="n">reduced_data_asli</span> <span class="o">=</span> <span class="n">svd_asli</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">normalized_tfidf_matrix</span><span class="p">)</span>
-<span class="n">svd</span> <span class="o">=</span> <span class="n">TruncatedSVD</span><span class="p">(</span><span class="n">n_components</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
-<span class="n">reduced_data</span> <span class="o">=</span> <span class="n">svd</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">normalized_tfidf_matrix</span><span class="p">)</span>
-<span class="c1"># Cobalah jumlah cluster yang berbeda untuk mendapatkan hasil terbaik</span>
-<span class="n">n_clusters</span> <span class="o">=</span> <span class="mi">2</span>  <span class="c1"># Bisa diubah sesuai eksperimen</span>
-<span class="n">fcm</span> <span class="o">=</span> <span class="n">FCM</span><span class="p">(</span><span class="n">n_clusters</span><span class="o">=</span><span class="n">n_clusters</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">11</span><span class="p">,</span> <span class="n">m</span><span class="o">=</span><span class="mf">1.5</span><span class="p">,</span> <span class="n">max_iter</span><span class="o">=</span><span class="mi">200</span><span class="p">,</span> <span class="n">epsilon</span><span class="o">=</span><span class="mf">1e-5</span><span class="p">)</span>
-<span class="n">fcm</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">reduced_data_asli</span><span class="p">)</span>
+<span class="n">random_seed</span> <span class="o">=</span> <span class="mi">42</span>  <span class="c1"># Tetapkan seed untuk konsistensi</span>
 
-<span class="c1"># Dapatkan fuzzy membership dan pusat cluster</span>
+<span class="c1"># Step 2: Vektorisasi TF-IDF</span>
+<span class="n">tfidf_vectorizer</span> <span class="o">=</span> <span class="n">TfidfVectorizer</span><span class="p">()</span>
+<span class="n">tfidf_matrix</span> <span class="o">=</span> <span class="n">tfidf_vectorizer</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;clean_text&#39;</span><span class="p">])</span>
+<span class="n">tfidf</span> <span class="o">=</span> <span class="n">tfidf_matrix</span><span class="o">.</span><span class="n">toarray</span><span class="p">()</span>
+
+<span class="c1"># Step 3: Normalisasi Hasil TF-IDF</span>
+<span class="n">scaler</span> <span class="o">=</span> <span class="n">StandardScaler</span><span class="p">()</span>
+<span class="n">data_normalisasi</span> <span class="o">=</span> <span class="n">scaler</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">tfidf</span><span class="p">)</span>
+
+<span class="c1"># Step 4: Reduksi dimensi menggunakan SVD</span>
+<span class="n">svd</span> <span class="o">=</span> <span class="n">TruncatedSVD</span><span class="p">(</span><span class="n">n_components</span><span class="o">=</span><span class="mi">24</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="n">random_seed</span><span class="p">)</span>  <span class="c1"># Dimensi diatur ke 2 untuk visualisasi</span>
+<span class="n">data_cluster</span> <span class="o">=</span> <span class="n">svd</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">data_normalisasi</span><span class="p">)</span>
+
+<span class="c1"># Fuzzy C-Means Clustering</span>
+<span class="n">n_clusters</span> <span class="o">=</span> <span class="mi">2</span>  <span class="c1"># Ganti sesuai kebutuhan</span>
+<span class="n">fcm</span> <span class="o">=</span> <span class="n">FCM</span><span class="p">(</span><span class="n">n_clusters</span><span class="o">=</span><span class="n">n_clusters</span><span class="p">,</span> <span class="n">m</span><span class="o">=</span><span class="mf">2.0</span><span class="p">,</span> <span class="n">max_iter</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span> <span class="n">epsilon</span><span class="o">=</span><span class="mf">0.00001</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="n">random_seed</span><span class="p">)</span>
+<span class="n">fcm</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">data_cluster</span><span class="p">)</span>
+
+<span class="c1"># Mendapatkan hasil clustering</span>
 <span class="n">membership</span> <span class="o">=</span> <span class="n">fcm</span><span class="o">.</span><span class="n">u</span>
-<span class="n">cluster_centers</span> <span class="o">=</span> <span class="n">fcm</span><span class="o">.</span><span class="n">centers</span>
+<span class="n">cluster_labels</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">membership</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>  <span class="c1"># Menentukan cluster untuk setiap data</span>
+
+<span class="c1"># Tambahkan hasil klasterisasi ke dalam DataFrame</span>
+<span class="n">df</span><span class="p">[</span><span class="s1">&#39;Cluster&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">cluster_labels</span>
+
+<span class="c1"># Tampilkan jumlah data pada setiap cluster</span>
+<span class="n">cluster_counts</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;Cluster&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span>
+
+<span class="c1"># Hitung Silhouette Score</span>
+<span class="n">silhouette_avg</span> <span class="o">=</span> <span class="n">silhouette_score</span><span class="p">(</span><span class="n">data_cluster</span><span class="p">,</span> <span class="n">cluster_labels</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Silhouette Score: </span><span class="si">{</span><span class="n">silhouette_avg</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="c1"># Cetak hasil jumlah data per cluster</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Jumlah data pada setiap cluster:&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">cluster_counts</span><span class="p">)</span>
 
 <span class="c1"># Visualisasi hasil clustering</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">7</span><span class="p">))</span>
 
-<span class="c1"># Menentukan cluster dengan membership tertinggi untuk setiap dokumen</span>
-<span class="n">cluster_labels</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">membership</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
-
 <span class="c1"># Plot titik data dalam ruang 2D yang sudah direduksi, dengan warna berdasarkan cluster</span>
 <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n_clusters</span><span class="p">):</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">reduced_data</span><span class="p">[</span><span class="n">cluster_labels</span> <span class="o">==</span> <span class="n">i</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
-                <span class="n">reduced_data</span><span class="p">[</span><span class="n">cluster_labels</span> <span class="o">==</span> <span class="n">i</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="sa">f</span><span class="s1">&#39;Cluster </span><span class="si">{</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+    <span class="n">cluster_data</span> <span class="o">=</span> <span class="n">data_cluster</span><span class="p">[</span><span class="n">cluster_labels</span> <span class="o">==</span> <span class="n">i</span><span class="p">]</span>  <span class="c1"># Filter data per cluster</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">cluster_data</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">cluster_data</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="sa">f</span><span class="s1">&#39;Cluster </span><span class="si">{</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
 
 <span class="c1"># Plot centroid</span>
+<span class="n">cluster_centers</span> <span class="o">=</span> <span class="n">fcm</span><span class="o">.</span><span class="n">centers</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">cluster_centers</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">cluster_centers</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">s</span><span class="o">=</span><span class="mi">300</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s1">&#39;X&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Centroids&#39;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Fuzzy C-Means Clustering of Text Data with SVD (n_clusters=</span><span class="si">{</span><span class="n">n_clusters</span><span class="si">}</span><span class="s1">)&#39;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;SVD Component 1&#39;</span><span class="p">)</span>
@@ -1756,122 +1922,580 @@ Requirement already satisfied: click&lt;9.0.0,&gt;=7.1.1 in /usr/local/lib/pytho
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/bdcefd6bf3e531b3190c0f90ba416740087d13c0058ece068f70daaa272b1c77.png" src="../_images/bdcefd6bf3e531b3190c0f90ba416740087d13c0058ece068f70daaa272b1c77.png" />
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Silhouette Score: 0.0723
+Jumlah data pada setiap cluster:
+Cluster
+0    55
+1    45
+Name: count, dtype: int64
+</pre></div>
+</div>
+<img alt="../_images/7d076ecd7a86275ee5683aa57eaa0d99d4569bd5569f8b506847436698173ead.png" src="../_images/7d076ecd7a86275ee5683aa57eaa0d99d4569bd5569f8b506847436698173ead.png" />
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Hitung jumlah anggota di setiap cluster</span>
-<span class="n">cluster_counts</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">bincount</span><span class="p">(</span><span class="n">cluster_labels</span><span class="p">)</span>
-
-<span class="c1"># Tampilkan hasil</span>
-<span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">count</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">cluster_counts</span><span class="p">):</span>
-    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Cluster </span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">count</span><span class="si">}</span><span class="s2"> anggota&quot;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Menambahkan hasil klasterisasi ke dalam DataFrame</span>
+<span class="n">df</span><span class="p">[</span><span class="s1">&#39;Cluster&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">cluster_labels</span>
+<span class="n">df</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Cluster 0: 48 anggota
-Cluster 1: 52 anggota
+<div class="output text_html">
+  <div id="df-3499cc03-9611-4352-96fb-bb4472307046" class="colab-df-container">
+    <div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>judul</th>
+      <th>tanggal</th>
+      <th>isi</th>
+      <th>kategori</th>
+      <th>cleaned_text</th>
+      <th>norm_text</th>
+      <th>token_text</th>
+      <th>swremove_text</th>
+      <th>clean_text</th>
+      <th>kategori_encoded</th>
+      <th>Cluster</th>
+      <th>id</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>Badan Kurus Tak Berarti Bebas dari Kolesterol ...</td>
+      <td>Kamis, 05 Sep 2024 11:03 WIB</td>
+      <td>Jakarta - Tak sedikit yang beranggapan bahwa o...</td>
+      <td>Kesehatan</td>
+      <td>Jakarta Tak sedikit yang beranggapan bahwa ora...</td>
+      <td>jakarta tidak sedikit yang beranggapan bahwa o...</td>
+      <td>['jakarta', 'tidak', 'sedikit', 'yang', 'beran...</td>
+      <td>['jakarta', 'sedikit', 'beranggapan', 'orang',...</td>
+      <td>jakarta sedikit beranggapan orang berbadan kur...</td>
+      <td>0</td>
+      <td>1</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>Budaya Kerja Toksik di Jepang Picu 54 Karyawan...</td>
+      <td>Kamis, 05 Sep 2024 10:38 WIB</td>
+      <td>Jakarta -\n        \n        Istilah 'bekerja ...</td>
+      <td>Kesehatan</td>
+      <td>Jakarta Istilah bekerja sampai mati nampaknya ...</td>
+      <td>jakarta istilah bekerja sampai mati nampaknya ...</td>
+      <td>['jakarta', 'istilah', 'bekerja', 'sampai', 'm...</td>
+      <td>['jakarta', 'istilah', 'bekerja', 'mati', 'nam...</td>
+      <td>jakarta istilah bekerja mati nampaknya ssudah ...</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>Menyoal Serangan Jantung yang Dialami Faisal B...</td>
+      <td>Kamis, 05 Sep 2024 10:03 WIB</td>
+      <td>Jakarta - Faisal Basri meninggal dunia. Ekonom...</td>
+      <td>Kesehatan</td>
+      <td>Jakarta Faisal Basri meninggal dunia Ekonom Un...</td>
+      <td>jakarta faisal basri meninggal dunia ekonom un...</td>
+      <td>['jakarta', 'faisal', 'basri', 'meninggal', 'd...</td>
+      <td>['jakarta', 'faisal', 'basri', 'meninggal', 'd...</td>
+      <td>jakarta faisal basri meninggal dunia ekonom un...</td>
+      <td>0</td>
+      <td>1</td>
+      <td>2</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>Nyeri Kronis yang Bikin Paus Fransiskus Tak Bi...</td>
+      <td>Kamis, 05 Sep 2024 09:37 WIB</td>
+      <td>Jakarta - Pemimpin tertinggi Gereja Katolik se...</td>
+      <td>Kesehatan</td>
+      <td>Jakarta Pemimpin tertinggi Gereja Katolik sedu...</td>
+      <td>jakarta pemimpin tertinggi gereja katolik sedu...</td>
+      <td>['jakarta', 'pemimpin', 'tertinggi', 'gereja',...</td>
+      <td>['jakarta', 'pemimpin', 'tertinggi', 'gereja',...</td>
+      <td>jakarta pemimpin tertinggi gereja katolik sedu...</td>
+      <td>0</td>
+      <td>0</td>
+      <td>3</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>Perundungan PPDS Tak Cuma Terjadi di Undip, Be...</td>
+      <td>Kamis, 05 Sep 2024 08:35 WIB</td>
+      <td>Jakarta - Aksi bullying atau perundungan di ma...</td>
+      <td>Kesehatan</td>
+      <td>Jakarta Aksi bullying atau perundungan di masa...</td>
+      <td>jakarta aksi bullying atau perundungan di masa...</td>
+      <td>['jakarta', 'aksi', 'bullying', 'atau', 'perun...</td>
+      <td>['jakarta', 'aksi', 'bullying', 'perundungan',...</td>
+      <td>jakarta aksi bullying perundungan masa program...</td>
+      <td>0</td>
+      <td>0</td>
+      <td>4</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>95</th>
+      <td>Iwh, Pekerja Speedboat Thailand Pamer BAB ke L...</td>
+      <td>Rabu, 04 Sep 2024 05:01 WIB</td>
+      <td>Jakarta - Warga Thailand dibuat jijik dengan k...</td>
+      <td>Pariwisata</td>
+      <td>Jakarta Warga Thailand dibuat jijik dengan kel...</td>
+      <td>jakarta warga thailand dibuat jijik dengan kel...</td>
+      <td>['jakarta', 'warga', 'thailand', 'dibuat', 'ji...</td>
+      <td>['jakarta', 'warga', 'thailand', 'dibuat', 'ji...</td>
+      <td>jakarta warga thailand dibuat jijik kelakuan s...</td>
+      <td>1</td>
+      <td>0</td>
+      <td>95</td>
+    </tr>
+    <tr>
+      <th>96</th>
+      <td>Ogah Bayar Layanan, 3 Turis Palestina Keroyok ...</td>
+      <td>Selasa, 03 Sep 2024 21:05 WIB</td>
+      <td>Taba - Seorang staf hotel di Mesir tewas usai ...</td>
+      <td>Pariwisata</td>
+      <td>Taba Seorang staf hotel di Mesir tewas usai be...</td>
+      <td>taba seorang staf hotel di mesir tewas usai be...</td>
+      <td>['taba', 'seorang', 'staf', 'hotel', 'di', 'me...</td>
+      <td>['taba', 'seorang', 'staf', 'hotel', 'mesir', ...</td>
+      <td>taba seorang staf hotel mesir tewas usai berke...</td>
+      <td>1</td>
+      <td>0</td>
+      <td>96</td>
+    </tr>
+    <tr>
+      <th>97</th>
+      <td>Licik, Keluarga Taruh Kecoa di Piring Agar Mak...</td>
+      <td>Selasa, 03 Sep 2024 20:37 WIB</td>
+      <td>Jakarta - Keluarga asal Meksiko dituduh melaku...</td>
+      <td>Pariwisata</td>
+      <td>Jakarta Keluarga asal Meksiko dituduh melakuka...</td>
+      <td>jakarta keluarga asal meksiko dituduh melakuka...</td>
+      <td>['jakarta', 'keluarga', 'asal', 'meksiko', 'di...</td>
+      <td>['jakarta', 'keluarga', 'asal', 'meksiko', 'di...</td>
+      <td>jakarta keluarga asal meksiko dituduh melakuka...</td>
+      <td>1</td>
+      <td>1</td>
+      <td>97</td>
+    </tr>
+    <tr>
+      <th>98</th>
+      <td>Terulang Lagi, Triatlon Paralimpiade Ditunda g...</td>
+      <td>Selasa, 03 Sep 2024 20:05 WIB</td>
+      <td>Paris - Saat Olimpiade Paris 2024 lalu, kompet...</td>
+      <td>Pariwisata</td>
+      <td>Paris Saat Olimpiade Paris lalu kompetisi tria...</td>
+      <td>paris saat olimpiade paris lalu kompetisi tria...</td>
+      <td>['paris', 'saat', 'olimpiade', 'paris', 'lalu'...</td>
+      <td>['paris', 'olimpiade', 'paris', 'lalu', 'kompe...</td>
+      <td>paris olimpiade paris lalu kompetisi triatlon ...</td>
+      <td>1</td>
+      <td>1</td>
+      <td>98</td>
+    </tr>
+    <tr>
+      <th>99</th>
+      <td>Wow, Super Air Jet Buka 8 Rute Baru dari Semar...</td>
+      <td>Selasa, 03 Sep 2024 19:37 WIB</td>
+      <td>Jakarta - Super Air Jet membuka delapan rute b...</td>
+      <td>Pariwisata</td>
+      <td>Jakarta Super Air Jet membuka delapan rute bar...</td>
+      <td>jakarta super air jet membuka delapan rute bar...</td>
+      <td>['jakarta', 'super', 'air', 'jet', 'membuka', ...</td>
+      <td>['jakarta', 'super', 'air', 'jet', 'membuka', ...</td>
+      <td>jakarta super air jet membuka delapan rute bar...</td>
+      <td>1</td>
+      <td>1</td>
+      <td>99</td>
+    </tr>
+  </tbody>
+</table>
+<p>100 rows × 12 columns</p>
+</div>
+    <div class="colab-df-buttons">
+
+  <div class="colab-df-container">
+    <button class="colab-df-convert" onclick="convertToInteractive('df-3499cc03-9611-4352-96fb-bb4472307046')"
+            title="Convert this dataframe to an interactive table."
+            style="display:none;">
+
+  <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960">
+    <path d="M120-120v-720h720v720H120Zm60-500h600v-160H180v160Zm220 220h160v-160H400v160Zm0 220h160v-160H400v160ZM180-400h160v-160H180v160Zm440 0h160v-160H620v160ZM180-180h160v-160H180v160Zm440 0h160v-160H620v160Z"/>
+  </svg>
+    </button>
+
+  <style>
+    .colab-df-container {
+      display:flex;
+      gap: 12px;
+    }
+
+    .colab-df-convert {
+      background-color: #E8F0FE;
+      border: none;
+      border-radius: 50%;
+      cursor: pointer;
+      display: none;
+      fill: #1967D2;
+      height: 32px;
+      padding: 0 0 0 0;
+      width: 32px;
+    }
+
+    .colab-df-convert:hover {
+      background-color: #E2EBFA;
+      box-shadow: 0px 1px 2px rgba(60, 64, 67, 0.3), 0px 1px 3px 1px rgba(60, 64, 67, 0.15);
+      fill: #174EA6;
+    }
+
+    .colab-df-buttons div {
+      margin-bottom: 4px;
+    }
+
+    [theme=dark] .colab-df-convert {
+      background-color: #3B4455;
+      fill: #D2E3FC;
+    }
+
+    [theme=dark] .colab-df-convert:hover {
+      background-color: #434B5C;
+      box-shadow: 0px 1px 3px 1px rgba(0, 0, 0, 0.15);
+      filter: drop-shadow(0px 1px 2px rgba(0, 0, 0, 0.3));
+      fill: #FFFFFF;
+    }
+  </style>
+
+    <script>
+      const buttonEl =
+        document.querySelector('#df-3499cc03-9611-4352-96fb-bb4472307046 button.colab-df-convert');
+      buttonEl.style.display =
+        google.colab.kernel.accessAllowed ? 'block' : 'none';
+
+      async function convertToInteractive(key) {
+        const element = document.querySelector('#df-3499cc03-9611-4352-96fb-bb4472307046');
+        const dataTable =
+          await google.colab.kernel.invokeFunction('convertToInteractive',
+                                                    [key], {});
+        if (!dataTable) return;
+
+        const docLinkHtml = 'Like what you see? Visit the ' +
+          '<a target="_blank" href=https://colab.research.google.com/notebooks/data_table.ipynb>data table notebook</a>'
+          + ' to learn more about interactive tables.';
+        element.innerHTML = '';
+        dataTable['output_type'] = 'display_data';
+        await google.colab.output.renderOutput(dataTable, element);
+        const docLink = document.createElement('div');
+        docLink.innerHTML = docLinkHtml;
+        element.appendChild(docLink);
+      }
+    </script>
+  </div>
+
+
+<div id="df-fc7a99dc-dabc-4c26-91d9-e17eb2310339">
+  <button class="colab-df-quickchart" onclick="quickchart('df-fc7a99dc-dabc-4c26-91d9-e17eb2310339')"
+            title="Suggest charts"
+            style="display:none;">
+
+<svg xmlns="http://www.w3.org/2000/svg" height="24px"viewBox="0 0 24 24"
+     width="24px">
+    <g>
+        <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zM9 17H7v-7h2v7zm4 0h-2V7h2v10zm4 0h-2v-4h2v4z"/>
+    </g>
+</svg>
+  </button>
+
+<style>
+  .colab-df-quickchart {
+      --bg-color: #E8F0FE;
+      --fill-color: #1967D2;
+      --hover-bg-color: #E2EBFA;
+      --hover-fill-color: #174EA6;
+      --disabled-fill-color: #AAA;
+      --disabled-bg-color: #DDD;
+  }
+
+  [theme=dark] .colab-df-quickchart {
+      --bg-color: #3B4455;
+      --fill-color: #D2E3FC;
+      --hover-bg-color: #434B5C;
+      --hover-fill-color: #FFFFFF;
+      --disabled-bg-color: #3B4455;
+      --disabled-fill-color: #666;
+  }
+
+  .colab-df-quickchart {
+    background-color: var(--bg-color);
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    display: none;
+    fill: var(--fill-color);
+    height: 32px;
+    padding: 0;
+    width: 32px;
+  }
+
+  .colab-df-quickchart:hover {
+    background-color: var(--hover-bg-color);
+    box-shadow: 0 1px 2px rgba(60, 64, 67, 0.3), 0 1px 3px 1px rgba(60, 64, 67, 0.15);
+    fill: var(--button-hover-fill-color);
+  }
+
+  .colab-df-quickchart-complete:disabled,
+  .colab-df-quickchart-complete:disabled:hover {
+    background-color: var(--disabled-bg-color);
+    fill: var(--disabled-fill-color);
+    box-shadow: none;
+  }
+
+  .colab-df-spinner {
+    border: 2px solid var(--fill-color);
+    border-color: transparent;
+    border-bottom-color: var(--fill-color);
+    animation:
+      spin 1s steps(1) infinite;
+  }
+
+  @keyframes spin {
+    0% {
+      border-color: transparent;
+      border-bottom-color: var(--fill-color);
+      border-left-color: var(--fill-color);
+    }
+    20% {
+      border-color: transparent;
+      border-left-color: var(--fill-color);
+      border-top-color: var(--fill-color);
+    }
+    30% {
+      border-color: transparent;
+      border-left-color: var(--fill-color);
+      border-top-color: var(--fill-color);
+      border-right-color: var(--fill-color);
+    }
+    40% {
+      border-color: transparent;
+      border-right-color: var(--fill-color);
+      border-top-color: var(--fill-color);
+    }
+    60% {
+      border-color: transparent;
+      border-right-color: var(--fill-color);
+    }
+    80% {
+      border-color: transparent;
+      border-right-color: var(--fill-color);
+      border-bottom-color: var(--fill-color);
+    }
+    90% {
+      border-color: transparent;
+      border-bottom-color: var(--fill-color);
+    }
+  }
+</style>
+
+  <script>
+    async function quickchart(key) {
+      const quickchartButtonEl =
+        document.querySelector('#' + key + ' button');
+      quickchartButtonEl.disabled = true;  // To prevent multiple clicks.
+      quickchartButtonEl.classList.add('colab-df-spinner');
+      try {
+        const charts = await google.colab.kernel.invokeFunction(
+            'suggestCharts', [key], {});
+      } catch (error) {
+        console.error('Error during call to suggestCharts:', error);
+      }
+      quickchartButtonEl.classList.remove('colab-df-spinner');
+      quickchartButtonEl.classList.add('colab-df-quickchart-complete');
+    }
+    (() => {
+      let quickchartButtonEl =
+        document.querySelector('#df-fc7a99dc-dabc-4c26-91d9-e17eb2310339 button');
+      quickchartButtonEl.style.display =
+        google.colab.kernel.accessAllowed ? 'block' : 'none';
+    })();
+  </script>
+</div>
+
+  <div id="id_71c5ad83-3772-4414-a7f9-47f31e813a15">
+    <style>
+      .colab-df-generate {
+        background-color: #E8F0FE;
+        border: none;
+        border-radius: 50%;
+        cursor: pointer;
+        display: none;
+        fill: #1967D2;
+        height: 32px;
+        padding: 0 0 0 0;
+        width: 32px;
+      }
+
+      .colab-df-generate:hover {
+        background-color: #E2EBFA;
+        box-shadow: 0px 1px 2px rgba(60, 64, 67, 0.3), 0px 1px 3px 1px rgba(60, 64, 67, 0.15);
+        fill: #174EA6;
+      }
+
+      [theme=dark] .colab-df-generate {
+        background-color: #3B4455;
+        fill: #D2E3FC;
+      }
+
+      [theme=dark] .colab-df-generate:hover {
+        background-color: #434B5C;
+        box-shadow: 0px 1px 3px 1px rgba(0, 0, 0, 0.15);
+        filter: drop-shadow(0px 1px 2px rgba(0, 0, 0, 0.3));
+        fill: #FFFFFF;
+      }
+    </style>
+    <button class="colab-df-generate" onclick="generateWithVariable('df')"
+            title="Generate code using this dataframe."
+            style="display:none;">
+
+  <svg xmlns="http://www.w3.org/2000/svg" height="24px"viewBox="0 0 24 24"
+       width="24px">
+    <path d="M7,19H8.4L18.45,9,17,7.55,7,17.6ZM5,21V16.75L18.45,3.32a2,2,0,0,1,2.83,0l1.4,1.43a1.91,1.91,0,0,1,.58,1.4,1.91,1.91,0,0,1-.58,1.4L9.25,21ZM18.45,9,17,7.55Zm-12,3A5.31,5.31,0,0,0,4.9,8.1,5.31,5.31,0,0,0,1,6.5,5.31,5.31,0,0,0,4.9,4.9,5.31,5.31,0,0,0,6.5,1,5.31,5.31,0,0,0,8.1,4.9,5.31,5.31,0,0,0,12,6.5,5.46,5.46,0,0,0,6.5,12Z"/>
+  </svg>
+    </button>
+    <script>
+      (() => {
+      const buttonEl =
+        document.querySelector('#id_71c5ad83-3772-4414-a7f9-47f31e813a15 button.colab-df-generate');
+      buttonEl.style.display =
+        google.colab.kernel.accessAllowed ? 'block' : 'none';
+
+      buttonEl.onclick = () => {
+        google.colab.notebook.generateWithVariable('df');
+      }
+      })();
+    </script>
+  </div>
+
+    </div>
+  </div>
+</div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">scipy.optimize</span> <span class="kn">import</span> <span class="n">linear_sum_assignment</span>
+
+<span class="c1"># Terapkan Hungarian Algorithm untuk memetakan cluster ke label asli</span>
+<span class="n">row_ind</span><span class="p">,</span> <span class="n">col_ind</span> <span class="o">=</span> <span class="n">linear_sum_assignment</span><span class="p">(</span><span class="o">-</span><span class="n">conf_matrix</span><span class="p">)</span>  <span class="c1"># Maksimalkan kesesuaian</span>
+
+<span class="c1"># Buat confusion matrix yang sudah dimapping</span>
+<span class="n">mapped_conf_matrix</span> <span class="o">=</span> <span class="n">conf_matrix</span><span class="p">[:,</span> <span class="n">col_ind</span><span class="p">]</span>
+
+<span class="c1"># Tampilkan confusion matrix yang telah dimapping menggunakan heatmap</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">heatmap</span><span class="p">(</span><span class="n">mapped_conf_matrix</span><span class="p">,</span> <span class="n">annot</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">fmt</span><span class="o">=</span><span class="s1">&#39;d&#39;</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;Blues&#39;</span><span class="p">,</span>
+            <span class="n">xticklabels</span><span class="o">=</span><span class="p">[</span><span class="sa">f</span><span class="s2">&quot;Cluster </span><span class="si">{</span><span class="n">col</span><span class="si">}</span><span class="s2">&quot;</span> <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">col_ind</span><span class="p">],</span>  <span class="c1"># Cluster sesuai mapping</span>
+            <span class="n">yticklabels</span><span class="o">=</span><span class="n">label_encoder</span><span class="o">.</span><span class="n">classes_</span><span class="p">)</span>  <span class="c1"># True labels tetap</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Mapped Confusion Matrix between True Labels and Clustering&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Mapped Cluster Labels&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;True Labels&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+<span class="c1"># Cetak confusion matrix yang telah dimapping secara numerik</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Mapped Confusion Matrix:&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">mapped_conf_matrix</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/ac94d48b853bbfca4707083d276034448db535190647e8f798b93caa02445aec.png" src="../_images/ac94d48b853bbfca4707083d276034448db535190647e8f798b93caa02445aec.png" />
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Mapped Confusion Matrix:
+[[40 10]
+ [ 4 46]]
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Pisahkan data berdasarkan hasil clustering</span>
-<span class="n">cluster_0</span> <span class="o">=</span> <span class="n">results_sorted</span><span class="p">[</span><span class="n">results_sorted</span><span class="p">[</span><span class="s2">&quot;Hasil Clustering&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<span class="n">cluster_1</span> <span class="o">=</span> <span class="n">results_sorted</span><span class="p">[</span><span class="n">results_sorted</span><span class="p">[</span><span class="s2">&quot;Hasil Clustering&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Tambahkan kolom ID jika belum ada</span>
+<span class="n">df</span><span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">index</span>
 
-<span class="c1"># Gabungkan kedua cluster secara horizontal</span>
-<span class="n">merged_results</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">cluster_0</span><span class="p">,</span> <span class="n">cluster_1</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="c1"># Ambil kolom id, kategori_encoded, dan Cluster</span>
+<span class="n">selected_columns</span> <span class="o">=</span> <span class="n">df</span><span class="p">[[</span><span class="s1">&#39;id&#39;</span><span class="p">,</span> <span class="s1">&#39;kategori_encoded&#39;</span><span class="p">,</span> <span class="s1">&#39;Cluster&#39;</span><span class="p">]]</span>
 
-<span class="c1"># Tampilkan hasil</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Tabel Hasil Clustering (Cluster 0 di kiri, Cluster 1 di kanan):&quot;</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">merged_results</span><span class="o">.</span><span class="n">to_string</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">))</span>
-
-<span class="c1"># Opsional: Simpan ke file CSV</span>
-<span class="n">merged_results</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="s2">&quot;merged_clustering_results.csv&quot;</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="c1"># Tampilkan DataFrame yang hanya berisi kolom yang dipilih</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">selected_columns</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Tabel Hasil Clustering (Cluster 0 di kiri, Cluster 1 di kanan):
- ID Berita  Hasil Clustering  Label  ID Berita  Hasil Clustering  Label
-        99                 0      1       65.0               1.0    1.0
-        76                 0      1       83.0               1.0    1.0
-        75                 0      1       70.0               1.0    1.0
-        73                 0      1       95.0               1.0    1.0
-        72                 0      1       74.0               1.0    1.0
-        71                 0      1       64.0               1.0    1.0
-        69                 0      1        0.0               1.0    0.0
-        68                 0      1       47.0               1.0    0.0
-        67                 0      1       23.0               1.0    0.0
-        66                 0      1       19.0               1.0    0.0
-        42                 0      0       18.0               1.0    0.0
-        63                 0      1       17.0               1.0    0.0
-        62                 0      1       16.0               1.0    0.0
-        61                 0      1       14.0               1.0    0.0
-        60                 0      1       13.0               1.0    0.0
-        59                 0      1       12.0               1.0    0.0
-        58                 0      1       11.0               1.0    0.0
-        98                 0      1       10.0               1.0    0.0
-        50                 0      1        9.0               1.0    0.0
-        51                 0      1        8.0               1.0    0.0
-        52                 0      1        7.0               1.0    0.0
-        53                 0      1        6.0               1.0    0.0
-        54                 0      1        5.0               1.0    0.0
-        55                 0      1        4.0               1.0    0.0
-        56                 0      1        2.0               1.0    0.0
-        78                 0      1       24.0               1.0    0.0
-        77                 0      1       48.0               1.0    0.0
-        79                 0      1       25.0               1.0    0.0
-         1                 0      0       28.0               1.0    0.0
-        97                 0      1       46.0               1.0    0.0
-         3                 0      0       45.0               1.0    0.0
-        96                 0      1       44.0               1.0    0.0
-        94                 0      1       43.0               1.0    0.0
-        93                 0      1       41.0               1.0    0.0
-        92                 0      1       40.0               1.0    0.0
-        91                 0      1       39.0               1.0    0.0
-        90                 0      1       38.0               1.0    0.0
-        89                 0      1       37.0               1.0    0.0
-        88                 0      1       36.0               1.0    0.0
-        87                 0      1       35.0               1.0    0.0
-        26                 0      0       34.0               1.0    0.0
-        86                 0      1       33.0               1.0    0.0
-        15                 0      0       32.0               1.0    0.0
-        85                 0      1       31.0               1.0    0.0
-        84                 0      1       30.0               1.0    0.0
-        82                 0      1       29.0               1.0    0.0
-        20                 0      0       27.0               1.0    0.0
-        21                 0      0       49.0               1.0    0.0
-        22                 0      0        NaN               NaN    NaN
-        81                 0      1        NaN               NaN    NaN
-        80                 0      1        NaN               NaN    NaN
-        57                 0      1        NaN               NaN    NaN
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>    id  kategori_encoded  Cluster
+0    0                 0        1
+1    1                 0        0
+2    2                 0        1
+3    3                 0        0
+4    4                 0        0
+..  ..               ...      ...
+95  95                 1        0
+96  96                 1        0
+97  97                 1        1
+98  98                 1        1
+99  99                 1        1
+
+[100 rows x 3 columns]
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">silhouette_score</span>
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Ambil semua anggota Cluster 0</span>
+<span class="n">cluster_0</span> <span class="o">=</span> <span class="n">selected_columns</span><span class="p">[</span><span class="n">selected_columns</span><span class="p">[</span><span class="s1">&#39;Cluster&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span><span class="p">][</span><span class="s1">&#39;id&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
 
-<span class="c1"># Mengonversi keanggotaan fuzzy menjadi label cluster dengan memilih cluster dengan membership tertinggi</span>
-<span class="n">fuzzy_labels</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">membership</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="c1"># Ambil semua anggota Cluster 1</span>
+<span class="n">cluster_1</span> <span class="o">=</span> <span class="n">selected_columns</span><span class="p">[</span><span class="n">selected_columns</span><span class="p">[</span><span class="s1">&#39;Cluster&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="mi">1</span><span class="p">][</span><span class="s1">&#39;id&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
 
-<span class="c1"># Menghitung Silhouette Score</span>
-<span class="n">silhouette_avg</span> <span class="o">=</span> <span class="n">silhouette_score</span><span class="p">(</span><span class="n">normalized_tfidf_matrix</span><span class="p">,</span> <span class="n">fuzzy_labels</span><span class="p">)</span>
-
-<span class="c1"># Menampilkan Silhouette Score</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Silhouette Score: </span><span class="si">{</span><span class="n">silhouette_avg</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="c1"># Tampilkan hasil dalam bentuk list</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Anggota Cluster 0:&quot;</span><span class="p">,</span> <span class="n">cluster_0</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Anggota Cluster 1:&quot;</span><span class="p">,</span> <span class="n">cluster_1</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Silhouette Score: 0.0328
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Anggota Cluster 0: [1, 3, 4, 6, 8, 9, 10, 12, 13, 17, 19, 20, 21, 23, 24, 26, 27, 29, 31, 32, 35, 37, 39, 40, 41, 42, 43, 44, 51, 54, 55, 57, 58, 62, 64, 66, 67, 68, 69, 70, 72, 73, 75, 77, 78, 80, 81, 82, 84, 85, 90, 91, 94, 95, 96]
+Anggota Cluster 1: [0, 2, 5, 7, 11, 14, 15, 16, 18, 22, 25, 28, 30, 33, 34, 36, 38, 45, 46, 47, 48, 49, 50, 52, 53, 56, 59, 60, 61, 63, 65, 71, 74, 76, 79, 83, 86, 87, 88, 89, 92, 93, 97, 98, 99]
 </pre></div>
 </div>
 </div>
@@ -1917,6 +2541,15 @@ Cluster 1: 52 anggota
         <p class="prev-next-title">Tugas 5 : Query kalimat dengan cosin &amp; Klasifikasi dengan SVD</p>
       </div>
     </a>
+    <a class="right-next"
+       href="Link%20gradio.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">&lt;no title&gt;</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
 </div>
                 </footer>
               
@@ -1934,8 +2567,8 @@ Cluster 1: 52 anggota
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Test fuzzy c-means 1 tanpa svd</a></li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#test-fuzzy-c-means-2-dengan-svd">Test fuzzy c-means 2 dengan svd</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Tugas 6 Fuzzy c-means</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#clustering">Clustering</a></li>
 </ul>
 
   </nav></div>
